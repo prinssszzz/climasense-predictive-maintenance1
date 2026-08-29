@@ -1,0 +1,18 @@
+[
+    {
+        "id": "u_demo",
+        "name": "Julius Ramos",
+        "email": "admin@climasense.io",
+        "role": "Facilities Engineer",
+        "password_hash": "$2y$10$WJ5xXzcfXO3yKdNK.7Z8N.VzTXILYL7T0.uuE8g4FXvhiqOvzZrcO",
+        "created": "2026-08-18T05:32:15+02:00"
+    },
+    {
+        "id": "u_6a83d274081a6",
+        "name": "Rjay Barbosa Morera",
+        "email": "1-230530@asiatech.edu.ph",
+        "role": "Maintenance Technician",
+        "password_hash": "$2y$10$omZbs4VRjIga3alJKfmgmONEZw5SjnRd\/p5lrhzAtQV.GozG4ftSa",
+        "created": "2026-08-18T05:33:08+02:00"
+    }
+]

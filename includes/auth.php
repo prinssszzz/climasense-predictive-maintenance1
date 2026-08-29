@@ -1,0 +1,18 @@
+<?php
+require_once __DIR__ . '/db.php';
+if (session_status() === PHP_SESSION_NONE) session_start();
+function cs_roles_for_user(int $id): array { $q=cs_db()->prepare('SELECT r.code FROM roles r JOIN user_roles ur ON ur.role_id=r.id WHERE ur.user_id=?'); $q->execute([$id]); return array_column($q->fetchAll(),'code'); }
+function cs_user_row_by_email(string $email): ?array { $q=cs_db()->prepare('SELECT * FROM users WHERE email=? LIMIT 1'); $q->execute([strtolower(trim($email))]); return $q->fetch() ?: null; }
+function cs_set_session(array $u): void { $_SESSION['cs_user']=['id'=>(int)$u['id'],'name'=>$u['name'],'email'=>$u['email'],'organization_id'=>$u['organization_id'] ? (int)$u['organization_id'] : null,'roles'=>cs_roles_for_user((int)$u['id'])]; }
+function cs_create_user(string $name,string $email,string $password,string $role='consumer'): array { $name=trim($name); $email=strtolower(trim($email)); if ($name==='' || !filter_var($email,FILTER_VALIDATE_EMAIL) || strlen($password)<8) return [false,'Provide a name, valid email, and an 8+ character password.']; if (!in_array($role,['client_admin','consumer'],true)) return [false,'Choose a valid account type.']; if (cs_user_row_by_email($email)) return [false,'An account with that email already exists.']; $db=cs_db(); $db->beginTransaction(); try { $orgId=null; if ($role==='client_admin') { $q=$db->prepare('INSERT INTO organizations(name) VALUES(?)'); $q->execute([$name . "'s Shop"]); $orgId=(int)$db->lastInsertId(); } $q=$db->prepare('INSERT INTO users(organization_id,name,email,password_hash) VALUES(?,?,?,?)'); $q->execute([$orgId,$name,$email,password_hash($password,PASSWORD_DEFAULT)]); $id=(int)$db->lastInsertId(); $q=$db->prepare('INSERT INTO user_roles(user_id,role_id) SELECT ?,id FROM roles WHERE code=?'); $q->execute([$id,$role]); $db->commit(); return [true,null]; } catch (Throwable $e) { if ($db->inTransaction()) $db->rollBack(); return [false,'Could not create the account.']; } }
+function cs_attempt_login(string $email,string $password): array { $u=cs_user_row_by_email($email); if (!$u || !$u['password_hash'] || !password_verify($password,$u['password_hash'])) return [false,'Incorrect email or password.']; cs_set_session($u); return [true,null]; }
+function cs_current_user(): ?array { return $_SESSION['cs_user'] ?? null; }
+function cs_is_logged_in(): bool { return cs_current_user() !== null; }
+function cs_has_role(string $role): bool { return in_array($role,cs_current_user()['roles'] ?? [],true); }
+function cs_require_login(): void { if (!cs_is_logged_in()) { header('Location: login.php?next='.urlencode($_SERVER['REQUEST_URI'] ?? 'index.php')); exit; } }
+function cs_require_role(string $role): void { cs_require_login(); if (!cs_has_role($role)) { http_response_code(403); exit('You do not have permission to view this page.'); } }
+function cs_home_for_user(): string { return cs_has_role('client_admin') ? 'client-dashboard.php' : 'consumer-dashboard.php'; }
+function cs_google_enabled(): bool { return CS_GOOGLE_CLIENT_ID !== '' && CS_GOOGLE_CLIENT_SECRET !== ''; }
+function cs_google_redirect_uri(): string { $scheme=(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']!=='off')?'https':'http'; return $scheme.'://'.$_SERVER['HTTP_HOST'].'/google-callback.php'; }
+function cs_google_auth_url(): string { $_SESSION['cs_google_state']=bin2hex(random_bytes(32)); return 'https://accounts.google.com/o/oauth2/v2/auth?'.http_build_query(['client_id'=>CS_GOOGLE_CLIENT_ID,'redirect_uri'=>cs_google_redirect_uri(),'response_type'=>'code','scope'=>'openid email profile','state'=>$_SESSION['cs_google_state'],'prompt'=>'select_account']); }
+function cs_logout(): void { $_SESSION=[]; session_destroy(); }
