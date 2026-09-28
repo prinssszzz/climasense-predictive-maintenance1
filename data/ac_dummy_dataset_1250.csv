@@ -1,0 +1,1251 @@
+unit_id,brand,model,location,operating_temperature_c,operating_hours_per_day,energy_consumption_kwh,compression_condition_score,filter_condition_score
+AC-0001,Daikin,"Inverter 1.5HP","Cagayan de Oro",25.4,11.4,2.49,88,75
+AC-0002,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",27.9,15.8,1.25,62,74
+AC-0003,Carrier,"Inverter 1.5HP","Baguio City",20.9,9.9,0.99,66,75
+AC-0004,LG,"Dual Inverter 1.0HP","Cagayan de Oro",23.5,9.8,1.25,68,91
+AC-0005,"Fujitsu General","Inverter 1.5HP",Bataan,26.7,13.8,2.45,89,79
+AC-0006,Daikin,"Inverter 1.5HP","Cagayan de Oro",25.2,15.3,1.81,75,64
+AC-0007,"Mitsubishi Electric","Inverter 1.5HP",Bataan,22.3,12.6,2.24,72,82
+AC-0008,Carrier,"Inverter 1.5HP","Para?aque City",28.5,12.3,1.57,66,74
+AC-0009,LG,"Dual Inverter 1.0HP","Cebu City",24.4,13.5,1.9,95,79
+AC-0010,"Fujitsu General","Inverter 1.5HP","Makati City",28.2,14.9,2.07,96,88
+AC-0011,Daikin,"Inverter 1.5HP","Iloilo City",23.4,11.9,1.65,88,61
+AC-0012,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",23.1,10.9,2.16,66,69
+AC-0013,Carrier,"Inverter 1.5HP","Davao City",21.2,12.3,2.28,82,87
+AC-0014,LG,"Dual Inverter 1.0HP","Mandaluyong City",21.3,14.5,1.33,63,83
+AC-0015,"Fujitsu General","Inverter 1.5HP","Para?aque City",22.8,8.1,2.07,90,93
+AC-0016,Daikin,"Inverter 1.5HP","Para?aque City",25.7,14.7,2.35,80,65
+AC-0017,"Mitsubishi Electric","Inverter 1.5HP","Makati City",26.3,14.7,2.36,89,93
+AC-0018,Carrier,"Inverter 1.5HP","Cagayan de Oro",23.3,12.2,2.22,82,87
+AC-0019,LG,"Dual Inverter 1.0HP","Bacolod City",23.2,14,2.37,94,81
+AC-0020,"Fujitsu General","Inverter 1.5HP","Baguio City",23.1,8.1,2.31,61,88
+AC-0021,Daikin,"Inverter 1.5HP",Bataan,24.4,10.4,1.49,77,99
+AC-0022,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",27.3,13.7,2.01,95,88
+AC-0023,Carrier,"Inverter 1.5HP","Iloilo City",20.4,12.2,2.03,60,68
+AC-0024,LG,"Dual Inverter 1.0HP","Quezon City",24,12.6,1.49,87,99
+AC-0025,"Fujitsu General","Inverter 1.5HP","Bacolod City",23.2,12.6,1.06,83,67
+AC-0026,Daikin,"Inverter 1.5HP","Para?aque City",22.9,13.4,1.86,91,77
+AC-0027,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",20.4,13.1,1.63,90,60
+AC-0028,Carrier,"Inverter 1.5HP","General Santos",27.4,11.2,1,90,98
+AC-0029,LG,"Dual Inverter 1.0HP","Cagayan de Oro",24.1,9,2.07,82,71
+AC-0030,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",22.5,12.8,1.29,91,62
+AC-0031,Daikin,"Inverter 1.5HP","Mandaluyong City",20.2,10,1.43,71,96
+AC-0032,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",25.5,9.2,1.52,88,94
+AC-0033,Carrier,"Inverter 1.5HP","Cagayan de Oro",26.8,14.3,1.09,72,71
+AC-0034,LG,"Dual Inverter 1.0HP","Makati City",26.8,12,1.29,74,68
+AC-0035,"Fujitsu General","Inverter 1.5HP","Caloocan City",21.4,11.4,1.15,73,96
+AC-0036,Daikin,"Inverter 1.5HP","Caloocan City",23.5,15.5,1.11,69,80
+AC-0037,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",20.6,14.4,1.77,80,78
+AC-0038,Carrier,"Inverter 1.5HP","Caloocan City",23.8,15.5,1.94,71,81
+AC-0039,LG,"Dual Inverter 1.0HP","Baguio City",27.1,11.5,1.73,94,79
+AC-0040,"Fujitsu General","Inverter 1.5HP",Bataan,21.3,10,1.83,88,83
+AC-0041,Daikin,"Inverter 1.5HP","Makati City",25.4,12,2.15,84,65
+AC-0042,"Mitsubishi Electric","Inverter 1.5HP","General Santos",28.1,14.8,2.39,87,60
+AC-0043,Carrier,"Inverter 1.5HP","Bacolod City",25.9,8.6,1.55,91,73
+AC-0044,LG,"Dual Inverter 1.0HP","Taguig City",25.7,12.4,2.24,89,92
+AC-0045,"Fujitsu General","Inverter 1.5HP","Para?aque City",25.5,14.3,1.66,90,78
+AC-0046,Daikin,"Inverter 1.5HP","Pasig City",23.4,14.1,1.13,76,95
+AC-0047,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.7,15.7,1.89,71,79
+AC-0048,Carrier,"Inverter 1.5HP","Mandaluyong City",23,14,1.01,66,96
+AC-0049,LG,"Dual Inverter 1.0HP","Pasig City",23.6,8.5,2.41,76,61
+AC-0050,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",24.2,11.4,1.52,63,67
+AC-0051,Daikin,"Inverter 1.5HP","Makati City",20.7,11.5,2.34,69,96
+AC-0052,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",28.5,10.2,2.37,94,66
+AC-0053,Carrier,"Inverter 1.5HP","Baguio City",27.8,11.3,2.22,73,68
+AC-0054,LG,"Dual Inverter 1.0HP","Makati City",22.6,12.8,1.15,84,69
+AC-0055,"Fujitsu General","Inverter 1.5HP","Makati City",20.4,11,1.9,71,91
+AC-0056,Daikin,"Inverter 1.5HP","Taguig City",21.5,14.8,1.11,94,83
+AC-0057,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",27.7,15,1.88,71,79
+AC-0058,Carrier,"Inverter 1.5HP","General Santos",27.5,10.7,1.22,75,71
+AC-0059,LG,"Dual Inverter 1.0HP","General Santos",25.9,15.5,1.73,67,83
+AC-0060,"Fujitsu General","Inverter 1.5HP","Caloocan City",28.2,11.1,2.44,92,94
+AC-0061,Daikin,"Inverter 1.5HP","Cagayan de Oro",21,14.4,2.47,65,82
+AC-0062,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",24.9,13.7,1.98,78,99
+AC-0063,Carrier,"Inverter 1.5HP","Para?aque City",22.9,11.5,1.49,92,84
+AC-0064,LG,"Dual Inverter 1.0HP","Davao City",25.5,13.1,2.38,77,80
+AC-0065,"Fujitsu General","Inverter 1.5HP",Bataan,27.1,9.8,2.16,60,76
+AC-0066,Daikin,"Inverter 1.5HP","Cagayan de Oro",24.4,9.1,0.9,89,79
+AC-0067,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",23.4,14.6,0.91,71,95
+AC-0068,Carrier,"Inverter 1.5HP","General Santos",21.5,9.7,1.7,61,83
+AC-0069,LG,"Dual Inverter 1.0HP",Bataan,21.2,13.1,2.11,88,92
+AC-0070,"Fujitsu General","Inverter 1.5HP","Bacolod City",23.6,10.2,1.76,88,89
+AC-0071,Daikin,"Inverter 1.5HP","Iloilo City",25.4,13.1,0.92,65,80
+AC-0072,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",25,13.6,1.08,90,97
+AC-0073,Carrier,"Inverter 1.5HP","Iloilo City",28.2,14.9,1.17,81,99
+AC-0074,LG,"Dual Inverter 1.0HP","Cebu City",25.2,13.5,2.49,75,99
+AC-0075,"Fujitsu General","Inverter 1.5HP",Bataan,27.7,12.5,2.4,86,73
+AC-0076,Daikin,"Inverter 1.5HP","Mandaluyong City",24.9,16,1.11,63,78
+AC-0077,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",28,12,1.46,78,96
+AC-0078,Carrier,"Inverter 1.5HP","Quezon City",21.1,11.6,2.05,85,84
+AC-0079,LG,"Dual Inverter 1.0HP","Caloocan City",20.2,8.3,2.08,92,71
+AC-0080,"Fujitsu General","Inverter 1.5HP","Cebu City",22.5,13.9,2.4,70,79
+AC-0081,Daikin,"Inverter 1.5HP","Bacolod City",24.7,10.9,1.8,91,65
+AC-0082,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",25,11.6,1.97,95,96
+AC-0083,Carrier,"Inverter 1.5HP","Cagayan de Oro",24,12.3,1.88,85,71
+AC-0084,LG,"Dual Inverter 1.0HP","Cagayan de Oro",28,15.5,1.03,61,99
+AC-0085,"Fujitsu General","Inverter 1.5HP","Para?aque City",21.9,15.3,1.95,71,85
+AC-0086,Daikin,"Inverter 1.5HP","Davao City",20.3,8.7,1.21,75,94
+AC-0087,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",26.5,8.2,1.01,79,98
+AC-0088,Carrier,"Inverter 1.5HP","Pasig City",26.9,11.3,2.28,60,61
+AC-0089,LG,"Dual Inverter 1.0HP","Iloilo City",23.8,9.7,1.62,93,76
+AC-0090,"Fujitsu General","Inverter 1.5HP",Bataan,20.6,15.4,1.72,63,93
+AC-0091,Daikin,"Inverter 1.5HP","Para?aque City",22.8,11,1.38,65,83
+AC-0092,"Mitsubishi Electric","Inverter 1.5HP","Makati City",28.5,10.8,1.81,94,95
+AC-0093,Carrier,"Inverter 1.5HP","Para?aque City",27.3,15.1,1.96,61,89
+AC-0094,LG,"Dual Inverter 1.0HP","Mandaluyong City",28.4,12.1,1.14,61,74
+AC-0095,"Fujitsu General","Inverter 1.5HP","Para?aque City",27.8,14.1,1.48,61,82
+AC-0096,Daikin,"Inverter 1.5HP","Taguig City",20.5,13.4,1.95,80,65
+AC-0097,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",20.9,14.8,1.56,79,84
+AC-0098,Carrier,"Inverter 1.5HP","Pasig City",24.5,13.1,1.22,93,86
+AC-0099,LG,"Dual Inverter 1.0HP","Cebu City",23.4,14.3,1.81,80,63
+AC-0100,"Fujitsu General","Inverter 1.5HP","Baguio City",22.4,14.7,1.5,95,73
+AC-0101,Daikin,"Inverter 1.5HP","Cebu City",22.2,8.4,1.39,58,70
+AC-0102,"Mitsubishi Electric","Inverter 1.5HP","General Santos",21.8,12.4,0.96,65,77
+AC-0103,Carrier,"Inverter 1.5HP","Baguio City",24.7,14.2,1.74,83,83
+AC-0104,LG,"Dual Inverter 1.0HP","General Santos",20.3,13.3,1.63,59,85
+AC-0105,"Fujitsu General","Inverter 1.5HP","Para?aque City",25.2,9.5,1.26,73,90
+AC-0106,Daikin,"Inverter 1.5HP","Quezon City",28.2,11.3,2.15,58,69
+AC-0107,"Mitsubishi Electric","Inverter 1.5HP","General Santos",22.3,8.5,1.26,93,89
+AC-0108,Carrier,"Inverter 1.5HP","Pasig City",22.6,13.4,1.21,92,76
+AC-0109,LG,"Dual Inverter 1.0HP","Iloilo City",28.4,9,2.12,72,96
+AC-0110,"Fujitsu General","Inverter 1.5HP","Para?aque City",28.2,10.7,1.38,70,61
+AC-0111,Daikin,"Inverter 1.5HP","Cebu City",20.7,14.9,1.33,71,72
+AC-0112,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",26.1,11.8,2,93,81
+AC-0113,Carrier,"Inverter 1.5HP","Cebu City",23.9,8.9,1.21,72,83
+AC-0114,LG,"Dual Inverter 1.0HP","Makati City",25.2,12.5,1.94,63,71
+AC-0115,"Fujitsu General","Inverter 1.5HP","Pasig City",24.5,11.4,1.86,77,93
+AC-0116,Daikin,"Inverter 1.5HP","Davao City",23.2,10.6,1.08,62,87
+AC-0117,"Mitsubishi Electric","Inverter 1.5HP","General Santos",24,8,1.2,74,99
+AC-0118,Carrier,"Inverter 1.5HP","Bacolod City",21.3,12.7,1.43,95,83
+AC-0119,LG,"Dual Inverter 1.0HP","Baguio City",28.3,11.3,1.94,78,87
+AC-0120,"Fujitsu General","Inverter 1.5HP","Baguio City",26.3,14.2,1.81,88,63
+AC-0121,Daikin,"Inverter 1.5HP","Para?aque City",23.6,13.7,1.1,73,80
+AC-0122,"Mitsubishi Electric","Inverter 1.5HP","General Santos",26.5,12.1,1.04,62,92
+AC-0123,Carrier,"Inverter 1.5HP","Makati City",27.5,9.1,1.8,63,88
+AC-0124,LG,"Dual Inverter 1.0HP","Caloocan City",26.9,10.7,0.96,84,64
+AC-0125,"Fujitsu General","Inverter 1.5HP","Iloilo City",26.5,14.6,2.22,68,69
+AC-0126,Daikin,"Inverter 1.5HP","Bacolod City",22.5,8.1,1.13,72,89
+AC-0127,"Mitsubishi Electric","Inverter 1.5HP","Davao City",21.7,9.3,1.97,89,93
+AC-0128,Carrier,"Inverter 1.5HP","Mandaluyong City",25.8,13.5,2.23,88,91
+AC-0129,LG,"Dual Inverter 1.0HP","General Santos",20.3,8.4,2.47,94,95
+AC-0130,"Fujitsu General","Inverter 1.5HP","General Santos",20.4,10,2.03,74,86
+AC-0131,Daikin,"Inverter 1.5HP",Bataan,25.7,13.8,1.38,71,84
+AC-0132,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",23.3,14.7,2.03,76,91
+AC-0133,Carrier,"Inverter 1.5HP","Cagayan de Oro",20.2,14.4,2.11,59,66
+AC-0134,LG,"Dual Inverter 1.0HP","Davao City",24.6,14.9,2.2,88,84
+AC-0135,"Fujitsu General","Inverter 1.5HP","Davao City",28.4,11.2,2.33,59,64
+AC-0136,Daikin,"Inverter 1.5HP","Pasig City",22.1,16,1.56,78,80
+AC-0137,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",27.6,14.1,1.34,73,87
+AC-0138,Carrier,"Inverter 1.5HP",Bataan,20.7,14.6,1.47,80,61
+AC-0139,LG,"Dual Inverter 1.0HP","Davao City",24.4,15,1.84,85,95
+AC-0140,"Fujitsu General","Inverter 1.5HP","Bacolod City",28.3,11.5,2.16,93,72
+AC-0141,Daikin,"Inverter 1.5HP","Pasig City",27.5,13.8,1.34,77,88
+AC-0142,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",26.2,11.4,2.46,73,93
+AC-0143,Carrier,"Inverter 1.5HP","Davao City",25.9,13.6,1.52,93,86
+AC-0144,LG,"Dual Inverter 1.0HP","General Santos",24.8,10.7,1.77,59,93
+AC-0145,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",21,11.7,1.95,92,81
+AC-0146,Daikin,"Inverter 1.5HP","Quezon City",23.5,13.7,1.69,86,78
+AC-0147,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",23.5,13.5,1.95,95,97
+AC-0148,Carrier,"Inverter 1.5HP","Pasig City",21.2,11.7,1.07,92,89
+AC-0149,LG,"Dual Inverter 1.0HP","Makati City",27.6,9.1,1.51,86,64
+AC-0150,"Fujitsu General","Inverter 1.5HP",Bataan,22.2,10.9,1.3,74,94
+AC-0151,Daikin,"Inverter 1.5HP","Caloocan City",21.4,10.2,1.63,65,69
+AC-0152,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",20,13,2.16,69,72
+AC-0153,Carrier,"Inverter 1.5HP","Pasig City",26.7,11.8,1.91,78,95
+AC-0154,LG,"Dual Inverter 1.0HP","Pasig City",25.5,12.1,1.66,78,90
+AC-0155,"Fujitsu General","Inverter 1.5HP","Makati City",21.7,9.5,1.37,72,68
+AC-0156,Daikin,"Inverter 1.5HP","Davao City",23.4,8.9,1.66,87,84
+AC-0157,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",26,12.8,1.87,88,72
+AC-0158,Carrier,"Inverter 1.5HP","Bacolod City",20.3,14.1,1.15,90,83
+AC-0159,LG,"Dual Inverter 1.0HP","Para?aque City",25.1,14.2,1.73,67,63
+AC-0160,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",25.5,13,1.77,71,98
+AC-0161,Daikin,"Inverter 1.5HP","General Santos",28.4,8.6,2,74,68
+AC-0162,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",23.7,9.7,1.23,71,66
+AC-0163,Carrier,"Inverter 1.5HP","Pasig City",26.1,11.7,1.08,83,75
+AC-0164,LG,"Dual Inverter 1.0HP","Taguig City",26.3,12.3,2.34,71,72
+AC-0165,"Fujitsu General","Inverter 1.5HP","Makati City",24.9,15.3,1.43,79,67
+AC-0166,Daikin,"Inverter 1.5HP","Makati City",22.4,15.5,1.08,68,72
+AC-0167,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",27.2,12.4,1.66,78,66
+AC-0168,Carrier,"Inverter 1.5HP","Cebu City",25.6,8.9,2.17,75,80
+AC-0169,LG,"Dual Inverter 1.0HP","Taguig City",26.6,9.1,2.36,67,94
+AC-0170,"Fujitsu General","Inverter 1.5HP","Makati City",22.3,11.4,1.29,83,96
+AC-0171,Daikin,"Inverter 1.5HP","Baguio City",28.4,15.4,1.23,76,73
+AC-0172,"Mitsubishi Electric","Inverter 1.5HP","Makati City",26.5,14.5,1.21,85,67
+AC-0173,Carrier,"Inverter 1.5HP","Davao City",24.9,10.4,2.44,65,74
+AC-0174,LG,"Dual Inverter 1.0HP","Pasig City",23.6,14.6,1.05,75,84
+AC-0175,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",27.5,10,1.37,90,76
+AC-0176,Daikin,"Inverter 1.5HP","General Santos",25.7,15.3,1.56,90,80
+AC-0177,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",24.6,8.6,1.48,73,88
+AC-0178,Carrier,"Inverter 1.5HP","Mandaluyong City",22.9,10.2,1.22,61,82
+AC-0179,LG,"Dual Inverter 1.0HP","Quezon City",24.6,8.5,1.6,80,62
+AC-0180,"Fujitsu General","Inverter 1.5HP","Iloilo City",26.3,13.1,1.58,73,84
+AC-0181,Daikin,"Inverter 1.5HP","Baguio City",26.7,11.2,2.08,61,84
+AC-0182,"Mitsubishi Electric","Inverter 1.5HP",Bataan,21.6,14,1.47,74,90
+AC-0183,Carrier,"Inverter 1.5HP","Iloilo City",25.1,15.4,2.23,79,65
+AC-0184,LG,"Dual Inverter 1.0HP","Davao City",27.4,9.2,1.83,61,76
+AC-0185,"Fujitsu General","Inverter 1.5HP","General Santos",26.8,8.9,2.3,87,78
+AC-0186,Daikin,"Inverter 1.5HP","Bacolod City",27.1,12.3,2.31,72,74
+AC-0187,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",22.7,15.3,2.35,61,62
+AC-0188,Carrier,"Inverter 1.5HP","Cebu City",27.4,13.9,1.47,82,69
+AC-0189,LG,"Dual Inverter 1.0HP","Quezon City",21.3,12.1,1.12,59,74
+AC-0190,"Fujitsu General","Inverter 1.5HP","Taguig City",23.1,15.3,1.8,78,92
+AC-0191,Daikin,"Inverter 1.5HP","Para?aque City",22.2,13,1.42,89,89
+AC-0192,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",23.3,15.2,1.55,67,72
+AC-0193,Carrier,"Inverter 1.5HP","Caloocan City",22.4,15.8,1.41,58,60
+AC-0194,LG,"Dual Inverter 1.0HP","Pasig City",25.7,15.9,1.5,65,81
+AC-0195,"Fujitsu General","Inverter 1.5HP","Para?aque City",22.8,10.5,1.84,91,94
+AC-0196,Daikin,"Inverter 1.5HP","Cebu City",25.2,13.4,1.07,82,98
+AC-0197,"Mitsubishi Electric","Inverter 1.5HP",Bataan,21.2,10.2,1.42,93,67
+AC-0198,Carrier,"Inverter 1.5HP","Iloilo City",22,9.6,1,92,68
+AC-0199,LG,"Dual Inverter 1.0HP","Iloilo City",23.9,11.5,1.23,85,91
+AC-0200,"Fujitsu General","Inverter 1.5HP","Davao City",28.1,8.1,1.44,92,64
+AC-0201,Daikin,"Inverter 1.5HP",Bataan,28.4,10.1,1.98,65,65
+AC-0202,"Mitsubishi Electric","Inverter 1.5HP",Bataan,20.1,10.5,1.13,66,87
+AC-0203,Carrier,"Inverter 1.5HP","Davao City",22.7,11.2,1.33,73,77
+AC-0204,LG,"Dual Inverter 1.0HP","Para?aque City",20.2,15.7,2.41,68,66
+AC-0205,"Fujitsu General","Inverter 1.5HP","Bacolod City",24.1,11.7,2.06,96,94
+AC-0206,Daikin,"Inverter 1.5HP","Para?aque City",21,11.7,0.95,65,95
+AC-0207,"Mitsubishi Electric","Inverter 1.5HP","General Santos",23.1,11.2,1.19,91,95
+AC-0208,Carrier,"Inverter 1.5HP",Bataan,22.2,14.9,1.82,87,81
+AC-0209,LG,"Dual Inverter 1.0HP","Bacolod City",23.8,11.1,1.69,67,77
+AC-0210,"Fujitsu General","Inverter 1.5HP","Davao City",26,12.7,1.88,73,70
+AC-0211,Daikin,"Inverter 1.5HP","Taguig City",22.5,15.7,1,95,94
+AC-0212,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",27.8,8.1,1.01,61,97
+AC-0213,Carrier,"Inverter 1.5HP","Baguio City",20.1,11.7,1.78,58,74
+AC-0214,LG,"Dual Inverter 1.0HP","Baguio City",23.4,15.1,2,68,84
+AC-0215,"Fujitsu General","Inverter 1.5HP","General Santos",21.2,15.8,1.27,69,76
+AC-0216,Daikin,"Inverter 1.5HP","Para?aque City",27.7,13.3,2.02,90,93
+AC-0217,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",21.9,10.9,1.44,70,87
+AC-0218,Carrier,"Inverter 1.5HP","Cagayan de Oro",22.7,15.5,1.65,94,83
+AC-0219,LG,"Dual Inverter 1.0HP","Para?aque City",24.9,11.5,1.64,63,88
+AC-0220,"Fujitsu General","Inverter 1.5HP","Quezon City",20.1,12.2,1.95,74,86
+AC-0221,Daikin,"Inverter 1.5HP","Caloocan City",26.2,10.3,1.54,94,84
+AC-0222,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",25.9,10.5,1.81,69,89
+AC-0223,Carrier,"Inverter 1.5HP","Taguig City",20.4,12.5,1.05,67,73
+AC-0224,LG,"Dual Inverter 1.0HP","Caloocan City",28.4,11.2,2.24,78,60
+AC-0225,"Fujitsu General","Inverter 1.5HP","Davao City",23.7,12.5,1.57,74,80
+AC-0226,Daikin,"Inverter 1.5HP","Cebu City",27.6,10.7,1.73,95,95
+AC-0227,"Mitsubishi Electric","Inverter 1.5HP","General Santos",25.3,15.5,1.25,89,89
+AC-0228,Carrier,"Inverter 1.5HP","General Santos",28.4,11,2.02,88,81
+AC-0229,LG,"Dual Inverter 1.0HP","Bacolod City",26.4,10.5,1.12,96,93
+AC-0230,"Fujitsu General","Inverter 1.5HP","Pasig City",27.6,9.6,1.26,89,93
+AC-0231,Daikin,"Inverter 1.5HP","General Santos",22.8,8.1,1.72,83,87
+AC-0232,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",21,14.4,1.96,68,73
+AC-0233,Carrier,"Inverter 1.5HP","Quezon City",24,9.4,0.93,90,74
+AC-0234,LG,"Dual Inverter 1.0HP","Bacolod City",28.1,8.4,2.23,71,97
+AC-0235,"Fujitsu General","Inverter 1.5HP","Davao City",25.3,11,1.18,86,69
+AC-0236,Daikin,"Inverter 1.5HP","Pasig City",25,11.5,2.13,94,95
+AC-0237,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",26.8,8.9,1,78,68
+AC-0238,Carrier,"Inverter 1.5HP","Makati City",22.6,13.2,0.91,67,62
+AC-0239,LG,"Dual Inverter 1.0HP","Iloilo City",23.3,11.2,1.47,63,87
+AC-0240,"Fujitsu General","Inverter 1.5HP",Bataan,24.9,12.1,1.98,63,94
+AC-0241,Daikin,"Inverter 1.5HP","Makati City",28.3,15.2,2.5,62,92
+AC-0242,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",25.3,13.3,2.42,75,64
+AC-0243,Carrier,"Inverter 1.5HP","Para?aque City",26.3,12.5,1.49,76,71
+AC-0244,LG,"Dual Inverter 1.0HP","Quezon City",26.9,10.5,1.39,86,78
+AC-0245,"Fujitsu General","Inverter 1.5HP","Caloocan City",22.9,10.1,1.5,61,76
+AC-0246,Daikin,"Inverter 1.5HP","General Santos",22.2,10.1,1.61,82,75
+AC-0247,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",21.1,12,1.79,70,80
+AC-0248,Carrier,"Inverter 1.5HP","Taguig City",21.3,11.6,2.26,80,60
+AC-0249,LG,"Dual Inverter 1.0HP","Caloocan City",27.5,14.4,0.96,73,85
+AC-0250,"Fujitsu General","Inverter 1.5HP","Cebu City",22.8,11.6,0.93,82,98
+AC-0251,Daikin,"Inverter 1.5HP","Makati City",23.8,8.4,1.23,74,78
+AC-0252,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",24.7,14.5,2,86,90
+AC-0253,Carrier,"Inverter 1.5HP","Quezon City",26.2,15.2,2.4,91,94
+AC-0254,LG,"Dual Inverter 1.0HP","General Santos",27.1,13.5,1.39,91,80
+AC-0255,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",23.4,15.7,2.28,70,63
+AC-0256,Daikin,"Inverter 1.5HP","Para?aque City",24,12.1,2.26,86,77
+AC-0257,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",25.2,8.7,1.04,70,82
+AC-0258,Carrier,"Inverter 1.5HP",Bataan,21.4,8.4,2.13,68,74
+AC-0259,LG,"Dual Inverter 1.0HP","Pasig City",26.8,9.8,2.42,76,71
+AC-0260,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",23.4,13.4,1.13,84,86
+AC-0261,Daikin,"Inverter 1.5HP","Davao City",27.4,8.2,1.14,59,86
+AC-0262,"Mitsubishi Electric","Inverter 1.5HP",Bataan,27.2,9.1,1.46,94,91
+AC-0263,Carrier,"Inverter 1.5HP","Pasig City",24,15.5,1.53,82,61
+AC-0264,LG,"Dual Inverter 1.0HP","Para?aque City",24.4,9.7,1.73,89,75
+AC-0265,"Fujitsu General","Inverter 1.5HP","Para?aque City",27.2,13.4,1.07,82,75
+AC-0266,Daikin,"Inverter 1.5HP","Quezon City",20.5,11.2,1.45,81,99
+AC-0267,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",24.7,14.5,1.97,96,74
+AC-0268,Carrier,"Inverter 1.5HP","Quezon City",20.1,8.1,1.45,93,92
+AC-0269,LG,"Dual Inverter 1.0HP","Taguig City",26.1,15.1,2.47,67,92
+AC-0270,"Fujitsu General","Inverter 1.5HP","Quezon City",23.8,13.7,1.78,94,96
+AC-0271,Daikin,"Inverter 1.5HP","Makati City",22,8.8,2.06,83,82
+AC-0272,"Mitsubishi Electric","Inverter 1.5HP",Bataan,22.7,8.6,1.22,69,94
+AC-0273,Carrier,"Inverter 1.5HP","Para?aque City",26.7,9.2,1.24,84,64
+AC-0274,LG,"Dual Inverter 1.0HP","Cagayan de Oro",20.8,11.9,1.97,78,69
+AC-0275,"Fujitsu General","Inverter 1.5HP","Bacolod City",20.5,9.5,1.43,76,69
+AC-0276,Daikin,"Inverter 1.5HP","Quezon City",20.6,12,1.24,77,78
+AC-0277,"Mitsubishi Electric","Inverter 1.5HP","General Santos",28.1,12.7,2.27,93,86
+AC-0278,Carrier,"Inverter 1.5HP","Pasig City",26,10.3,1.08,75,60
+AC-0279,LG,"Dual Inverter 1.0HP","Makati City",28,8.3,0.98,67,92
+AC-0280,"Fujitsu General","Inverter 1.5HP","Taguig City",25.1,12.8,2.07,72,61
+AC-0281,Daikin,"Inverter 1.5HP","Cebu City",24.2,14.3,1.45,79,92
+AC-0282,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",23.5,12.2,1.77,85,89
+AC-0283,Carrier,"Inverter 1.5HP","Mandaluyong City",21.6,10.9,2.4,64,90
+AC-0284,LG,"Dual Inverter 1.0HP","General Santos",27.5,12.1,1.05,91,62
+AC-0285,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",28,8.4,1.95,89,73
+AC-0286,Daikin,"Inverter 1.5HP","Para?aque City",20.1,12.5,1.69,80,91
+AC-0287,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",27.3,9.4,1.71,92,94
+AC-0288,Carrier,"Inverter 1.5HP","Mandaluyong City",25.8,8.6,1.3,93,68
+AC-0289,LG,"Dual Inverter 1.0HP","Taguig City",28.3,9.1,1.52,64,63
+AC-0290,"Fujitsu General","Inverter 1.5HP","Bacolod City",23.5,9.8,1.31,91,94
+AC-0291,Daikin,"Inverter 1.5HP","Para?aque City",28.1,13.6,1.63,84,61
+AC-0292,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",21.2,14.4,1.55,71,75
+AC-0293,Carrier,"Inverter 1.5HP","Pasig City",21.9,12.4,1.14,91,60
+AC-0294,LG,"Dual Inverter 1.0HP","Quezon City",26.1,12.9,2.48,86,98
+AC-0295,"Fujitsu General","Inverter 1.5HP","Caloocan City",23.7,15.4,1.58,91,64
+AC-0296,Daikin,"Inverter 1.5HP","Cebu City",20.6,15.4,1.1,66,99
+AC-0297,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",24.5,15.2,1.38,58,99
+AC-0298,Carrier,"Inverter 1.5HP","Cebu City",24.5,11,1.35,76,63
+AC-0299,LG,"Dual Inverter 1.0HP","Para?aque City",21.6,9.3,1.95,60,90
+AC-0300,"Fujitsu General","Inverter 1.5HP","Davao City",24.6,11.1,1.48,92,60
+AC-0301,Daikin,"Inverter 1.5HP","Cagayan de Oro",27.8,15,1.69,84,62
+AC-0302,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.6,9.9,1.06,59,68
+AC-0303,Carrier,"Inverter 1.5HP","Cebu City",22.7,15.3,1.73,62,82
+AC-0304,LG,"Dual Inverter 1.0HP","Baguio City",21.3,11.3,1.03,75,79
+AC-0305,"Fujitsu General","Inverter 1.5HP","Quezon City",25.9,15.7,2.33,85,68
+AC-0306,Daikin,"Inverter 1.5HP","Cebu City",22.2,10.8,1.87,85,93
+AC-0307,"Mitsubishi Electric","Inverter 1.5HP","Davao City",22.8,14.4,0.9,93,73
+AC-0308,Carrier,"Inverter 1.5HP","Para?aque City",23.6,15.6,1.14,82,83
+AC-0309,LG,"Dual Inverter 1.0HP","Makati City",24.4,12.7,1.52,88,60
+AC-0310,"Fujitsu General","Inverter 1.5HP","Cebu City",25.2,11.2,1.45,83,60
+AC-0311,Daikin,"Inverter 1.5HP","Taguig City",27.3,11.6,2.42,88,69
+AC-0312,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",28.5,11.6,2.38,88,64
+AC-0313,Carrier,"Inverter 1.5HP","Mandaluyong City",20.7,10,0.98,78,85
+AC-0314,LG,"Dual Inverter 1.0HP","Baguio City",25.5,15.3,1.94,62,88
+AC-0315,"Fujitsu General","Inverter 1.5HP","Para?aque City",27.9,8.3,1.58,79,80
+AC-0316,Daikin,"Inverter 1.5HP","Caloocan City",25.9,13.4,1.12,69,66
+AC-0317,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",20.2,8,1.64,65,88
+AC-0318,Carrier,"Inverter 1.5HP","Taguig City",27.5,15.5,1.27,65,60
+AC-0319,LG,"Dual Inverter 1.0HP","Makati City",22.8,10.6,1.95,83,65
+AC-0320,"Fujitsu General","Inverter 1.5HP","Iloilo City",24.1,12.2,1.43,86,92
+AC-0321,Daikin,"Inverter 1.5HP","Makati City",24.2,12.6,1.47,94,88
+AC-0322,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",23.8,13.7,1.81,84,63
+AC-0323,Carrier,"Inverter 1.5HP","Bacolod City",21.6,12.7,1.89,86,73
+AC-0324,LG,"Dual Inverter 1.0HP","Cagayan de Oro",24.6,9.3,1.12,79,89
+AC-0325,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",22.8,13.8,0.95,65,66
+AC-0326,Daikin,"Inverter 1.5HP","Pasig City",23.3,14.2,1.86,96,92
+AC-0327,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",22.9,10.5,1.16,58,84
+AC-0328,Carrier,"Inverter 1.5HP","General Santos",21.2,12.4,1.41,95,99
+AC-0329,LG,"Dual Inverter 1.0HP","Taguig City",25.3,13.7,2.3,90,67
+AC-0330,"Fujitsu General","Inverter 1.5HP","General Santos",24.8,10.7,1.59,65,61
+AC-0331,Daikin,"Inverter 1.5HP","Bacolod City",26.9,8.4,1.06,59,65
+AC-0332,"Mitsubishi Electric","Inverter 1.5HP","Davao City",24.6,11.5,1.4,65,62
+AC-0333,Carrier,"Inverter 1.5HP","Para?aque City",20,11.3,2.29,60,84
+AC-0334,LG,"Dual Inverter 1.0HP","Caloocan City",22.4,8,2.35,67,67
+AC-0335,"Fujitsu General","Inverter 1.5HP","Bacolod City",20.3,13.3,2.34,61,68
+AC-0336,Daikin,"Inverter 1.5HP",Bataan,21.8,12.1,1.24,63,67
+AC-0337,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",25.4,15.2,2.13,61,78
+AC-0338,Carrier,"Inverter 1.5HP","Pasig City",21.8,11.3,2.11,67,99
+AC-0339,LG,"Dual Inverter 1.0HP","Makati City",25.4,12.5,2.5,71,77
+AC-0340,"Fujitsu General","Inverter 1.5HP","Makati City",28,10.6,1.41,76,66
+AC-0341,Daikin,"Inverter 1.5HP","Makati City",28.1,10.8,1.96,95,67
+AC-0342,"Mitsubishi Electric","Inverter 1.5HP","Davao City",23.6,9.2,1.79,85,90
+AC-0343,Carrier,"Inverter 1.5HP","Makati City",25.4,11.6,1,89,78
+AC-0344,LG,"Dual Inverter 1.0HP","Iloilo City",23.9,9.4,1.57,95,75
+AC-0345,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",22,11.6,1.19,87,78
+AC-0346,Daikin,"Inverter 1.5HP","Cebu City",25.2,14.4,1.9,64,98
+AC-0347,"Mitsubishi Electric","Inverter 1.5HP",Bataan,27.8,14.9,1.84,69,71
+AC-0348,Carrier,"Inverter 1.5HP","Quezon City",25,8.2,1.08,60,92
+AC-0349,LG,"Dual Inverter 1.0HP","Baguio City",26.6,11.7,1.81,92,77
+AC-0350,"Fujitsu General","Inverter 1.5HP","Taguig City",23.5,15.1,1.71,95,94
+AC-0351,Daikin,"Inverter 1.5HP","Caloocan City",22.5,11.3,2.14,85,67
+AC-0352,"Mitsubishi Electric","Inverter 1.5HP",Bataan,24,10.5,1.18,62,96
+AC-0353,Carrier,"Inverter 1.5HP","Pasig City",24.3,10,1.33,76,79
+AC-0354,LG,"Dual Inverter 1.0HP","Cebu City",22.9,11.9,1.02,96,68
+AC-0355,"Fujitsu General","Inverter 1.5HP","General Santos",23.1,10.1,2.36,88,95
+AC-0356,Daikin,"Inverter 1.5HP","Caloocan City",22.1,13.4,1.48,90,80
+AC-0357,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",21.4,11,1.61,77,77
+AC-0358,Carrier,"Inverter 1.5HP","Taguig City",21.8,15.9,1.81,82,80
+AC-0359,LG,"Dual Inverter 1.0HP","Mandaluyong City",24.6,11,2.42,83,68
+AC-0360,"Fujitsu General","Inverter 1.5HP","Taguig City",20,14.1,1.03,78,80
+AC-0361,Daikin,"Inverter 1.5HP","Quezon City",23.4,11,1.97,77,74
+AC-0362,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",23.2,10.7,1.48,61,73
+AC-0363,Carrier,"Inverter 1.5HP","Makati City",26,9,2.43,60,79
+AC-0364,LG,"Dual Inverter 1.0HP","Davao City",23.5,16,1.88,67,97
+AC-0365,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",26.8,9.6,2.49,62,78
+AC-0366,Daikin,"Inverter 1.5HP","Cebu City",27.9,12.3,1.11,76,93
+AC-0367,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",22.7,15.4,1.25,67,73
+AC-0368,Carrier,"Inverter 1.5HP","Quezon City",26.7,14.1,0.98,71,95
+AC-0369,LG,"Dual Inverter 1.0HP","Caloocan City",25.7,12,1.91,92,62
+AC-0370,"Fujitsu General","Inverter 1.5HP","Pasig City",22.7,9.2,2.09,87,62
+AC-0371,Daikin,"Inverter 1.5HP","Para?aque City",23.9,14.5,1.97,77,72
+AC-0372,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",22.2,14.6,1.03,61,88
+AC-0373,Carrier,"Inverter 1.5HP","Iloilo City",26.9,15.5,2.14,61,70
+AC-0374,LG,"Dual Inverter 1.0HP","Mandaluyong City",22.7,8.7,2.33,88,69
+AC-0375,"Fujitsu General","Inverter 1.5HP","Taguig City",23.7,12.3,1.74,66,92
+AC-0376,Daikin,"Inverter 1.5HP","Cagayan de Oro",25.2,12.8,1.97,62,71
+AC-0377,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",23.2,11.9,2.27,62,67
+AC-0378,Carrier,"Inverter 1.5HP","Mandaluyong City",22.9,10.5,1.44,89,67
+AC-0379,LG,"Dual Inverter 1.0HP","Mandaluyong City",20.2,9.1,1.7,66,77
+AC-0380,"Fujitsu General","Inverter 1.5HP","Caloocan City",21,11.4,2.31,67,70
+AC-0381,Daikin,"Inverter 1.5HP","Baguio City",26.4,10.2,2.26,95,75
+AC-0382,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",23.4,10.7,1.43,69,91
+AC-0383,Carrier,"Inverter 1.5HP","Caloocan City",22.3,8.7,2.33,87,86
+AC-0384,LG,"Dual Inverter 1.0HP","Quezon City",26.2,15.7,1.13,85,88
+AC-0385,"Fujitsu General","Inverter 1.5HP","Para?aque City",24.5,10.6,1.69,66,62
+AC-0386,Daikin,"Inverter 1.5HP","Davao City",24.5,12.8,2.48,76,88
+AC-0387,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.8,8.9,2.05,80,85
+AC-0388,Carrier,"Inverter 1.5HP","Caloocan City",24.2,12.1,1.27,69,66
+AC-0389,LG,"Dual Inverter 1.0HP","Taguig City",21.3,12.6,1.5,72,88
+AC-0390,"Fujitsu General","Inverter 1.5HP","Bacolod City",28.4,8.7,2.1,75,96
+AC-0391,Daikin,"Inverter 1.5HP","Makati City",27.3,14.2,1.47,66,75
+AC-0392,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",22.7,14.5,2.43,88,64
+AC-0393,Carrier,"Inverter 1.5HP","Makati City",21.8,15.1,1.73,78,98
+AC-0394,LG,"Dual Inverter 1.0HP","Davao City",21,12,1.33,89,95
+AC-0395,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",26,15,2.1,76,81
+AC-0396,Daikin,"Inverter 1.5HP","Davao City",26.1,14.4,2.25,71,63
+AC-0397,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",27.5,11.3,2.16,71,84
+AC-0398,Carrier,"Inverter 1.5HP","Iloilo City",27.6,9.9,1.62,74,83
+AC-0399,LG,"Dual Inverter 1.0HP","Cebu City",20.2,8.8,1.46,89,98
+AC-0400,"Fujitsu General","Inverter 1.5HP","Taguig City",28.5,8.5,2.1,82,71
+AC-0401,Daikin,"Inverter 1.5HP","Davao City",26,9.7,2.06,60,92
+AC-0402,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",27.2,8,1.84,72,70
+AC-0403,Carrier,"Inverter 1.5HP","Iloilo City",26.5,10.3,1.24,63,61
+AC-0404,LG,"Dual Inverter 1.0HP","Iloilo City",24,15.8,1.32,93,68
+AC-0405,"Fujitsu General","Inverter 1.5HP","Bacolod City",21.7,8.4,2.39,67,86
+AC-0406,Daikin,"Inverter 1.5HP","Davao City",20.5,13.5,1.98,67,63
+AC-0407,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",26.8,11.1,2.24,85,89
+AC-0408,Carrier,"Inverter 1.5HP","Quezon City",25.9,8.5,1.94,62,90
+AC-0409,LG,"Dual Inverter 1.0HP","Cagayan de Oro",23.7,10.8,2.07,78,78
+AC-0410,"Fujitsu General","Inverter 1.5HP","Iloilo City",23.3,13.2,2.15,93,77
+AC-0411,Daikin,"Inverter 1.5HP","Cebu City",28,8.8,1.43,74,70
+AC-0412,"Mitsubishi Electric","Inverter 1.5HP","Makati City",24.5,14.6,2.17,80,85
+AC-0413,Carrier,"Inverter 1.5HP","Davao City",27.3,13.2,1.39,81,79
+AC-0414,LG,"Dual Inverter 1.0HP","Davao City",20.8,9.5,1.4,84,91
+AC-0415,"Fujitsu General","Inverter 1.5HP","Bacolod City",28,10,1.33,77,90
+AC-0416,Daikin,"Inverter 1.5HP","Cebu City",27.3,15.4,2.21,68,83
+AC-0417,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",25,8.5,1.13,65,90
+AC-0418,Carrier,"Inverter 1.5HP","Iloilo City",20.5,10.2,1.02,79,81
+AC-0419,LG,"Dual Inverter 1.0HP","Taguig City",24.4,8.3,2.27,59,75
+AC-0420,"Fujitsu General","Inverter 1.5HP","Bacolod City",24.8,14.1,1.91,65,80
+AC-0421,Daikin,"Inverter 1.5HP","Iloilo City",24,9.5,1.82,84,99
+AC-0422,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",22.6,11.2,1.15,91,73
+AC-0423,Carrier,"Inverter 1.5HP","Cagayan de Oro",22,9.5,1.04,59,89
+AC-0424,LG,"Dual Inverter 1.0HP","Pasig City",25,11.6,1.52,87,87
+AC-0425,"Fujitsu General","Inverter 1.5HP","Davao City",20.5,11.1,1.71,83,94
+AC-0426,Daikin,"Inverter 1.5HP","Cebu City",25.2,15.9,2.32,67,73
+AC-0427,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",27,12.6,1.23,78,71
+AC-0428,Carrier,"Inverter 1.5HP","Mandaluyong City",24.4,15.4,2.26,86,85
+AC-0429,LG,"Dual Inverter 1.0HP","Para?aque City",23.2,9.9,2.1,75,76
+AC-0430,"Fujitsu General","Inverter 1.5HP","Pasig City",26.2,10.1,1.17,64,93
+AC-0431,Daikin,"Inverter 1.5HP","Makati City",26.1,13.7,1.49,59,85
+AC-0432,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",25.3,9.3,2.18,70,69
+AC-0433,Carrier,"Inverter 1.5HP",Bataan,20.2,11.5,0.94,79,80
+AC-0434,LG,"Dual Inverter 1.0HP","Caloocan City",25.6,8.8,1.68,91,60
+AC-0435,"Fujitsu General","Inverter 1.5HP","Bacolod City",27.4,12.5,2.05,74,95
+AC-0436,Daikin,"Inverter 1.5HP",Bataan,26,14.8,1,81,95
+AC-0437,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",25.7,13.3,1.2,84,78
+AC-0438,Carrier,"Inverter 1.5HP","Quezon City",20.2,15.4,1.26,62,89
+AC-0439,LG,"Dual Inverter 1.0HP","Caloocan City",27.3,14.9,2.27,92,71
+AC-0440,"Fujitsu General","Inverter 1.5HP","Quezon City",22.8,11.9,1.71,63,95
+AC-0441,Daikin,"Inverter 1.5HP","Quezon City",20.6,13,1.75,66,78
+AC-0442,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",24.3,15.7,1.37,90,72
+AC-0443,Carrier,"Inverter 1.5HP","Taguig City",25.2,13,1.43,65,67
+AC-0444,LG,"Dual Inverter 1.0HP","Cagayan de Oro",25.8,8.4,1.95,88,94
+AC-0445,"Fujitsu General","Inverter 1.5HP","Cebu City",22.4,8.5,1.59,85,70
+AC-0446,Daikin,"Inverter 1.5HP","Caloocan City",23.2,15.5,2.36,92,64
+AC-0447,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",21.3,15.6,1.32,67,90
+AC-0448,Carrier,"Inverter 1.5HP","Quezon City",25.8,15.3,1.69,63,77
+AC-0449,LG,"Dual Inverter 1.0HP","Bacolod City",23.9,8.6,0.91,66,79
+AC-0450,"Fujitsu General","Inverter 1.5HP",Bataan,25.6,12,2.4,88,69
+AC-0451,Daikin,"Inverter 1.5HP","Quezon City",21.7,11.1,2.22,62,85
+AC-0452,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",22,8.8,1.41,83,90
+AC-0453,Carrier,"Inverter 1.5HP","Bacolod City",26.1,11,1.33,86,86
+AC-0454,LG,"Dual Inverter 1.0HP","Cebu City",27.6,10.4,2.33,61,86
+AC-0455,"Fujitsu General","Inverter 1.5HP","Quezon City",28.3,8.4,1.04,86,68
+AC-0456,Daikin,"Inverter 1.5HP","Para?aque City",28.2,9.5,2.21,78,73
+AC-0457,"Mitsubishi Electric","Inverter 1.5HP","General Santos",28.5,15,1.21,78,77
+AC-0458,Carrier,"Inverter 1.5HP","Pasig City",27.6,12.2,1.73,93,68
+AC-0459,LG,"Dual Inverter 1.0HP","Baguio City",20.4,14,1.25,94,73
+AC-0460,"Fujitsu General","Inverter 1.5HP","General Santos",26.5,13.7,1.88,86,82
+AC-0461,Daikin,"Inverter 1.5HP",Bataan,22.2,14.5,1.02,76,87
+AC-0462,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",25.6,10.7,1.52,85,92
+AC-0463,Carrier,"Inverter 1.5HP","Pasig City",24.8,11.6,1.7,91,82
+AC-0464,LG,"Dual Inverter 1.0HP","Makati City",26,9,2.28,94,65
+AC-0465,"Fujitsu General","Inverter 1.5HP","General Santos",20.5,10.7,1.94,59,87
+AC-0466,Daikin,"Inverter 1.5HP","Mandaluyong City",22.6,13.9,1.67,92,75
+AC-0467,"Mitsubishi Electric","Inverter 1.5HP","Davao City",20.6,8.8,1.17,94,89
+AC-0468,Carrier,"Inverter 1.5HP",Bataan,25,11.5,1.91,76,74
+AC-0469,LG,"Dual Inverter 1.0HP",Bataan,20.5,15,1.42,70,75
+AC-0470,"Fujitsu General","Inverter 1.5HP","Bacolod City",28.4,15.8,1.61,77,97
+AC-0471,Daikin,"Inverter 1.5HP","Caloocan City",28.1,14.2,2.17,96,73
+AC-0472,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",23.1,12.4,1.78,91,69
+AC-0473,Carrier,"Inverter 1.5HP","General Santos",25.4,9.5,2.13,63,96
+AC-0474,LG,"Dual Inverter 1.0HP","Iloilo City",28.2,9,2.33,83,94
+AC-0475,"Fujitsu General","Inverter 1.5HP","Makati City",20.7,9.8,2.32,71,77
+AC-0476,Daikin,"Inverter 1.5HP","Davao City",22.1,9.8,1.62,64,68
+AC-0477,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",23.1,13.1,2.3,71,83
+AC-0478,Carrier,"Inverter 1.5HP","Cebu City",22.8,12.8,2.33,73,81
+AC-0479,LG,"Dual Inverter 1.0HP","Cagayan de Oro",20.4,13,1.63,87,87
+AC-0480,"Fujitsu General","Inverter 1.5HP","Baguio City",25.9,12.2,1.32,92,83
+AC-0481,Daikin,"Inverter 1.5HP","Davao City",22.3,9.8,1.01,61,80
+AC-0482,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",25.4,11.8,2.15,63,66
+AC-0483,Carrier,"Inverter 1.5HP","Cebu City",23,13.7,1.3,87,62
+AC-0484,LG,"Dual Inverter 1.0HP","Baguio City",25.2,11.1,1.23,67,61
+AC-0485,"Fujitsu General","Inverter 1.5HP","Iloilo City",25.2,9.7,1.53,60,70
+AC-0486,Daikin,"Inverter 1.5HP","Cebu City",20.7,15.8,2.48,63,76
+AC-0487,"Mitsubishi Electric","Inverter 1.5HP","Davao City",20.8,9.9,1.47,87,67
+AC-0488,Carrier,"Inverter 1.5HP","Davao City",26.4,12.4,1.64,80,77
+AC-0489,LG,"Dual Inverter 1.0HP","Baguio City",23.1,10.1,1.25,61,68
+AC-0490,"Fujitsu General","Inverter 1.5HP","Quezon City",27.2,14,1.74,63,64
+AC-0491,Daikin,"Inverter 1.5HP","Quezon City",21.1,12.4,1.55,89,61
+AC-0492,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",24.9,15.6,1.81,68,70
+AC-0493,Carrier,"Inverter 1.5HP","Para?aque City",23.5,15.4,1.54,62,98
+AC-0494,LG,"Dual Inverter 1.0HP","Pasig City",21,11.8,1.43,60,97
+AC-0495,"Fujitsu General","Inverter 1.5HP","Davao City",21.3,16,1.69,78,92
+AC-0496,Daikin,"Inverter 1.5HP","Davao City",27.2,12.6,1.32,66,94
+AC-0497,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",28.2,9.4,2.38,79,99
+AC-0498,Carrier,"Inverter 1.5HP","Quezon City",23.9,10.1,1.53,77,86
+AC-0499,LG,"Dual Inverter 1.0HP","Baguio City",27.8,11.5,1.75,59,61
+AC-0500,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",20,14.8,1.51,64,67
+AC-0501,Daikin,"Inverter 1.5HP","Davao City",20.7,10.9,0.94,59,72
+AC-0502,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",20.7,11.4,1.22,65,83
+AC-0503,Carrier,"Inverter 1.5HP","Cebu City",28.3,11,1.12,59,94
+AC-0504,LG,"Dual Inverter 1.0HP","Makati City",24.1,15.1,1.9,62,87
+AC-0505,"Fujitsu General","Inverter 1.5HP","Davao City",24.1,9.7,1.85,66,62
+AC-0506,Daikin,"Inverter 1.5HP","Davao City",26.1,13.7,1.8,72,74
+AC-0507,"Mitsubishi Electric","Inverter 1.5HP",Bataan,20.8,10.9,1.95,65,79
+AC-0508,Carrier,"Inverter 1.5HP","Baguio City",20.3,9.5,1.84,83,73
+AC-0509,LG,"Dual Inverter 1.0HP","Caloocan City",26.5,13.2,2.12,75,97
+AC-0510,"Fujitsu General","Inverter 1.5HP","Iloilo City",23.6,9.4,1.82,63,67
+AC-0511,Daikin,"Inverter 1.5HP","Davao City",28.5,14.1,1.7,94,77
+AC-0512,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",21.6,15.9,1.66,84,65
+AC-0513,Carrier,"Inverter 1.5HP","Mandaluyong City",23.5,11.5,1.85,58,98
+AC-0514,LG,"Dual Inverter 1.0HP","Caloocan City",26.1,13.9,1.88,59,84
+AC-0515,"Fujitsu General","Inverter 1.5HP","Cebu City",24.5,10.5,2.16,85,71
+AC-0516,Daikin,"Inverter 1.5HP","Caloocan City",25.1,10.9,1.03,89,63
+AC-0517,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",20.4,15,1.18,69,72
+AC-0518,Carrier,"Inverter 1.5HP","Davao City",20.5,8.7,2.38,72,63
+AC-0519,LG,"Dual Inverter 1.0HP",Bataan,24.5,14.6,1.9,74,91
+AC-0520,"Fujitsu General","Inverter 1.5HP","Caloocan City",22.6,14.9,2.1,96,99
+AC-0521,Daikin,"Inverter 1.5HP","General Santos",26.9,12.2,1.62,73,71
+AC-0522,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",26.9,11.2,1.95,63,82
+AC-0523,Carrier,"Inverter 1.5HP","Davao City",24.7,15.8,1.32,77,61
+AC-0524,LG,"Dual Inverter 1.0HP","Para?aque City",25.8,11.8,1.9,74,76
+AC-0525,"Fujitsu General","Inverter 1.5HP","Baguio City",28.2,12.9,1.99,79,96
+AC-0526,Daikin,"Inverter 1.5HP","Iloilo City",25,10.1,2.06,94,86
+AC-0527,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",23.1,9.2,1.54,93,60
+AC-0528,Carrier,"Inverter 1.5HP","Makati City",20.8,8.6,0.91,81,76
+AC-0529,LG,"Dual Inverter 1.0HP","Para?aque City",20.9,14.7,1.46,61,69
+AC-0530,"Fujitsu General","Inverter 1.5HP","Davao City",20.6,9.4,0.92,87,68
+AC-0531,Daikin,"Inverter 1.5HP","Bacolod City",24,9.5,2.14,58,65
+AC-0532,"Mitsubishi Electric","Inverter 1.5HP","General Santos",22.4,12.4,2.38,78,91
+AC-0533,Carrier,"Inverter 1.5HP","Mandaluyong City",28.1,9.5,2.47,62,64
+AC-0534,LG,"Dual Inverter 1.0HP",Bataan,21.1,14.8,2.43,75,92
+AC-0535,"Fujitsu General","Inverter 1.5HP","Quezon City",26.1,12.2,2.5,85,64
+AC-0536,Daikin,"Inverter 1.5HP","Iloilo City",21.1,15.9,1.64,80,63
+AC-0537,"Mitsubishi Electric","Inverter 1.5HP","Davao City",25.9,11.8,0.91,94,83
+AC-0538,Carrier,"Inverter 1.5HP","Davao City",20.8,9.5,2.02,76,93
+AC-0539,LG,"Dual Inverter 1.0HP","Para?aque City",28,11.9,1.45,62,71
+AC-0540,"Fujitsu General","Inverter 1.5HP","Bacolod City",20.5,10.8,1.31,67,98
+AC-0541,Daikin,"Inverter 1.5HP","Caloocan City",27.6,13,1.99,88,69
+AC-0542,"Mitsubishi Electric","Inverter 1.5HP","Makati City",23.4,12.2,0.94,85,98
+AC-0543,Carrier,"Inverter 1.5HP","Quezon City",21.8,12.7,1.18,66,73
+AC-0544,LG,"Dual Inverter 1.0HP","Baguio City",23.7,14.3,1.99,90,75
+AC-0545,"Fujitsu General","Inverter 1.5HP","Taguig City",26,15.6,1.76,84,65
+AC-0546,Daikin,"Inverter 1.5HP","Taguig City",26.8,12.6,1.14,71,73
+AC-0547,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.3,10.4,1.26,93,60
+AC-0548,Carrier,"Inverter 1.5HP","Davao City",20.3,9.1,1.92,80,81
+AC-0549,LG,"Dual Inverter 1.0HP","General Santos",26.9,15.7,1.19,63,96
+AC-0550,"Fujitsu General","Inverter 1.5HP","Quezon City",27.3,14.2,2.42,62,80
+AC-0551,Daikin,"Inverter 1.5HP","Makati City",24.5,9.9,2.24,81,72
+AC-0552,"Mitsubishi Electric","Inverter 1.5HP","Makati City",20.7,16,2.1,62,60
+AC-0553,Carrier,"Inverter 1.5HP","Caloocan City",24,10.8,1.19,70,65
+AC-0554,LG,"Dual Inverter 1.0HP","Mandaluyong City",23.4,14.1,0.9,89,73
+AC-0555,"Fujitsu General","Inverter 1.5HP","Davao City",22.7,11.8,1.67,76,71
+AC-0556,Daikin,"Inverter 1.5HP","Baguio City",21.6,14,2.48,72,92
+AC-0557,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",25.6,13.9,2.03,76,97
+AC-0558,Carrier,"Inverter 1.5HP",Bataan,28.3,13.8,1.4,96,78
+AC-0559,LG,"Dual Inverter 1.0HP","Baguio City",21.9,12.4,2.05,77,98
+AC-0560,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",22.8,12.7,1.14,64,94
+AC-0561,Daikin,"Inverter 1.5HP","General Santos",21.5,10.8,1.63,95,69
+AC-0562,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",23,9.5,2.45,64,84
+AC-0563,Carrier,"Inverter 1.5HP","Davao City",20.1,9.9,2.35,62,83
+AC-0564,LG,"Dual Inverter 1.0HP","Cagayan de Oro",26,15.2,2.3,89,70
+AC-0565,"Fujitsu General","Inverter 1.5HP","Cebu City",24,10.5,2.29,76,85
+AC-0566,Daikin,"Inverter 1.5HP","Taguig City",23.8,12.8,2.28,93,82
+AC-0567,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",24.7,8.1,2.29,92,75
+AC-0568,Carrier,"Inverter 1.5HP","Quezon City",25.9,9.2,2.39,61,95
+AC-0569,LG,"Dual Inverter 1.0HP","Pasig City",27,13.9,1.34,81,67
+AC-0570,"Fujitsu General","Inverter 1.5HP","Iloilo City",26.4,13.8,1.64,75,98
+AC-0571,Daikin,"Inverter 1.5HP","General Santos",23.5,8.9,2.04,85,61
+AC-0572,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",27.6,13.1,1.08,67,61
+AC-0573,Carrier,"Inverter 1.5HP","Cebu City",24.6,12.1,1.95,75,98
+AC-0574,LG,"Dual Inverter 1.0HP","General Santos",20.7,8.4,2.33,69,95
+AC-0575,"Fujitsu General","Inverter 1.5HP","Makati City",20,10.6,0.95,82,83
+AC-0576,Daikin,"Inverter 1.5HP","General Santos",21.8,14.4,1.95,87,83
+AC-0577,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",27.6,13.6,1.1,62,64
+AC-0578,Carrier,"Inverter 1.5HP","Makati City",24,14.5,1.32,80,77
+AC-0579,LG,"Dual Inverter 1.0HP","Cebu City",27.6,13.4,1.07,62,75
+AC-0580,"Fujitsu General","Inverter 1.5HP","Baguio City",27.9,8.5,2.39,72,89
+AC-0581,Daikin,"Inverter 1.5HP","Baguio City",21.9,9.2,2.02,88,96
+AC-0582,"Mitsubishi Electric","Inverter 1.5HP","Makati City",27.6,11.9,1.98,64,80
+AC-0583,Carrier,"Inverter 1.5HP","Para?aque City",28.2,9.1,2.34,86,90
+AC-0584,LG,"Dual Inverter 1.0HP","Taguig City",22.4,11.6,2.08,65,88
+AC-0585,"Fujitsu General","Inverter 1.5HP",Bataan,28.4,14.5,0.94,61,64
+AC-0586,Daikin,"Inverter 1.5HP","Para?aque City",20.8,10.6,1.47,93,84
+AC-0587,"Mitsubishi Electric","Inverter 1.5HP","General Santos",23.5,11.3,2.5,83,64
+AC-0588,Carrier,"Inverter 1.5HP","Cagayan de Oro",20.4,11.8,2.02,66,65
+AC-0589,LG,"Dual Inverter 1.0HP","Mandaluyong City",26.9,11.9,2.17,70,61
+AC-0590,"Fujitsu General","Inverter 1.5HP","Caloocan City",24.9,11.7,2.41,78,72
+AC-0591,Daikin,"Inverter 1.5HP","Para?aque City",23.4,15.1,2.25,87,84
+AC-0592,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",21,9.2,2.41,68,84
+AC-0593,Carrier,"Inverter 1.5HP","Pasig City",25,15,1.71,75,68
+AC-0594,LG,"Dual Inverter 1.0HP","Mandaluyong City",28.2,10.9,1.12,78,75
+AC-0595,"Fujitsu General","Inverter 1.5HP","Pasig City",23.4,12.2,1.48,89,91
+AC-0596,Daikin,"Inverter 1.5HP","Caloocan City",22.6,8.4,1.31,80,92
+AC-0597,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",25.8,9.9,2.07,96,80
+AC-0598,Carrier,"Inverter 1.5HP","Davao City",26.7,10.5,1.5,60,75
+AC-0599,LG,"Dual Inverter 1.0HP","Taguig City",28.1,10.8,1.43,60,84
+AC-0600,"Fujitsu General","Inverter 1.5HP","Pasig City",28.1,8.6,1.34,60,76
+AC-0601,Daikin,"Inverter 1.5HP","Para?aque City",27.8,13.7,1.63,82,66
+AC-0602,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",20.7,8,1.68,96,78
+AC-0603,Carrier,"Inverter 1.5HP","Taguig City",25.5,15,1.83,78,69
+AC-0604,LG,"Dual Inverter 1.0HP",Bataan,28.2,12.4,1.61,62,67
+AC-0605,"Fujitsu General","Inverter 1.5HP","Caloocan City",25,8.2,1.28,86,67
+AC-0606,Daikin,"Inverter 1.5HP","Bacolod City",20.8,14.9,2.28,65,99
+AC-0607,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",26.4,14.8,1.69,95,86
+AC-0608,Carrier,"Inverter 1.5HP","Caloocan City",27.9,13,1.65,81,68
+AC-0609,LG,"Dual Inverter 1.0HP","General Santos",28,12.5,1.52,88,98
+AC-0610,"Fujitsu General","Inverter 1.5HP","General Santos",23.2,14.4,2.21,84,94
+AC-0611,Daikin,"Inverter 1.5HP","Caloocan City",21.2,8.6,2.29,71,83
+AC-0612,"Mitsubishi Electric","Inverter 1.5HP",Bataan,25.3,15.9,1.76,89,61
+AC-0613,Carrier,"Inverter 1.5HP","Baguio City",21.5,12.9,1.67,95,93
+AC-0614,LG,"Dual Inverter 1.0HP","Taguig City",26.2,8.5,2.37,77,73
+AC-0615,"Fujitsu General","Inverter 1.5HP","Baguio City",21,8.9,1.69,89,63
+AC-0616,Daikin,"Inverter 1.5HP","Bacolod City",21.7,9.5,1.67,74,94
+AC-0617,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",25.1,14.7,1.88,69,85
+AC-0618,Carrier,"Inverter 1.5HP","Davao City",25.8,12.9,2.01,61,79
+AC-0619,LG,"Dual Inverter 1.0HP","Baguio City",25.9,8.1,1.52,73,65
+AC-0620,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",27.8,14.3,1.5,80,89
+AC-0621,Daikin,"Inverter 1.5HP","Bacolod City",25.4,9,1.88,63,67
+AC-0622,"Mitsubishi Electric","Inverter 1.5HP",Bataan,21.6,13.3,1.41,70,87
+AC-0623,Carrier,"Inverter 1.5HP","General Santos",20,9.2,1.77,61,64
+AC-0624,LG,"Dual Inverter 1.0HP","Para?aque City",21.3,10.7,1.11,92,74
+AC-0625,"Fujitsu General","Inverter 1.5HP","Iloilo City",20.4,9.7,0.92,70,73
+AC-0626,Daikin,"Inverter 1.5HP","Baguio City",22.3,9.8,1.03,73,70
+AC-0627,"Mitsubishi Electric","Inverter 1.5HP",Bataan,25.2,13.4,1.16,90,89
+AC-0628,Carrier,"Inverter 1.5HP","Bacolod City",27.5,11.4,1.5,95,72
+AC-0629,LG,"Dual Inverter 1.0HP","Taguig City",20.9,9.8,1.39,75,83
+AC-0630,"Fujitsu General","Inverter 1.5HP","Pasig City",27.4,11.9,1.93,91,79
+AC-0631,Daikin,"Inverter 1.5HP","Bacolod City",23.3,9.4,1.07,79,93
+AC-0632,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",24,9.2,2.45,76,97
+AC-0633,Carrier,"Inverter 1.5HP","Baguio City",26.3,15,1.58,80,67
+AC-0634,LG,"Dual Inverter 1.0HP","Makati City",21.9,9.9,1.72,74,93
+AC-0635,"Fujitsu General","Inverter 1.5HP","Bacolod City",27.8,13.7,1.18,60,89
+AC-0636,Daikin,"Inverter 1.5HP","Mandaluyong City",27.6,10.5,1.12,60,87
+AC-0637,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",22.9,13.6,1.52,83,73
+AC-0638,Carrier,"Inverter 1.5HP",Bataan,27.6,10.5,2.46,75,74
+AC-0639,LG,"Dual Inverter 1.0HP","Iloilo City",25,9.1,2.07,96,73
+AC-0640,"Fujitsu General","Inverter 1.5HP","General Santos",23.2,10.9,1.18,67,97
+AC-0641,Daikin,"Inverter 1.5HP","Makati City",21.8,11,2.16,61,65
+AC-0642,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",20.7,10.9,0.93,75,60
+AC-0643,Carrier,"Inverter 1.5HP",Bataan,21.4,14.4,2.08,73,70
+AC-0644,LG,"Dual Inverter 1.0HP","Cagayan de Oro",25.1,15.3,1.11,59,71
+AC-0645,"Fujitsu General","Inverter 1.5HP","Taguig City",26.4,15,1.01,59,89
+AC-0646,Daikin,"Inverter 1.5HP","Baguio City",20.5,12.2,1.51,68,86
+AC-0647,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",21.1,8.1,1.82,82,99
+AC-0648,Carrier,"Inverter 1.5HP","Taguig City",24.1,14.2,2.41,84,80
+AC-0649,LG,"Dual Inverter 1.0HP","Taguig City",25.6,9,2.21,77,64
+AC-0650,"Fujitsu General","Inverter 1.5HP",Bataan,22.1,13.7,1.51,66,92
+AC-0651,Daikin,"Inverter 1.5HP","Mandaluyong City",27.7,14.2,1.59,68,79
+AC-0652,"Mitsubishi Electric","Inverter 1.5HP","General Santos",24.3,15.5,1.08,71,65
+AC-0653,Carrier,"Inverter 1.5HP",Bataan,27.4,14.7,2.05,78,87
+AC-0654,LG,"Dual Inverter 1.0HP","Baguio City",28.4,11.6,1.6,72,98
+AC-0655,"Fujitsu General","Inverter 1.5HP","Makati City",21.7,14.5,1.28,84,61
+AC-0656,Daikin,"Inverter 1.5HP","Taguig City",26.5,15.2,1.09,65,61
+AC-0657,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",25.2,15.3,1.52,65,81
+AC-0658,Carrier,"Inverter 1.5HP","Cebu City",24.4,11.8,1.77,91,78
+AC-0659,LG,"Dual Inverter 1.0HP","Makati City",26.1,10.8,1.76,87,86
+AC-0660,"Fujitsu General","Inverter 1.5HP","Quezon City",21.8,11.1,1.69,92,99
+AC-0661,Daikin,"Inverter 1.5HP","Cagayan de Oro",26.7,13.9,1.31,85,99
+AC-0662,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",22.4,11.8,0.92,77,65
+AC-0663,Carrier,"Inverter 1.5HP","Caloocan City",20.1,15.7,1.38,90,91
+AC-0664,LG,"Dual Inverter 1.0HP","General Santos",21,9.8,2.04,73,89
+AC-0665,"Fujitsu General","Inverter 1.5HP","Cebu City",27.5,12,1.19,79,79
+AC-0666,Daikin,"Inverter 1.5HP",Bataan,24.5,15.4,1.71,68,91
+AC-0667,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",28.1,16,1.37,67,90
+AC-0668,Carrier,"Inverter 1.5HP","General Santos",27.2,8.4,1.2,82,93
+AC-0669,LG,"Dual Inverter 1.0HP","General Santos",22,12.1,1.28,59,60
+AC-0670,"Fujitsu General","Inverter 1.5HP","Caloocan City",22.4,14.2,1.7,65,95
+AC-0671,Daikin,"Inverter 1.5HP","Baguio City",27.2,15.1,1.8,92,86
+AC-0672,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",23.6,9.7,2.07,77,86
+AC-0673,Carrier,"Inverter 1.5HP","Baguio City",28.2,11,1.57,60,99
+AC-0674,LG,"Dual Inverter 1.0HP","Caloocan City",27,10.8,2.28,78,99
+AC-0675,"Fujitsu General","Inverter 1.5HP","Baguio City",24.9,8.6,2.48,58,75
+AC-0676,Daikin,"Inverter 1.5HP","Quezon City",23.6,14.9,2.09,67,96
+AC-0677,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",25.5,12.1,1.95,62,96
+AC-0678,Carrier,"Inverter 1.5HP","Para?aque City",20.7,8.6,1.45,61,96
+AC-0679,LG,"Dual Inverter 1.0HP","Bacolod City",27.4,12,1.53,78,68
+AC-0680,"Fujitsu General","Inverter 1.5HP","Para?aque City",23.9,14.9,1.68,84,84
+AC-0681,Daikin,"Inverter 1.5HP","Caloocan City",20.9,10.5,1.71,72,83
+AC-0682,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",26.7,13.7,1.38,94,70
+AC-0683,Carrier,"Inverter 1.5HP",Bataan,21.6,11.8,1.83,74,85
+AC-0684,LG,"Dual Inverter 1.0HP","Baguio City",22.3,8.3,1.81,71,85
+AC-0685,"Fujitsu General","Inverter 1.5HP","Davao City",22.5,13.5,1.57,78,92
+AC-0686,Daikin,"Inverter 1.5HP","Pasig City",24.9,14.6,2.08,87,94
+AC-0687,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",26.2,10.4,2.15,62,90
+AC-0688,Carrier,"Inverter 1.5HP","Caloocan City",25.9,12.4,1.04,88,62
+AC-0689,LG,"Dual Inverter 1.0HP","Pasig City",23.2,15.4,2.14,80,91
+AC-0690,"Fujitsu General","Inverter 1.5HP","Taguig City",23.9,12.5,1.28,83,87
+AC-0691,Daikin,"Inverter 1.5HP","Para?aque City",21.2,11.5,1.87,84,67
+AC-0692,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",23.2,13.9,2.24,90,65
+AC-0693,Carrier,"Inverter 1.5HP","Davao City",26.2,10.7,1.87,95,63
+AC-0694,LG,"Dual Inverter 1.0HP","Quezon City",22.8,15.3,2.12,76,83
+AC-0695,"Fujitsu General","Inverter 1.5HP","Davao City",20.9,14,2.41,60,85
+AC-0696,Daikin,"Inverter 1.5HP","Quezon City",22.1,13.4,1.01,76,82
+AC-0697,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",20.2,12.9,1.13,86,88
+AC-0698,Carrier,"Inverter 1.5HP","Cebu City",21.5,9,2.31,69,91
+AC-0699,LG,"Dual Inverter 1.0HP","Taguig City",28.2,13.1,1.58,65,64
+AC-0700,"Fujitsu General","Inverter 1.5HP","Quezon City",28.5,8,1.29,81,90
+AC-0701,Daikin,"Inverter 1.5HP","Mandaluyong City",23.1,10.4,2.01,79,95
+AC-0702,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",20.1,12.9,2.01,96,75
+AC-0703,Carrier,"Inverter 1.5HP","Taguig City",26.2,8.7,1.86,69,94
+AC-0704,LG,"Dual Inverter 1.0HP","Iloilo City",21.9,9,1.53,79,74
+AC-0705,"Fujitsu General","Inverter 1.5HP",Bataan,24.1,13.7,0.98,88,75
+AC-0706,Daikin,"Inverter 1.5HP","Cagayan de Oro",25.5,8.4,1.62,77,73
+AC-0707,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.1,11.5,2.28,89,78
+AC-0708,Carrier,"Inverter 1.5HP","Cebu City",22.9,10.3,2.36,92,80
+AC-0709,LG,"Dual Inverter 1.0HP","Caloocan City",25.2,11.6,1.1,58,69
+AC-0710,"Fujitsu General","Inverter 1.5HP","Caloocan City",25.6,11.5,2.4,89,70
+AC-0711,Daikin,"Inverter 1.5HP","Baguio City",25,12.9,0.94,93,62
+AC-0712,"Mitsubishi Electric","Inverter 1.5HP","General Santos",27.3,15,1.83,89,93
+AC-0713,Carrier,"Inverter 1.5HP","Makati City",25.8,15.9,1.17,70,79
+AC-0714,LG,"Dual Inverter 1.0HP","Taguig City",24.7,15.7,1.42,75,73
+AC-0715,"Fujitsu General","Inverter 1.5HP","Makati City",27.9,10.9,2.32,75,85
+AC-0716,Daikin,"Inverter 1.5HP","General Santos",22,8.2,2.29,59,99
+AC-0717,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",27.8,15.5,2.31,88,89
+AC-0718,Carrier,"Inverter 1.5HP","Para?aque City",21.2,15.3,1.12,94,85
+AC-0719,LG,"Dual Inverter 1.0HP","Bacolod City",26.5,12.7,2.15,62,61
+AC-0720,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",22.1,15.5,2.25,83,70
+AC-0721,Daikin,"Inverter 1.5HP","Para?aque City",27.1,8.6,2.01,91,76
+AC-0722,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",24,15.1,2.47,80,86
+AC-0723,Carrier,"Inverter 1.5HP","Iloilo City",22.9,11,1.37,79,77
+AC-0724,LG,"Dual Inverter 1.0HP","Quezon City",21.3,15.8,1.08,73,82
+AC-0725,"Fujitsu General","Inverter 1.5HP","Caloocan City",23.4,14.6,0.93,67,60
+AC-0726,Daikin,"Inverter 1.5HP","General Santos",23.1,10.1,2.46,68,86
+AC-0727,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",24.3,9.6,1.82,83,98
+AC-0728,Carrier,"Inverter 1.5HP","Baguio City",23.6,12.1,2.5,94,88
+AC-0729,LG,"Dual Inverter 1.0HP","Cebu City",27.2,13,1.86,76,76
+AC-0730,"Fujitsu General","Inverter 1.5HP","Para?aque City",24.8,15,2.25,89,82
+AC-0731,Daikin,"Inverter 1.5HP","Cagayan de Oro",21.1,13.8,2.39,91,78
+AC-0732,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",22.4,10.3,1.2,59,97
+AC-0733,Carrier,"Inverter 1.5HP","Para?aque City",22.7,14.2,1.43,58,81
+AC-0734,LG,"Dual Inverter 1.0HP","Makati City",28.5,14.6,1.82,70,86
+AC-0735,"Fujitsu General","Inverter 1.5HP",Bataan,27.1,12.8,2.25,93,89
+AC-0736,Daikin,"Inverter 1.5HP","Taguig City",26.5,8.3,2.06,69,92
+AC-0737,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",21.1,13,1.29,81,78
+AC-0738,Carrier,"Inverter 1.5HP","Davao City",28,10,1.68,88,65
+AC-0739,LG,"Dual Inverter 1.0HP","General Santos",21.7,11.2,1.17,74,68
+AC-0740,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",24.6,14.9,2,61,67
+AC-0741,Daikin,"Inverter 1.5HP","Taguig City",24.8,14.7,1.75,95,68
+AC-0742,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",20.2,12.3,1.16,94,87
+AC-0743,Carrier,"Inverter 1.5HP","Baguio City",23.3,14.4,1.12,92,84
+AC-0744,LG,"Dual Inverter 1.0HP","Cebu City",26.8,14.9,1.68,88,78
+AC-0745,"Fujitsu General","Inverter 1.5HP","Taguig City",27.8,12,1.01,61,80
+AC-0746,Daikin,"Inverter 1.5HP","Baguio City",23.4,14.9,1.14,92,66
+AC-0747,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",28,8.9,1.2,79,67
+AC-0748,Carrier,"Inverter 1.5HP","Para?aque City",24.8,8.8,2.24,73,73
+AC-0749,LG,"Dual Inverter 1.0HP","Pasig City",21.2,10,2.44,83,75
+AC-0750,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",23.3,13.6,2.38,85,88
+AC-0751,Daikin,"Inverter 1.5HP","Baguio City",25.9,8.4,1.92,59,70
+AC-0752,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",23.9,13.3,1.68,73,99
+AC-0753,Carrier,"Inverter 1.5HP","General Santos",21.9,13.1,1.95,81,73
+AC-0754,LG,"Dual Inverter 1.0HP","Baguio City",22.7,14.8,1.44,68,94
+AC-0755,"Fujitsu General","Inverter 1.5HP","Makati City",23.3,12.8,1.21,96,88
+AC-0756,Daikin,"Inverter 1.5HP","General Santos",24.9,8.7,1.66,69,78
+AC-0757,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",22.1,15.7,2.04,80,71
+AC-0758,Carrier,"Inverter 1.5HP","Mandaluyong City",24,8.2,2.3,75,95
+AC-0759,LG,"Dual Inverter 1.0HP","Cagayan de Oro",20.7,15.8,1.83,79,60
+AC-0760,"Fujitsu General","Inverter 1.5HP","Quezon City",23.4,8.2,1.81,80,65
+AC-0761,Daikin,"Inverter 1.5HP","Davao City",23,13.6,1.53,85,81
+AC-0762,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",20.4,9.1,1.09,60,61
+AC-0763,Carrier,"Inverter 1.5HP","Bacolod City",25.7,14.9,1.41,66,70
+AC-0764,LG,"Dual Inverter 1.0HP","Bacolod City",23.1,14.1,1.04,69,87
+AC-0765,"Fujitsu General","Inverter 1.5HP",Bataan,23,14.8,2.29,81,92
+AC-0766,Daikin,"Inverter 1.5HP","Makati City",27.7,11.3,2.2,78,87
+AC-0767,"Mitsubishi Electric","Inverter 1.5HP",Bataan,27,8.4,1.04,77,88
+AC-0768,Carrier,"Inverter 1.5HP","Davao City",24.5,14.1,1.35,75,81
+AC-0769,LG,"Dual Inverter 1.0HP","Cebu City",22.5,10,2.26,94,76
+AC-0770,"Fujitsu General","Inverter 1.5HP","General Santos",24.4,9.8,2.34,71,94
+AC-0771,Daikin,"Inverter 1.5HP","Bacolod City",22.9,15.7,1.95,94,91
+AC-0772,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",23.2,11.7,1.83,60,98
+AC-0773,Carrier,"Inverter 1.5HP","Quezon City",24.4,12.1,2.17,63,62
+AC-0774,LG,"Dual Inverter 1.0HP","Davao City",21,9.4,2.16,61,96
+AC-0775,"Fujitsu General","Inverter 1.5HP","Cebu City",22.6,12.5,1.5,71,61
+AC-0776,Daikin,"Inverter 1.5HP","General Santos",27.6,13,0.94,73,84
+AC-0777,"Mitsubishi Electric","Inverter 1.5HP","General Santos",20.3,10,1.4,74,98
+AC-0778,Carrier,"Inverter 1.5HP","Para?aque City",24.5,9.6,2.1,70,69
+AC-0779,LG,"Dual Inverter 1.0HP","Makati City",20.1,13.1,1.47,77,63
+AC-0780,"Fujitsu General","Inverter 1.5HP","Cebu City",21.1,14.8,1.13,62,75
+AC-0781,Daikin,"Inverter 1.5HP",Bataan,20.3,12.4,2.09,65,78
+AC-0782,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",25.2,11.9,1.56,65,88
+AC-0783,Carrier,"Inverter 1.5HP","Taguig City",20.3,10.8,1.34,71,80
+AC-0784,LG,"Dual Inverter 1.0HP","Pasig City",26.2,9.8,2,93,84
+AC-0785,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",24.5,13.3,1.06,59,73
+AC-0786,Daikin,"Inverter 1.5HP","Mandaluyong City",24.2,12.7,1.28,60,94
+AC-0787,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",28,9.4,1.9,60,84
+AC-0788,Carrier,"Inverter 1.5HP","Pasig City",20.6,9.7,1.78,76,98
+AC-0789,LG,"Dual Inverter 1.0HP","Makati City",21.3,9.5,2.17,90,81
+AC-0790,"Fujitsu General","Inverter 1.5HP","Pasig City",26.1,13.1,2.17,91,67
+AC-0791,Daikin,"Inverter 1.5HP","Baguio City",24,9.6,1.74,66,70
+AC-0792,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",23.4,11.8,1.83,83,68
+AC-0793,Carrier,"Inverter 1.5HP","Cagayan de Oro",22.3,13.2,1.89,67,95
+AC-0794,LG,"Dual Inverter 1.0HP","Iloilo City",28.1,9.5,2.03,63,87
+AC-0795,"Fujitsu General","Inverter 1.5HP","Baguio City",21,13.1,1.43,75,78
+AC-0796,Daikin,"Inverter 1.5HP","Taguig City",25.7,8,2.35,85,73
+AC-0797,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",21.7,9.9,2.12,90,77
+AC-0798,Carrier,"Inverter 1.5HP","Pasig City",24.3,9.1,1.64,82,96
+AC-0799,LG,"Dual Inverter 1.0HP","Baguio City",21,9.6,2.46,74,78
+AC-0800,"Fujitsu General","Inverter 1.5HP","Cebu City",20.8,15.4,1.8,84,78
+AC-0801,Daikin,"Inverter 1.5HP","Caloocan City",21.4,13,1.49,86,86
+AC-0802,"Mitsubishi Electric","Inverter 1.5HP","Makati City",22.1,10.6,2.42,63,83
+AC-0803,Carrier,"Inverter 1.5HP","General Santos",23.7,10.5,1.47,91,97
+AC-0804,LG,"Dual Inverter 1.0HP","Para?aque City",23.8,8,2.18,85,69
+AC-0805,"Fujitsu General","Inverter 1.5HP","Taguig City",25.7,8.5,2.28,69,70
+AC-0806,Daikin,"Inverter 1.5HP","Pasig City",24.9,15.5,2.01,84,65
+AC-0807,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",22.5,12.8,1.31,87,86
+AC-0808,Carrier,"Inverter 1.5HP","Pasig City",20.4,11.4,2.41,75,88
+AC-0809,LG,"Dual Inverter 1.0HP","Iloilo City",25.1,15.6,1.31,68,96
+AC-0810,"Fujitsu General","Inverter 1.5HP","Baguio City",24.6,12.8,2.31,61,89
+AC-0811,Daikin,"Inverter 1.5HP","Pasig City",23.9,10.7,1.55,84,72
+AC-0812,"Mitsubishi Electric","Inverter 1.5HP","Makati City",26.4,14.7,1.41,92,76
+AC-0813,Carrier,"Inverter 1.5HP",Bataan,26.7,15.1,1.41,70,88
+AC-0814,LG,"Dual Inverter 1.0HP","Cebu City",27.1,13.2,2.39,71,88
+AC-0815,"Fujitsu General","Inverter 1.5HP","Taguig City",21.3,12.9,2.1,66,78
+AC-0816,Daikin,"Inverter 1.5HP","Iloilo City",22.6,11.6,1.46,94,93
+AC-0817,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",20.9,10.5,2.08,87,80
+AC-0818,Carrier,"Inverter 1.5HP","Taguig City",27.7,11.2,2.27,62,84
+AC-0819,LG,"Dual Inverter 1.0HP","Makati City",20.7,13,2.18,84,96
+AC-0820,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",26,11.3,2.46,61,64
+AC-0821,Daikin,"Inverter 1.5HP","Bacolod City",20.9,12.8,2.32,73,97
+AC-0822,"Mitsubishi Electric","Inverter 1.5HP","Davao City",26.9,12.9,2.28,89,66
+AC-0823,Carrier,"Inverter 1.5HP","Bacolod City",27.1,10.2,1.84,82,96
+AC-0824,LG,"Dual Inverter 1.0HP","Mandaluyong City",26.1,12.9,1.75,79,62
+AC-0825,"Fujitsu General","Inverter 1.5HP","Para?aque City",25.6,14.4,2.49,86,66
+AC-0826,Daikin,"Inverter 1.5HP","Davao City",25.5,13.8,1.89,85,66
+AC-0827,"Mitsubishi Electric","Inverter 1.5HP","Davao City",20.4,14.5,1.62,65,76
+AC-0828,Carrier,"Inverter 1.5HP","Cebu City",26.5,15.4,1.61,93,78
+AC-0829,LG,"Dual Inverter 1.0HP","Caloocan City",25,14.6,2.28,80,79
+AC-0830,"Fujitsu General","Inverter 1.5HP","General Santos",20.6,10.7,1.93,81,95
+AC-0831,Daikin,"Inverter 1.5HP","Cebu City",23.2,12.3,1.23,93,90
+AC-0832,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",27.5,11.1,1.65,94,86
+AC-0833,Carrier,"Inverter 1.5HP","Bacolod City",25.5,10.9,2.13,64,70
+AC-0834,LG,"Dual Inverter 1.0HP","Caloocan City",21.1,15.5,1.97,96,66
+AC-0835,"Fujitsu General","Inverter 1.5HP","Para?aque City",21.9,8.8,1.37,59,98
+AC-0836,Daikin,"Inverter 1.5HP","Iloilo City",27.7,13.9,1.06,86,60
+AC-0837,"Mitsubishi Electric","Inverter 1.5HP","Makati City",24.7,12.9,1.97,78,90
+AC-0838,Carrier,"Inverter 1.5HP","Makati City",20.9,14.2,1.54,71,98
+AC-0839,LG,"Dual Inverter 1.0HP","Caloocan City",26.6,13.4,2,93,77
+AC-0840,"Fujitsu General","Inverter 1.5HP","Cebu City",25.5,9.4,1.25,81,94
+AC-0841,Daikin,"Inverter 1.5HP",Bataan,21.2,8.3,1.95,94,72
+AC-0842,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.6,12.9,1.89,83,62
+AC-0843,Carrier,"Inverter 1.5HP","Bacolod City",22.3,12.9,2.38,89,86
+AC-0844,LG,"Dual Inverter 1.0HP",Bataan,25.8,10,1.37,80,83
+AC-0845,"Fujitsu General","Inverter 1.5HP","General Santos",25.3,13,2.01,84,87
+AC-0846,Daikin,"Inverter 1.5HP","Mandaluyong City",21.2,15.3,1.52,60,96
+AC-0847,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",25.9,8.1,1.32,93,60
+AC-0848,Carrier,"Inverter 1.5HP","Mandaluyong City",23.5,10.6,0.95,64,90
+AC-0849,LG,"Dual Inverter 1.0HP","Mandaluyong City",26.2,12.2,1.58,91,81
+AC-0850,"Fujitsu General","Inverter 1.5HP","Caloocan City",27.8,13.8,2.12,65,86
+AC-0851,Daikin,"Inverter 1.5HP","Bacolod City",25.5,12.1,2,76,64
+AC-0852,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",25.1,11.4,1.38,65,94
+AC-0853,Carrier,"Inverter 1.5HP","Pasig City",22.6,9.1,2.17,59,92
+AC-0854,LG,"Dual Inverter 1.0HP","Caloocan City",22.3,12.8,1.76,84,65
+AC-0855,"Fujitsu General","Inverter 1.5HP","Davao City",26.2,8.8,0.96,75,83
+AC-0856,Daikin,"Inverter 1.5HP","Pasig City",22.6,10.2,2.37,69,86
+AC-0857,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",23.8,15.8,1.57,76,82
+AC-0858,Carrier,"Inverter 1.5HP","Iloilo City",21,8.7,1.64,76,90
+AC-0859,LG,"Dual Inverter 1.0HP","Taguig City",21.4,14.2,0.92,82,72
+AC-0860,"Fujitsu General","Inverter 1.5HP",Bataan,23.4,12,1.78,71,84
+AC-0861,Daikin,"Inverter 1.5HP","Caloocan City",22.7,14.9,2.25,78,91
+AC-0862,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",27.5,14.8,1.84,66,89
+AC-0863,Carrier,"Inverter 1.5HP","Davao City",21.8,8.6,1.62,89,85
+AC-0864,LG,"Dual Inverter 1.0HP","Cagayan de Oro",26.1,8.1,2.43,82,74
+AC-0865,"Fujitsu General","Inverter 1.5HP","Davao City",25,11.5,1.75,94,70
+AC-0866,Daikin,"Inverter 1.5HP","Cebu City",23.1,15.2,0.9,71,74
+AC-0867,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",25.9,12.5,1.13,85,74
+AC-0868,Carrier,"Inverter 1.5HP","Davao City",23.8,13.6,2.08,85,68
+AC-0869,LG,"Dual Inverter 1.0HP","Taguig City",27.5,14.6,1.76,72,61
+AC-0870,"Fujitsu General","Inverter 1.5HP","Iloilo City",27.9,12.6,2.02,59,75
+AC-0871,Daikin,"Inverter 1.5HP","Para?aque City",21.7,11.6,1.84,60,63
+AC-0872,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",20.6,13.1,2.23,95,60
+AC-0873,Carrier,"Inverter 1.5HP","Makati City",26.8,12.7,1.47,78,93
+AC-0874,LG,"Dual Inverter 1.0HP","Makati City",27.4,8.8,1.21,66,78
+AC-0875,"Fujitsu General","Inverter 1.5HP","General Santos",27.9,9.3,2.33,68,67
+AC-0876,Daikin,"Inverter 1.5HP",Bataan,22.9,8.2,1.91,66,66
+AC-0877,"Mitsubishi Electric","Inverter 1.5HP","Makati City",21.1,11.4,1.34,96,68
+AC-0878,Carrier,"Inverter 1.5HP","Iloilo City",20.1,15.1,2.33,72,96
+AC-0879,LG,"Dual Inverter 1.0HP","Baguio City",25,8,2.12,77,91
+AC-0880,"Fujitsu General","Inverter 1.5HP","Para?aque City",28,12.3,1.59,94,84
+AC-0881,Daikin,"Inverter 1.5HP",Bataan,22.3,11.3,1.43,63,94
+AC-0882,"Mitsubishi Electric","Inverter 1.5HP",Bataan,22.3,13.8,1.61,71,89
+AC-0883,Carrier,"Inverter 1.5HP","Caloocan City",26.7,10,2.37,58,86
+AC-0884,LG,"Dual Inverter 1.0HP","Taguig City",26,12.4,2.5,76,78
+AC-0885,"Fujitsu General","Inverter 1.5HP","Iloilo City",25,15.7,2.36,83,80
+AC-0886,Daikin,"Inverter 1.5HP","Cebu City",26.7,15.9,1,66,61
+AC-0887,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",26,13.6,2.08,59,73
+AC-0888,Carrier,"Inverter 1.5HP","Cagayan de Oro",26.7,15.3,1.46,76,98
+AC-0889,LG,"Dual Inverter 1.0HP","Bacolod City",22.1,11.7,1.79,82,67
+AC-0890,"Fujitsu General","Inverter 1.5HP","Pasig City",28.3,11.6,1.92,61,81
+AC-0891,Daikin,"Inverter 1.5HP","Bacolod City",25.6,12.3,1.41,84,81
+AC-0892,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",22.3,13.9,1.15,83,70
+AC-0893,Carrier,"Inverter 1.5HP","Bacolod City",26.6,11.4,2.25,65,73
+AC-0894,LG,"Dual Inverter 1.0HP","General Santos",24.6,13.7,2,59,93
+AC-0895,"Fujitsu General","Inverter 1.5HP","Davao City",26.4,14.1,1.96,81,85
+AC-0896,Daikin,"Inverter 1.5HP","Iloilo City",20.8,9.2,1.71,85,62
+AC-0897,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",27.1,10.4,1.9,58,79
+AC-0898,Carrier,"Inverter 1.5HP","Mandaluyong City",23.7,12.8,1.19,69,60
+AC-0899,LG,"Dual Inverter 1.0HP","Iloilo City",24.4,12.3,1.12,64,92
+AC-0900,"Fujitsu General","Inverter 1.5HP","Baguio City",26.4,15.3,0.96,79,84
+AC-0901,Daikin,"Inverter 1.5HP","Caloocan City",20.8,12.6,1.18,86,81
+AC-0902,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",21.1,11.5,1.92,65,68
+AC-0903,Carrier,"Inverter 1.5HP","Cebu City",23,15.2,1.88,61,75
+AC-0904,LG,"Dual Inverter 1.0HP","Baguio City",23.2,14.5,1.17,72,74
+AC-0905,"Fujitsu General","Inverter 1.5HP","Para?aque City",27,12.6,2.19,64,67
+AC-0906,Daikin,"Inverter 1.5HP","Quezon City",27.9,8.2,1.36,60,79
+AC-0907,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",21.4,10.8,2.12,84,67
+AC-0908,Carrier,"Inverter 1.5HP","Para?aque City",24.7,15.6,1.6,91,80
+AC-0909,LG,"Dual Inverter 1.0HP","Mandaluyong City",20.3,8.9,2.17,69,96
+AC-0910,"Fujitsu General","Inverter 1.5HP","Baguio City",22.4,10.4,1.07,66,72
+AC-0911,Daikin,"Inverter 1.5HP","Caloocan City",20.4,11.5,1.36,60,95
+AC-0912,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",25.9,8.3,1.82,70,75
+AC-0913,Carrier,"Inverter 1.5HP","Cagayan de Oro",28.1,14.9,2.05,94,99
+AC-0914,LG,"Dual Inverter 1.0HP","Caloocan City",24.8,12.7,2.45,81,93
+AC-0915,"Fujitsu General","Inverter 1.5HP","Cebu City",26.4,10.6,1.64,66,68
+AC-0916,Daikin,"Inverter 1.5HP","Cagayan de Oro",21,14.8,1.28,83,88
+AC-0917,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",28.1,10.5,2.13,67,66
+AC-0918,Carrier,"Inverter 1.5HP","Davao City",25.3,9.6,2.08,78,98
+AC-0919,LG,"Dual Inverter 1.0HP",Bataan,27.8,8.6,2.43,79,68
+AC-0920,"Fujitsu General","Inverter 1.5HP","Makati City",20.7,12.3,2.12,72,69
+AC-0921,Daikin,"Inverter 1.5HP","Caloocan City",20.7,13.2,1.49,80,68
+AC-0922,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",20.7,13.2,2.09,69,81
+AC-0923,Carrier,"Inverter 1.5HP","Caloocan City",20.9,11.6,2.34,94,93
+AC-0924,LG,"Dual Inverter 1.0HP","Cagayan de Oro",20.2,9.4,2.32,62,65
+AC-0925,"Fujitsu General","Inverter 1.5HP","Davao City",22.9,8.6,2.06,72,65
+AC-0926,Daikin,"Inverter 1.5HP","Cagayan de Oro",27.2,14.4,1.8,89,65
+AC-0927,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",26.4,14.6,2.01,78,95
+AC-0928,Carrier,"Inverter 1.5HP","Cagayan de Oro",24,14.5,1.42,93,85
+AC-0929,LG,"Dual Inverter 1.0HP",Bataan,21.5,15.9,1.17,62,84
+AC-0930,"Fujitsu General","Inverter 1.5HP","Bacolod City",22.6,15.3,2.24,62,91
+AC-0931,Daikin,"Inverter 1.5HP","Bacolod City",26.6,9.5,2,78,71
+AC-0932,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",25.5,14.6,1.15,59,90
+AC-0933,Carrier,"Inverter 1.5HP",Bataan,25.9,13.8,1.36,94,97
+AC-0934,LG,"Dual Inverter 1.0HP","Quezon City",24.9,10,2.03,83,64
+AC-0935,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",20.2,11.7,1.77,78,99
+AC-0936,Daikin,"Inverter 1.5HP","Cebu City",20.9,10.8,1.06,63,85
+AC-0937,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",23.5,12.3,1.06,89,65
+AC-0938,Carrier,"Inverter 1.5HP","Cebu City",22.3,9.2,2.4,66,95
+AC-0939,LG,"Dual Inverter 1.0HP","Quezon City",27.7,12.7,0.95,88,63
+AC-0940,"Fujitsu General","Inverter 1.5HP","Pasig City",21.4,10.5,1.63,67,71
+AC-0941,Daikin,"Inverter 1.5HP","Para?aque City",26.9,11.1,1.9,86,80
+AC-0942,"Mitsubishi Electric","Inverter 1.5HP",Bataan,27.9,13.1,1.77,84,82
+AC-0943,Carrier,"Inverter 1.5HP",Bataan,28,12.6,1.09,78,78
+AC-0944,LG,"Dual Inverter 1.0HP","Cagayan de Oro",27.5,8.9,2.17,79,80
+AC-0945,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",20.2,15.7,1.98,84,98
+AC-0946,Daikin,"Inverter 1.5HP","Davao City",23.5,15.7,2.12,76,76
+AC-0947,"Mitsubishi Electric","Inverter 1.5HP","Makati City",26,15.2,2.24,95,79
+AC-0948,Carrier,"Inverter 1.5HP","Cagayan de Oro",25.5,12.8,1.22,95,90
+AC-0949,LG,"Dual Inverter 1.0HP","Bacolod City",27.2,8.1,1.84,77,80
+AC-0950,"Fujitsu General","Inverter 1.5HP",Bataan,25,13.4,1.41,58,77
+AC-0951,Daikin,"Inverter 1.5HP","General Santos",24.5,12.4,0.96,77,77
+AC-0952,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",25.9,8.4,1.32,78,70
+AC-0953,Carrier,"Inverter 1.5HP","Makati City",27.9,13.8,1.84,76,60
+AC-0954,LG,"Dual Inverter 1.0HP","Cagayan de Oro",27,10.8,1.09,70,84
+AC-0955,"Fujitsu General","Inverter 1.5HP","Cebu City",20.5,12.5,2.5,86,99
+AC-0956,Daikin,"Inverter 1.5HP","Cebu City",27,9.2,0.95,81,70
+AC-0957,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",20.1,12.4,2.42,82,66
+AC-0958,Carrier,"Inverter 1.5HP","Baguio City",21.3,8.9,1.49,92,73
+AC-0959,LG,"Dual Inverter 1.0HP","Iloilo City",28.4,10.6,2.24,81,61
+AC-0960,"Fujitsu General","Inverter 1.5HP","Para?aque City",28.1,13,1.12,66,99
+AC-0961,Daikin,"Inverter 1.5HP","Mandaluyong City",23.2,12.8,1.43,86,73
+AC-0962,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",21.3,9.3,1,73,94
+AC-0963,Carrier,"Inverter 1.5HP","Cagayan de Oro",20.2,9.9,1.68,83,70
+AC-0964,LG,"Dual Inverter 1.0HP","Makati City",26.7,12.2,2.27,76,96
+AC-0965,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",20.4,10.3,1.64,58,77
+AC-0966,Daikin,"Inverter 1.5HP","General Santos",27.6,12.7,0.95,89,87
+AC-0967,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",27.1,11.4,2.09,73,72
+AC-0968,Carrier,"Inverter 1.5HP","Caloocan City",27.3,11.1,1.45,68,79
+AC-0969,LG,"Dual Inverter 1.0HP","Davao City",27.8,8.8,1.71,82,99
+AC-0970,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",28.2,12.4,1.41,90,79
+AC-0971,Daikin,"Inverter 1.5HP","Cagayan de Oro",25.5,13.3,2.32,85,79
+AC-0972,"Mitsubishi Electric","Inverter 1.5HP",Bataan,27.2,8.9,2.15,73,79
+AC-0973,Carrier,"Inverter 1.5HP","Cagayan de Oro",22.9,11.7,0.96,80,93
+AC-0974,LG,"Dual Inverter 1.0HP","Iloilo City",25.6,13.3,1.78,65,99
+AC-0975,"Fujitsu General","Inverter 1.5HP","Caloocan City",20.4,10.5,1.95,91,83
+AC-0976,Daikin,"Inverter 1.5HP","Pasig City",22.2,16,2.33,70,67
+AC-0977,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",24.4,10.2,2.33,83,99
+AC-0978,Carrier,"Inverter 1.5HP","General Santos",24.7,13,1.16,72,77
+AC-0979,LG,"Dual Inverter 1.0HP","Davao City",26,15.7,1.44,83,97
+AC-0980,"Fujitsu General","Inverter 1.5HP","Baguio City",20.9,12,1.42,90,97
+AC-0981,Daikin,"Inverter 1.5HP","Iloilo City",20.2,14.8,1.62,63,66
+AC-0982,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",24.9,10.8,2.32,83,76
+AC-0983,Carrier,"Inverter 1.5HP","Iloilo City",26.7,12.4,1.96,59,60
+AC-0984,LG,"Dual Inverter 1.0HP","Cebu City",26.9,11.1,1.79,66,82
+AC-0985,"Fujitsu General","Inverter 1.5HP","Pasig City",24.8,8.1,1.19,63,74
+AC-0986,Daikin,"Inverter 1.5HP","Cagayan de Oro",26.9,10,1.48,77,68
+AC-0987,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",26.3,12.4,1.45,60,76
+AC-0988,Carrier,"Inverter 1.5HP","Iloilo City",26.6,11.6,1.27,70,80
+AC-0989,LG,"Dual Inverter 1.0HP","Cagayan de Oro",27.6,11.5,1.55,67,75
+AC-0990,"Fujitsu General","Inverter 1.5HP","Baguio City",21.1,11.4,1.74,71,68
+AC-0991,Daikin,"Inverter 1.5HP","Iloilo City",26.8,12.4,1.93,79,83
+AC-0992,"Mitsubishi Electric","Inverter 1.5HP","Makati City",22.5,10.2,1.71,64,78
+AC-0993,Carrier,"Inverter 1.5HP","Davao City",26.9,10.2,2.08,86,84
+AC-0994,LG,"Dual Inverter 1.0HP","Makati City",20.6,15.7,2.13,94,83
+AC-0995,"Fujitsu General","Inverter 1.5HP","Iloilo City",20.4,12,1.18,93,76
+AC-0996,Daikin,"Inverter 1.5HP","Baguio City",24.2,8.3,2.11,83,72
+AC-0997,"Mitsubishi Electric","Inverter 1.5HP","General Santos",23.3,15.3,2.19,58,75
+AC-0998,Carrier,"Inverter 1.5HP",Bataan,21.7,15.7,1.83,89,83
+AC-0999,LG,"Dual Inverter 1.0HP","General Santos",23.5,12.5,1.41,65,66
+AC-1000,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",24.2,8.6,2.27,85,81
+AC-1001,Daikin,"Inverter 1.5HP","Pasig City",20.2,15.4,1.68,58,97
+AC-1002,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",26.9,13.7,1.39,88,74
+AC-1003,Carrier,"Inverter 1.5HP","Bacolod City",26,13.6,1.77,95,99
+AC-1004,LG,"Dual Inverter 1.0HP","Mandaluyong City",25.4,14.5,1.12,74,80
+AC-1005,"Fujitsu General","Inverter 1.5HP","Iloilo City",26.9,14.8,2.05,94,81
+AC-1006,Daikin,"Inverter 1.5HP",Bataan,23.3,9.2,1.75,78,72
+AC-1007,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",22.8,11.8,2.03,75,85
+AC-1008,Carrier,"Inverter 1.5HP",Bataan,20.5,13,2.29,63,70
+AC-1009,LG,"Dual Inverter 1.0HP","Cagayan de Oro",26.5,9,1.12,79,84
+AC-1010,"Fujitsu General","Inverter 1.5HP","Makati City",21.9,13.1,1.74,88,74
+AC-1011,Daikin,"Inverter 1.5HP","Cagayan de Oro",20.2,15.5,1.3,77,64
+AC-1012,"Mitsubishi Electric","Inverter 1.5HP","Makati City",23,11.6,1.75,74,98
+AC-1013,Carrier,"Inverter 1.5HP","Baguio City",28.4,13.6,1.66,96,73
+AC-1014,LG,"Dual Inverter 1.0HP","Caloocan City",28.2,13,1.5,74,69
+AC-1015,"Fujitsu General","Inverter 1.5HP","Baguio City",23.3,10.1,2.26,64,93
+AC-1016,Daikin,"Inverter 1.5HP","Cebu City",23.8,14,1.71,70,76
+AC-1017,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",24.1,8.6,1.59,82,93
+AC-1018,Carrier,"Inverter 1.5HP","Caloocan City",25,14.2,0.99,73,91
+AC-1019,LG,"Dual Inverter 1.0HP","Makati City",26.3,12.8,2.36,59,74
+AC-1020,"Fujitsu General","Inverter 1.5HP","Caloocan City",22,14.7,1.03,92,95
+AC-1021,Daikin,"Inverter 1.5HP","Caloocan City",22.9,14.3,2.41,87,78
+AC-1022,"Mitsubishi Electric","Inverter 1.5HP","General Santos",24.3,9,2.3,72,64
+AC-1023,Carrier,"Inverter 1.5HP","Cebu City",21.8,14.2,1.2,70,86
+AC-1024,LG,"Dual Inverter 1.0HP","Cebu City",27.6,8.1,0.94,71,65
+AC-1025,"Fujitsu General","Inverter 1.5HP","Taguig City",22.6,15.2,1.77,87,61
+AC-1026,Daikin,"Inverter 1.5HP",Bataan,20.9,12.1,1.35,82,92
+AC-1027,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",24.3,8.6,1.67,91,86
+AC-1028,Carrier,"Inverter 1.5HP","Quezon City",24.2,12.2,2.06,83,79
+AC-1029,LG,"Dual Inverter 1.0HP","Cagayan de Oro",20.4,11.6,1.3,60,84
+AC-1030,"Fujitsu General","Inverter 1.5HP","Baguio City",27.9,10.7,2.07,95,60
+AC-1031,Daikin,"Inverter 1.5HP","Bacolod City",23.1,13.8,2.17,65,92
+AC-1032,"Mitsubishi Electric","Inverter 1.5HP","General Santos",22.3,15.7,2.49,73,89
+AC-1033,Carrier,"Inverter 1.5HP","Taguig City",21,11.9,2.08,64,86
+AC-1034,LG,"Dual Inverter 1.0HP","Bacolod City",27.8,11.4,0.94,66,80
+AC-1035,"Fujitsu General","Inverter 1.5HP","Iloilo City",22.8,10.6,2.16,79,79
+AC-1036,Daikin,"Inverter 1.5HP","Quezon City",21.9,15.8,1.53,89,78
+AC-1037,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",27.2,8.5,1.19,73,68
+AC-1038,Carrier,"Inverter 1.5HP","Baguio City",24.2,11.5,1.58,72,98
+AC-1039,LG,"Dual Inverter 1.0HP","Mandaluyong City",25.3,9.7,1.36,68,63
+AC-1040,"Fujitsu General","Inverter 1.5HP","Cebu City",28.2,9.4,1.73,95,65
+AC-1041,Daikin,"Inverter 1.5HP","Davao City",28.3,8.9,1.27,65,78
+AC-1042,"Mitsubishi Electric","Inverter 1.5HP","Davao City",20.7,13.9,1.53,66,84
+AC-1043,Carrier,"Inverter 1.5HP","Pasig City",20.7,11.5,1.18,71,98
+AC-1044,LG,"Dual Inverter 1.0HP","Baguio City",28.2,12.8,2.46,67,95
+AC-1045,"Fujitsu General","Inverter 1.5HP","Taguig City",22.2,10.8,2.49,66,78
+AC-1046,Daikin,"Inverter 1.5HP","Pasig City",20,11.8,1.66,60,78
+AC-1047,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",27.1,8.8,1.39,77,84
+AC-1048,Carrier,"Inverter 1.5HP","Cagayan de Oro",20.5,15.2,2.31,81,66
+AC-1049,LG,"Dual Inverter 1.0HP","Quezon City",25.5,12.3,2.32,89,96
+AC-1050,"Fujitsu General","Inverter 1.5HP","Baguio City",26.1,11.5,1.75,63,77
+AC-1051,Daikin,"Inverter 1.5HP","Makati City",20.9,12.3,1.2,76,89
+AC-1052,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",26,15.7,1.95,67,78
+AC-1053,Carrier,"Inverter 1.5HP","Mandaluyong City",27.2,11.8,1.28,75,74
+AC-1054,LG,"Dual Inverter 1.0HP","General Santos",26.6,8.3,1.55,83,80
+AC-1055,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",25.4,8.6,1.82,89,62
+AC-1056,Daikin,"Inverter 1.5HP","Cagayan de Oro",20.1,10.5,1.47,85,84
+AC-1057,"Mitsubishi Electric","Inverter 1.5HP","Makati City",22.2,15.3,1.69,94,84
+AC-1058,Carrier,"Inverter 1.5HP","Cebu City",23.1,12.6,1.96,62,64
+AC-1059,LG,"Dual Inverter 1.0HP","Bacolod City",20.2,14.7,2.24,81,93
+AC-1060,"Fujitsu General","Inverter 1.5HP","Taguig City",21.2,10.3,1.3,74,86
+AC-1061,Daikin,"Inverter 1.5HP","Cebu City",21.9,8,2.34,83,79
+AC-1062,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",24.2,14.1,1.1,83,76
+AC-1063,Carrier,"Inverter 1.5HP","Mandaluyong City",21.8,14.8,1.32,90,91
+AC-1064,LG,"Dual Inverter 1.0HP","Cebu City",26.2,10.4,2.12,60,74
+AC-1065,"Fujitsu General","Inverter 1.5HP","General Santos",20.2,13.2,1.78,65,84
+AC-1066,Daikin,"Inverter 1.5HP","Cebu City",26.2,8.1,2.5,65,68
+AC-1067,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",28,14.8,1.83,83,80
+AC-1068,Carrier,"Inverter 1.5HP","Taguig City",20.3,8.5,2.08,68,96
+AC-1069,LG,"Dual Inverter 1.0HP","Bacolod City",24.8,10,1.27,88,99
+AC-1070,"Fujitsu General","Inverter 1.5HP","Iloilo City",21.1,9.4,1.61,81,92
+AC-1071,Daikin,"Inverter 1.5HP","Mandaluyong City",20.2,9.4,1.64,86,91
+AC-1072,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",23.7,14.8,1.4,71,80
+AC-1073,Carrier,"Inverter 1.5HP","Pasig City",23,14.5,1.63,95,80
+AC-1074,LG,"Dual Inverter 1.0HP","Mandaluyong City",26.2,8.3,2.04,75,89
+AC-1075,"Fujitsu General","Inverter 1.5HP","Makati City",24.8,13.2,2.22,93,99
+AC-1076,Daikin,"Inverter 1.5HP","Davao City",26.7,9.2,1.25,59,82
+AC-1077,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",24.2,14.3,0.99,84,69
+AC-1078,Carrier,"Inverter 1.5HP","Bacolod City",26.3,13.9,1.55,59,98
+AC-1079,LG,"Dual Inverter 1.0HP","Pasig City",27.8,8.3,0.9,63,65
+AC-1080,"Fujitsu General","Inverter 1.5HP","Bacolod City",28,10,1.64,90,68
+AC-1081,Daikin,"Inverter 1.5HP","Pasig City",25.9,10.8,1.2,79,62
+AC-1082,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",28.1,16,2.43,87,88
+AC-1083,Carrier,"Inverter 1.5HP","Taguig City",22.8,8.2,1.85,73,60
+AC-1084,LG,"Dual Inverter 1.0HP","Cagayan de Oro",22.3,10.5,2.36,89,83
+AC-1085,"Fujitsu General","Inverter 1.5HP","Cebu City",24.6,9,1.19,78,74
+AC-1086,Daikin,"Inverter 1.5HP","Para?aque City",20.9,11.9,0.92,66,64
+AC-1087,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",26.9,8.6,1.43,88,77
+AC-1088,Carrier,"Inverter 1.5HP","Mandaluyong City",26,11.3,2.29,90,97
+AC-1089,LG,"Dual Inverter 1.0HP","Quezon City",21,12.9,1.09,94,86
+AC-1090,"Fujitsu General","Inverter 1.5HP","Iloilo City",20.4,14.7,1.83,61,61
+AC-1091,Daikin,"Inverter 1.5HP","Mandaluyong City",20,10.1,2.28,78,92
+AC-1092,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",21.7,13.1,1.01,67,65
+AC-1093,Carrier,"Inverter 1.5HP","Caloocan City",26.6,14.3,2.38,92,89
+AC-1094,LG,"Dual Inverter 1.0HP","Davao City",24.7,8.1,2.44,89,78
+AC-1095,"Fujitsu General","Inverter 1.5HP","Makati City",27.4,15.1,2.34,77,70
+AC-1096,Daikin,"Inverter 1.5HP","Bacolod City",25.3,8.6,2.01,79,61
+AC-1097,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",24.3,9.6,1.58,69,83
+AC-1098,Carrier,"Inverter 1.5HP","Davao City",28,14.9,2.1,70,67
+AC-1099,LG,"Dual Inverter 1.0HP","Caloocan City",23.8,12.2,1.3,84,84
+AC-1100,"Fujitsu General","Inverter 1.5HP",Bataan,25.4,14.9,2.42,80,89
+AC-1101,Daikin,"Inverter 1.5HP","Bacolod City",27.3,11,1.22,75,77
+AC-1102,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",20.4,11.2,2.06,70,73
+AC-1103,Carrier,"Inverter 1.5HP","Caloocan City",25.7,9.6,2.41,88,79
+AC-1104,LG,"Dual Inverter 1.0HP","Caloocan City",23.7,13,2.47,60,98
+AC-1105,"Fujitsu General","Inverter 1.5HP","Quezon City",21.4,9.1,1.71,61,69
+AC-1106,Daikin,"Inverter 1.5HP","Taguig City",23.7,9.6,1.73,68,98
+AC-1107,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",21,8.6,1.55,78,67
+AC-1108,Carrier,"Inverter 1.5HP","Makati City",27.4,14.1,2.18,75,69
+AC-1109,LG,"Dual Inverter 1.0HP","Makati City",21.7,10.8,1.87,63,75
+AC-1110,"Fujitsu General","Inverter 1.5HP","Quezon City",24.6,8.1,1.29,59,78
+AC-1111,Daikin,"Inverter 1.5HP","General Santos",24.4,12.1,1.13,75,87
+AC-1112,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",23.7,13.9,2.49,78,69
+AC-1113,Carrier,"Inverter 1.5HP",Bataan,27.9,12.6,2.23,96,96
+AC-1114,LG,"Dual Inverter 1.0HP","Davao City",25.2,14.2,1.68,69,72
+AC-1115,"Fujitsu General","Inverter 1.5HP","General Santos",25,9.5,0.98,90,64
+AC-1116,Daikin,"Inverter 1.5HP","Taguig City",20.5,12.4,1.11,96,67
+AC-1117,"Mitsubishi Electric","Inverter 1.5HP","Cebu City",28.2,15.6,2.1,86,85
+AC-1118,Carrier,"Inverter 1.5HP","Cagayan de Oro",28,8.8,0.97,68,78
+AC-1119,LG,"Dual Inverter 1.0HP","Makati City",23,12.8,2.17,93,61
+AC-1120,"Fujitsu General","Inverter 1.5HP","Taguig City",27,15.9,2.13,90,81
+AC-1121,Daikin,"Inverter 1.5HP","Cagayan de Oro",23,11.8,1.59,79,76
+AC-1122,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",21.1,11,1.03,71,96
+AC-1123,Carrier,"Inverter 1.5HP","Cagayan de Oro",26.1,11,1.63,71,88
+AC-1124,LG,"Dual Inverter 1.0HP","Cagayan de Oro",24.5,12.4,1.31,73,82
+AC-1125,"Fujitsu General","Inverter 1.5HP","Bacolod City",27.2,14.7,1.5,93,90
+AC-1126,Daikin,"Inverter 1.5HP","Cebu City",21,14.9,2.01,84,75
+AC-1127,"Mitsubishi Electric","Inverter 1.5HP","Taguig City",28.2,9.7,2.06,89,84
+AC-1128,Carrier,"Inverter 1.5HP","General Santos",26,13,1.07,71,89
+AC-1129,LG,"Dual Inverter 1.0HP","Quezon City",25.9,15.3,1.36,63,98
+AC-1130,"Fujitsu General","Inverter 1.5HP","Baguio City",22.6,11,1.52,93,83
+AC-1131,Daikin,"Inverter 1.5HP","Cagayan de Oro",28.3,13.1,2.3,81,83
+AC-1132,"Mitsubishi Electric","Inverter 1.5HP","Iloilo City",24,10.4,2.44,93,72
+AC-1133,Carrier,"Inverter 1.5HP","Quezon City",21.8,13.8,1.45,95,60
+AC-1134,LG,"Dual Inverter 1.0HP","Iloilo City",20.1,13.3,1.35,63,86
+AC-1135,"Fujitsu General","Inverter 1.5HP","Iloilo City",24.5,14.3,1.83,60,78
+AC-1136,Daikin,"Inverter 1.5HP","Taguig City",27.2,11.7,1.47,63,94
+AC-1137,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",21.9,11.3,1.7,77,64
+AC-1138,Carrier,"Inverter 1.5HP","Cebu City",20.2,14,1.26,69,72
+AC-1139,LG,"Dual Inverter 1.0HP","Para?aque City",23.4,13,2.22,96,71
+AC-1140,"Fujitsu General","Inverter 1.5HP","Davao City",21.6,8.2,2.37,93,98
+AC-1141,Daikin,"Inverter 1.5HP","Taguig City",27.4,12.3,0.94,62,95
+AC-1142,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",24.7,15.8,2.06,65,93
+AC-1143,Carrier,"Inverter 1.5HP","Mandaluyong City",23.3,13.3,1.32,67,64
+AC-1144,LG,"Dual Inverter 1.0HP","Para?aque City",22.6,14.5,2.35,92,88
+AC-1145,"Fujitsu General","Inverter 1.5HP","Iloilo City",25.9,10.4,1.47,91,72
+AC-1146,Daikin,"Inverter 1.5HP","Cebu City",21.2,14,1.69,65,66
+AC-1147,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",20.3,10,2.38,95,79
+AC-1148,Carrier,"Inverter 1.5HP","Davao City",25.2,8.8,1.31,68,80
+AC-1149,LG,"Dual Inverter 1.0HP","Mandaluyong City",20.4,9.2,1.81,60,85
+AC-1150,"Fujitsu General","Inverter 1.5HP","Quezon City",27.9,10.4,1.68,93,91
+AC-1151,Daikin,"Inverter 1.5HP","Para?aque City",24.7,13,1.79,68,89
+AC-1152,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",24.6,13.2,2.28,67,95
+AC-1153,Carrier,"Inverter 1.5HP","Baguio City",21.8,11.5,2.15,74,76
+AC-1154,LG,"Dual Inverter 1.0HP","Cagayan de Oro",24.1,9.7,2.18,93,76
+AC-1155,"Fujitsu General","Inverter 1.5HP","Taguig City",26.7,15.2,2.36,69,99
+AC-1156,Daikin,"Inverter 1.5HP","Davao City",20.1,9.9,2.04,75,84
+AC-1157,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",27.3,15.8,0.97,90,77
+AC-1158,Carrier,"Inverter 1.5HP","General Santos",25.4,13.2,2.39,67,98
+AC-1159,LG,"Dual Inverter 1.0HP","Cebu City",22.7,12.3,2.19,68,65
+AC-1160,"Fujitsu General","Inverter 1.5HP","General Santos",20.1,14.4,2.44,58,88
+AC-1161,Daikin,"Inverter 1.5HP","Makati City",20.4,13.9,1.04,74,93
+AC-1162,"Mitsubishi Electric","Inverter 1.5HP","Baguio City",25.4,15.6,1.6,96,71
+AC-1163,Carrier,"Inverter 1.5HP","Caloocan City",20.6,10,1.3,74,96
+AC-1164,LG,"Dual Inverter 1.0HP",Bataan,25,8.9,1.19,74,79
+AC-1165,"Fujitsu General","Inverter 1.5HP","Davao City",27.9,8.6,2.15,86,70
+AC-1166,Daikin,"Inverter 1.5HP","Cebu City",20.3,13.5,2.21,72,99
+AC-1167,"Mitsubishi Electric","Inverter 1.5HP",Bataan,21.5,12.3,1.57,68,99
+AC-1168,Carrier,"Inverter 1.5HP","General Santos",26.5,9.7,2.34,66,88
+AC-1169,LG,"Dual Inverter 1.0HP","Cebu City",27.4,8.3,2.42,80,76
+AC-1170,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",28.4,13.6,2.38,62,89
+AC-1171,Daikin,"Inverter 1.5HP","Mandaluyong City",21.2,8.9,2.35,59,79
+AC-1172,"Mitsubishi Electric","Inverter 1.5HP","Mandaluyong City",21.5,15.3,1.92,72,72
+AC-1173,Carrier,"Inverter 1.5HP","Baguio City",25.5,14.6,1.7,72,90
+AC-1174,LG,"Dual Inverter 1.0HP","Cebu City",23,14.4,1.45,67,69
+AC-1175,"Fujitsu General","Inverter 1.5HP","Taguig City",23.6,10.3,1.94,85,82
+AC-1176,Daikin,"Inverter 1.5HP","Makati City",21.8,9.5,1.58,91,76
+AC-1177,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",27.4,11.2,1.37,69,90
+AC-1178,Carrier,"Inverter 1.5HP","Bacolod City",24.2,13.3,1.82,79,80
+AC-1179,LG,"Dual Inverter 1.0HP","Iloilo City",27.3,12.3,1.06,73,95
+AC-1180,"Fujitsu General","Inverter 1.5HP","Caloocan City",26.9,11.4,1.41,70,63
+AC-1181,Daikin,"Inverter 1.5HP","Bacolod City",24.9,8.8,1.06,84,93
+AC-1182,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",25.4,14.8,1.39,61,99
+AC-1183,Carrier,"Inverter 1.5HP","Cagayan de Oro",25.1,15.2,2.42,72,78
+AC-1184,LG,"Dual Inverter 1.0HP","Pasig City",26.4,9.4,2.31,79,83
+AC-1185,"Fujitsu General","Inverter 1.5HP","Pasig City",20.1,10.5,2.42,72,83
+AC-1186,Daikin,"Inverter 1.5HP","Quezon City",20.4,13.9,1.14,91,90
+AC-1187,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",20.9,13.9,1.34,63,85
+AC-1188,Carrier,"Inverter 1.5HP","Mandaluyong City",20.8,10.5,1.44,62,77
+AC-1189,LG,"Dual Inverter 1.0HP","Taguig City",23.4,11,2.2,67,69
+AC-1190,"Fujitsu General","Inverter 1.5HP",Bataan,20.8,11.1,1.68,63,77
+AC-1191,Daikin,"Inverter 1.5HP","Iloilo City",27,10.7,1.72,58,72
+AC-1192,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",24,11.2,1.96,92,85
+AC-1193,Carrier,"Inverter 1.5HP","Mandaluyong City",21.6,8.2,1.73,92,76
+AC-1194,LG,"Dual Inverter 1.0HP","Cagayan de Oro",28,15.8,1.75,88,95
+AC-1195,"Fujitsu General","Inverter 1.5HP",Bataan,20.7,13.6,1.3,88,67
+AC-1196,Daikin,"Inverter 1.5HP","Caloocan City",25.7,15.2,1.23,93,67
+AC-1197,"Mitsubishi Electric","Inverter 1.5HP",Bataan,24.7,8.9,2.31,90,76
+AC-1198,Carrier,"Inverter 1.5HP","Cebu City",20.5,13,1.77,90,71
+AC-1199,LG,"Dual Inverter 1.0HP","Caloocan City",24.6,10.5,1.99,72,63
+AC-1200,"Fujitsu General","Inverter 1.5HP","Cagayan de Oro",23.5,11.7,1.22,74,86
+AC-1201,Daikin,"Inverter 1.5HP","Makati City",20.7,11.7,1.47,93,64
+AC-1202,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",23.2,11.3,1.73,65,65
+AC-1203,Carrier,"Inverter 1.5HP","Quezon City",22.9,15,1.32,90,97
+AC-1204,LG,"Dual Inverter 1.0HP","Bacolod City",21.9,11.3,2.27,59,89
+AC-1205,"Fujitsu General","Inverter 1.5HP","Iloilo City",27.9,13.1,1.88,88,67
+AC-1206,Daikin,"Inverter 1.5HP","Para?aque City",23.5,10.9,1.54,62,96
+AC-1207,"Mitsubishi Electric","Inverter 1.5HP","Para?aque City",22,11.5,1.88,93,98
+AC-1208,Carrier,"Inverter 1.5HP","Quezon City",26.2,10.1,2.07,89,71
+AC-1209,LG,"Dual Inverter 1.0HP","Davao City",25.9,8.1,1.83,58,96
+AC-1210,"Fujitsu General","Inverter 1.5HP","Cebu City",24.8,13.2,1.59,88,87
+AC-1211,Daikin,"Inverter 1.5HP","Caloocan City",22,11.5,1.6,60,92
+AC-1212,"Mitsubishi Electric","Inverter 1.5HP","Bacolod City",23.2,10.9,2.48,81,67
+AC-1213,Carrier,"Inverter 1.5HP","General Santos",22.4,9.9,1.75,85,67
+AC-1214,LG,"Dual Inverter 1.0HP","Makati City",25.5,15.5,2.3,61,80
+AC-1215,"Fujitsu General","Inverter 1.5HP","Taguig City",22.3,12.2,1.63,82,96
+AC-1216,Daikin,"Inverter 1.5HP","Caloocan City",26.1,8.2,1.08,70,74
+AC-1217,"Mitsubishi Electric","Inverter 1.5HP","General Santos",25.9,15.9,1.13,93,77
+AC-1218,Carrier,"Inverter 1.5HP","General Santos",21.4,15.7,1.27,68,78
+AC-1219,LG,"Dual Inverter 1.0HP","Pasig City",20.5,12.4,2.5,68,60
+AC-1220,"Fujitsu General","Inverter 1.5HP","Quezon City",27.2,12.1,1.38,75,95
+AC-1221,Daikin,"Inverter 1.5HP","Taguig City",25.8,10.8,2.34,74,67
+AC-1222,"Mitsubishi Electric","Inverter 1.5HP","Cagayan de Oro",20.5,10.6,1.51,77,76
+AC-1223,Carrier,"Inverter 1.5HP","Taguig City",23.6,15.7,1.99,90,78
+AC-1224,LG,"Dual Inverter 1.0HP","Cagayan de Oro",27,12.7,1.71,68,95
+AC-1225,"Fujitsu General","Inverter 1.5HP","Baguio City",21.4,11.1,1.87,59,67
+AC-1226,Daikin,"Inverter 1.5HP","Mandaluyong City",24.5,15.8,1.71,84,78
+AC-1227,"Mitsubishi Electric","Inverter 1.5HP","Davao City",27.8,11.1,0.93,64,90
+AC-1228,Carrier,"Inverter 1.5HP","Baguio City",27.8,11.8,2.17,76,69
+AC-1229,LG,"Dual Inverter 1.0HP","Quezon City",22.6,11.4,0.93,84,83
+AC-1230,"Fujitsu General","Inverter 1.5HP","Iloilo City",27.9,9.5,2.18,84,72
+AC-1231,Daikin,"Inverter 1.5HP","Baguio City",22.2,15.9,1.62,91,76
+AC-1232,"Mitsubishi Electric","Inverter 1.5HP","Caloocan City",21.6,10.6,2.27,70,72
+AC-1233,Carrier,"Inverter 1.5HP","Mandaluyong City",26.1,9.3,1.68,86,82
+AC-1234,LG,"Dual Inverter 1.0HP","Quezon City",20,15.4,2.41,59,67
+AC-1235,"Fujitsu General","Inverter 1.5HP","Mandaluyong City",21.3,10.4,1.88,85,72
+AC-1236,Daikin,"Inverter 1.5HP","Davao City",23.3,8,2.02,73,76
+AC-1237,"Mitsubishi Electric","Inverter 1.5HP","Quezon City",24.4,11.4,1.3,73,69
+AC-1238,Carrier,"Inverter 1.5HP","Taguig City",21.7,12.7,1.04,79,63
+AC-1239,LG,"Dual Inverter 1.0HP","Iloilo City",28.2,12.9,1.33,58,73
+AC-1240,"Fujitsu General","Inverter 1.5HP","Makati City",26.5,12.3,1.94,84,93
+AC-1241,Daikin,"Inverter 1.5HP","Taguig City",23.9,11.6,1.44,93,87
+AC-1242,"Mitsubishi Electric","Inverter 1.5HP","Pasig City",21.5,10.8,2.24,67,97
+AC-1243,Carrier,"Inverter 1.5HP","Cebu City",26.3,14.1,0.96,87,91
+AC-1244,LG,"Dual Inverter 1.0HP","Davao City",21.1,10.6,2.3,77,64
+AC-1245,"Fujitsu General","Inverter 1.5HP","Baguio City",24.1,12.9,1.27,75,67
+AC-1246,Daikin,"Inverter 1.5HP",Bataan,24.1,10,1.98,59,95
+AC-1247,"Mitsubishi Electric","Inverter 1.5HP","General Santos",23.9,15.8,1.85,68,67
+AC-1248,Carrier,"Inverter 1.5HP","Para?aque City",20.5,15.9,2.33,74,68
+AC-1249,LG,"Dual Inverter 1.0HP","Cagayan de Oro",21.1,13.5,2.11,72,87
+AC-1250,"Fujitsu General","Inverter 1.5HP","Davao City",24.1,15.9,2,96,77

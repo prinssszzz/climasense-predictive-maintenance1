@@ -1,119 +1,95 @@
 <?php
+$requireOrgId = null;
 require_once __DIR__ . '/includes/auth.php';
-cs_require_role('client_admin');
+try { $requireOrgId = cs_current_user()['organization_id'] ?? null; } catch (Throwable $_) { $requireOrgId = null; }
+cs_require_permission('analytics.view', $requireOrgId);
+
 $pageTitle = 'Dashboard';
 $activeNav = 'dashboard';
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/helpers.php';
-require __DIR__ . '/includes/header.php';
 
-$units = cs_units();
 $fleet = cs_fleet_summary();
-$alerts = array_slice(cs_alerts(), 0, 5);
-$history = cs_history('FLEET', 24, $fleet['avg_health']);
-$hlabels = array_map(fn($i) => sprintf('%02d:00', ($i * 1) % 24), range(0, 23));
+$units = cs_units();
+$needsAttention = array_values(array_filter($units, fn($unit) => $unit['status'] !== 'healthy'));
+usort($needsAttention, fn($a, $b) => $a['health'] <=> $b['health']);
+$dueSoon = count(array_filter($units, fn($unit) => $unit['rul_days'] <= 30));
+$displayUnits = array_slice($needsAttention ?: $units, 0, 6);
+$serviceBuckets = [
+  ['label' => 'Due in 30 days', 'min' => 0, 'max' => 30, 'class' => 'crit'],
+  ['label' => '31–60 days', 'min' => 31, 'max' => 60, 'class' => 'warn'],
+  ['label' => '61–90 days', 'min' => 61, 'max' => 90, 'class' => 'amber'],
+  ['label' => '90+ days', 'min' => 91, 'max' => PHP_INT_MAX, 'class' => 'ok'],
+];
+$serviceBucketCounts = [];
+foreach ($serviceBuckets as $bucket) {
+  $serviceBucketCounts[] = count(array_filter($units, fn($unit) => $unit['rul_days'] >= $bucket['min'] && $unit['rul_days'] <= $bucket['max']));
+}
+// Demo-only trend: historical fleet snapshots are not stored by this data source.
+$trendOffsets = [-2.4, -1.8, -1.2, -1.5, -0.6, -0.2, 0];
+$healthTrend = array_map(fn($offset) => max(0, min(100, $fleet['avg_health'] + $offset)), $trendOffsets);
+$alerts = cs_predictive_alerts(2026, 3);
+$upcoming = array_slice(array_filter(cs_maintenance_log(), fn($item) => $item['status'] !== 'completed'), 0, 2);
+require __DIR__ . '/includes/header.php';
 ?>
+
 <div class="page-head">
   <div>
-    <span class="eyebrow">Live Fleet Overview</span>
-    <h1>Good afternoon, Julius.</h1>
-    <p>6 split-type units are online across 3 buildings. Predictive models flag 1 unit for urgent attention.</p>
+    <span class="eyebrow">Overview</span>
+    <h1>Air-conditioning dashboard</h1>
+    <p>See what needs attention and open a unit for its full details.</p>
   </div>
-  <div class="page-actions">
-    <button class="btn btn-ghost" id="exportBtn">
-      <svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Export Report
-    </button>
-    <button class="btn btn-primary" data-modal-open="#modalMaint">
-      <svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-      Log Maintenance
-    </button>
-  </div>
+  <button class="btn btn-primary" data-modal-open="#modalMaint">Log maintenance</button>
 </div>
 
 <div class="kpi-row">
   <div class="kpi-card">
-    <span class="kpi-icon">
-      <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="10" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M7 19h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </span>
-    <span class="kpi-label">Total Units</span>
+    <span class="kpi-label">Total units</span>
     <div class="kpi-value"><?= $fleet['total'] ?> <small>units</small></div>
-    <div class="kpi-delta up">Across 3 buildings</div>
+    <div class="kpi-delta up"><?= $fleet['healthy'] ?> operating normally</div>
   </div>
   <div class="kpi-card">
-    <span class="kpi-icon">
-      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M12 3c0 8-9 10-9 18a9 9 0 0 0 18 0c0-8-9-10-9-18Z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-    </span>
-    <span class="kpi-label">Avg. Fleet Health</span>
-    <div class="kpi-value" data-live data-live-val="<?= $fleet['avg_health'] ?>" data-min="60" data-max="90" data-decimals="0" data-suffix="%"><?= $fleet['avg_health'] ?>%</div>
-    <div class="kpi-delta down">−3.1% vs last week</div>
+    <span class="kpi-label">Needs attention</span>
+    <div class="kpi-value"><?= $fleet['warning'] + $fleet['critical'] ?> <small>units</small></div>
+    <div class="kpi-delta <?= $fleet['critical'] ? 'down' : 'up' ?>"><?= $fleet['critical'] ?> critical, <?= $fleet['warning'] ?> at risk</div>
   </div>
   <div class="kpi-card">
-    <span class="kpi-icon" style="color:var(--amber);background:var(--amber-bg)">
-      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </span>
-    <span class="kpi-label">Units At Risk</span>
-    <div class="kpi-value"><?= $fleet['warning'] ?> <small>warning</small></div>
-    <div class="kpi-delta down">RUL under 60 days</div>
+    <span class="kpi-label">Fleet health</span>
+    <div class="kpi-value"><?= $fleet['avg_health'] ?><small>%</small></div>
+    <div class="kpi-delta up">Based on current unit readings</div>
   </div>
   <div class="kpi-card">
-    <span class="kpi-icon" style="color:var(--rust);background:var(--rust-bg)">
-      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-    </span>
-    <span class="kpi-label">Critical Units</span>
-    <div class="kpi-value"><?= $fleet['critical'] ?> <small>needs action</small></div>
-    <div class="kpi-delta down">AC-104 · RUL 9 days</div>
+    <span class="kpi-label">Service due soon</span>
+    <div class="kpi-value"><?= $dueSoon ?> <small>units</small></div>
+    <div class="kpi-delta <?= $dueSoon ? 'down' : 'up' ?>">Within the next 30 days</div>
   </div>
 </div>
 
 <div class="grid-2">
   <div>
-    <div class="panel">
-      <div class="panel-head">
-        <div>
-          <h3>Fleet Health Trend</h3>
-          <div class="sub">Composite predictive score, rolling 24h — <span data-live data-live-val="<?= $fleet['avg_health'] ?>" data-min="60" data-max="90" data-decimals="0" data-suffix="% avg"><?= $fleet['avg_health'] ?>% avg</span></div>
-        </div>
-        <div class="tabs">
-          <button class="tab active">24h</button>
-          <button class="tab">7d</button>
-          <button class="tab">30d</button>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="chart-box">
-          <canvas id="fleetTrendChart"></canvas>
-        </div>
-      </div>
-    </div>
-
     <div class="panel-head panel-head-flush">
-      <h3>Monitored Units</h3>
-      <a href="units.php" class="btn btn-ghost btn-sm">View all →</a>
+      <div><h3>Units to check</h3><div class="sub">Showing the units that need the most attention first.</div></div>
+      <a href="units.php" class="btn btn-ghost btn-sm">View all units</a>
     </div>
     <div class="unit-grid">
-      <?php foreach ($units as $u): $meta = cs_status_meta($u['status']); ?>
-        <a class="unit-card" href="unit-detail.php?id=<?= urlencode($u['id']) ?>" data-searchable="<?= htmlspecialchars($u['id'].' '.$u['name'].' '.$u['location']) ?>">
+      <?php foreach ($displayUnits as $unit): $meta = cs_status_meta($unit['status']); ?>
+        <a class="unit-card" href="unit-detail.php?id=<?= urlencode($unit['id']) ?>">
           <div class="unit-card-top">
             <div>
-              <div class="unit-card-id"><?= $u['id'] ?></div>
-              <div class="unit-card-name"><?= htmlspecialchars($u['name']) ?></div>
-              <div class="unit-card-loc"><?= htmlspecialchars($u['location']) ?></div>
+              <div class="unit-card-id"><?= htmlspecialchars($unit['id']) ?></div>
+              <div class="unit-card-name"><?= htmlspecialchars($unit['name']) ?></div>
+              <div class="unit-card-loc"><?= htmlspecialchars($unit['location']) ?></div>
             </div>
             <span class="status-chip <?= $meta['class'] ?>"><?= $meta['label'] ?></span>
           </div>
           <div class="unit-card-mid">
-            <?= cs_gauge($u['health'], $u['status'], 72) ?>
+            <?= cs_gauge($unit['health'], $unit['status'], 72) ?>
             <div class="unit-card-metrics">
-              <div class="metric">Temp <b><?= $u['temp'] ?>°C</b></div>
-              <div class="metric">Pressure <b><?= $u['pressure'] ?> psi</b></div>
-              <div class="metric">Current <b><?= $u['current'] ?> A</b></div>
-              <div class="metric">Vibration <b><?= $u['vibration'] ?> mm/s</b></div>
+              <div class="metric">Temperature <b><?= $unit['temp'] ?>°C</b></div>
+              <div class="metric">Daily use <b><?= number_format($unit['operating_hours_per_day'], 1) ?> h</b></div>
+              <div class="metric">Energy use <b><?= number_format($unit['energy_consumption_kwh'], 2) ?> kWh</b></div>
+              <div class="metric">RUL <b><?= $unit['rul_days'] ?> days</b></div>
             </div>
-          </div>
-          <div class="unit-card-foot">
-            <span>Est. Remaining Useful Life</span>
-            <span class="rul-tag <?= cs_rul_class($u['rul_days']) ?>"><?= $u['rul_days'] ?> days</span>
           </div>
         </a>
       <?php endforeach; ?>
@@ -122,24 +98,15 @@ $hlabels = array_map(fn($i) => sprintf('%02d:00', ($i * 1) % 24), range(0, 23));
 
   <div>
     <div class="panel">
-      <div class="panel-head">
-        <div>
-          <h3>Active Alerts</h3>
-          <div class="sub">Predictive model flags, newest first</div>
-        </div>
-        <a href="alerts.php" class="btn btn-ghost btn-sm">All alerts</a>
-      </div>
+      <div class="panel-head"><div><h3>Predicted risks</h3><div class="sub">Highest-risk units in the current forecast.</div></div><a href="alerts.php?forecast_year=2026" class="btn btn-ghost btn-sm">All alerts</a></div>
       <div class="panel-body">
-        <?php foreach ($alerts as $a): ?>
+        <?php if (!$alerts): ?><p class="u-text-slate">No active alerts.</p><?php endif; ?>
+        <?php foreach ($alerts as $alert): ?>
           <div class="alert-item">
-            <span class="alert-dot <?= $a['severity'] ?>"></span>
+            <span class="alert-dot <?= htmlspecialchars($alert['severity']) ?>"></span>
             <div class="alert-body">
-              <div class="alert-top">
-                <strong><?= htmlspecialchars($a['name']) ?> <span class="mono u-text-slate u-fw-500">· <?= $a['unit'] ?></span></strong>
-                <span class="alert-time"><?= $a['time'] ?></span>
-              </div>
-              <p class="alert-msg"><?= htmlspecialchars($a['message']) ?></p>
-              <div class="alert-tags"><span class="tag"><?= htmlspecialchars($a['type']) ?></span></div>
+              <div class="alert-top"><strong><?= htmlspecialchars($alert['name']) ?></strong><span class="alert-time"><?= htmlspecialchars($alert['time']) ?></span></div>
+              <p class="alert-msg"><?= htmlspecialchars($alert['message']) ?></p>
             </div>
           </div>
         <?php endforeach; ?>
@@ -147,34 +114,35 @@ $hlabels = array_map(fn($i) => sprintf('%02d:00', ($i * 1) % 24), range(0, 23));
     </div>
 
     <div class="panel">
-      <div class="panel-head">
-        <div>
-          <h3>Fleet Status Split</h3>
-          <div class="sub">Share of units by predictive status</div>
-        </div>
-      </div>
-      <div class="panel-body u-row u-gap-5">
-        <div class="chart-box sm chart-box-fixed">
-          <canvas id="statusDoughnut"></canvas>
-        </div>
-        <div class="u-flex-1 u-col u-gap-3">
-          <div class="fleet-legend-row"><span><span class="dot ok"></span>Healthy</span><b><?= $fleet['healthy'] ?></b></div>
-          <div class="fleet-legend-row"><span><span class="dot warn"></span>At Risk</span><b><?= $fleet['warning'] ?></b></div>
-          <div class="fleet-legend-row"><span><span class="dot crit"></span>Critical</span><b><?= $fleet['critical'] ?></b></div>
-        </div>
+      <div class="panel-head"><div><h3>Fleet health trend</h3><div class="sub">Illustrative 7-day view based on current demo readings.</div></div><span class="demo-tag">DEMO TREND</span></div>
+      <div class="panel-body">
+        <div class="trend-summary"><strong><?= $fleet['avg_health'] ?>%</strong><span>current average fleet health</span><span class="trend-flat">Latest</span></div>
+        <div class="chart-box sm"><canvas id="dashboardHealthTrend"></canvas></div>
+        <p class="chart-note">Historical snapshots are not stored yet; this trend is illustrative, not measured history.</p>
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-head"><h3>Upcoming Maintenance</h3></div>
+      <div class="panel-head"><div><h3>Service due</h3><div class="sub">Select a window to see the units in it.</div></div><a href="analytics.php" class="btn btn-ghost btn-sm">Details</a></div>
+      <div class="panel-body">
+        <div class="service-window-grid" role="group" aria-label="Filter units by estimated service window">
+          <?php foreach ($serviceBuckets as $i => $bucket): ?>
+            <button type="button" class="service-window <?= $bucket['class'] ?><?= $i === 0 ? ' selected' : '' ?>" data-service-window="<?= $i ?>" aria-pressed="<?= $i === 0 ? 'true' : 'false' ?>">
+              <span><?= htmlspecialchars($bucket['label']) ?></span><strong><?= $serviceBucketCounts[$i] ?></strong><small>units</small>
+            </button>
+          <?php endforeach; ?>
+        </div>
+        <div class="service-unit-list" id="serviceUnitList" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div><h3>Next maintenance</h3><div class="sub">Scheduled work coming up.</div></div><a href="maintenance.php" class="btn btn-ghost btn-sm">Schedule</a></div>
       <div class="panel-body u-col u-gap-4">
-        <?php foreach (array_slice(array_filter(cs_maintenance_log(), fn($m)=>$m['status']!=='completed'), 0, 3) as $m): ?>
+        <?php foreach ($upcoming as $item): ?>
           <div class="upcoming-row">
-            <div>
-              <div class="u-fw-600 u-text-ink"><?= htmlspecialchars($m['task']) ?></div>
-              <div class="u-text-slate u-mt-1"><?= $m['unit'] ?> · <?= date('M j', strtotime($m['date'])) ?></div>
-            </div>
-            <span class="mstatus <?= $m['status'] ?>"><?= ucfirst($m['status']) ?></span>
+            <div><div class="u-fw-600 u-text-ink"><?= htmlspecialchars($item['task']) ?></div><div class="u-text-slate u-mt-1"><?= htmlspecialchars($item['unit']) ?> · <?= date('M j', strtotime($item['date'])) ?></div></div>
+            <span class="mstatus <?= htmlspecialchars($item['status']) ?>"><?= ucfirst(htmlspecialchars($item['status'])) ?></span>
           </div>
         <?php endforeach; ?>
       </div>
@@ -182,56 +150,44 @@ $hlabels = array_map(fn($i) => sprintf('%02d:00', ($i * 1) % 24), range(0, 23));
   </div>
 </div>
 
-<!-- Log Maintenance Modal -->
 <div class="modal-backdrop" id="modalMaint">
   <div class="modal">
-    <div class="modal-head">
-      <h3>Log Maintenance Task</h3>
-      <button class="modal-close" data-modal-close aria-label="Close">✕</button>
-    </div>
+    <div class="modal-head"><h3>Log maintenance</h3><button class="modal-close" data-modal-close aria-label="Close">×</button></div>
     <form id="maintForm">
-      <div class="field">
-        <label for="fUnit">AC Unit</label>
-        <select id="fUnit" class="input" required>
-          <?php foreach ($units as $u): ?>
-            <option value="<?= $u['id'] ?>"><?= $u['id'] ?> — <?= htmlspecialchars($u['name']) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-      <div class="field">
-        <label for="fTask">Task Description</label>
-        <input id="fTask" class="input" type="text" placeholder="e.g. Refrigerant recharge" required>
-      </div>
-      <div class="field">
-        <label for="fDate">Scheduled Date</label>
-        <input id="fDate" class="input" type="date" required>
-      </div>
-      <div class="field">
-        <label for="fNotes">Notes</label>
-        <textarea id="fNotes" class="input" placeholder="Optional notes for the technician…"></textarea>
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn btn-ghost" data-modal-close>Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Task</button>
-      </div>
+      <div class="field"><label for="fUnit">AC unit</label><select id="fUnit" class="input" required><?php foreach ($units as $unit): ?><option value="<?= htmlspecialchars($unit['id']) ?>"><?= htmlspecialchars($unit['id'].' — '.$unit['name']) ?></option><?php endforeach; ?></select></div>
+      <div class="field"><label for="fTask">Task</label><input id="fTask" class="input" type="text" placeholder="e.g. Clean air filter" required></div>
+      <div class="field"><label for="fDate">Date</label><input id="fDate" class="input" type="date" required></div>
+      <div class="modal-actions"><button type="button" class="btn btn-ghost" data-modal-close>Cancel</button><button type="submit" class="btn btn-primary">Save task</button></div>
     </form>
   </div>
 </div>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
 <script>
-  const fleetLabels = <?= json_encode($hlabels) ?>;
-  const fleetData = <?= json_encode($history) ?>;
-  const trendChart = csLineChart('fleetTrendChart', fleetLabels, fleetData, { label: 'Fleet Health', min: Math.min(...fleetData) - 2, max: Math.max(...fleetData) + 2 });
-  if (trendChart) trendChart._live = true;
-
-  csDoughnut('statusDoughnut',
-    ['Healthy', 'At Risk', 'Critical'],
-    [<?= $fleet['healthy'] ?>, <?= $fleet['warning'] ?>, <?= $fleet['critical'] ?>],
-    ['#1b6b4c', '#c67c2e', '#b4432d']
-  );
-
-  document.getElementById('exportBtn')?.addEventListener('click', () => csToast('Report export started — you will be notified when ready.'));
+  csLineChart('dashboardHealthTrend', ['7 days ago', '6 days', '5 days', '4 days', '3 days', 'Yesterday', 'Today'], <?= json_encode($healthTrend) ?>, { label: 'Illustrative fleet health', min: 0, max: 100, maxTicks: 5 });
+  const serviceUnits = <?= json_encode(array_map(fn($unit) => ['id' => $unit['id'], 'name' => $unit['name'], 'rul' => $unit['rul_days']], $units), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+  const serviceRanges = <?= json_encode(array_map(fn($bucket) => [$bucket['min'], $bucket['max']], $serviceBuckets)) ?>;
+  const serviceList = document.getElementById('serviceUnitList');
+  function showServiceWindow(index) {
+    const [min, max] = serviceRanges[index];
+    const matches = serviceUnits.filter(unit => unit.rul >= min && unit.rul <= max).sort((a, b) => a.rul - b.rul);
+    serviceList.replaceChildren();
+    if (!matches.length) {
+      const empty = document.createElement('p'); empty.className = 'service-empty'; empty.textContent = 'No units in this window.'; serviceList.append(empty); return;
+    }
+    matches.forEach(unit => {
+      const link = document.createElement('a'); link.className = 'service-unit-row'; link.href = `unit-detail.php?id=${encodeURIComponent(unit.id)}`;
+      const label = document.createElement('span');
+      const id = document.createElement('strong'); id.textContent = unit.id;
+      label.append(id, document.createTextNode(` ${unit.name}`));
+      const rul = document.createElement('b'); rul.textContent = `${unit.rul} days`;
+      link.append(label, rul); serviceList.append(link);
+    });
+  }
+  document.querySelectorAll('[data-service-window]').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('[data-service-window]').forEach(item => { item.classList.remove('selected'); item.setAttribute('aria-pressed', 'false'); });
+    button.classList.add('selected'); button.setAttribute('aria-pressed', 'true'); showServiceWindow(Number(button.dataset.serviceWindow));
+  }));
+  showServiceWindow(0);
 </script>
-
 <?php require __DIR__ . '/includes/footer-end.php'; ?>

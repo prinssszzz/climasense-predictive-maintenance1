@@ -3,11 +3,24 @@ if (!isset($pageTitle)) $pageTitle = 'Dashboard';
 if (!isset($activeNav)) $activeNav = 'dashboard';
 require_once __DIR__ . '/auth.php';
 cs_require_login();
-if (cs_has_role('consumer') && basename($_SERVER['PHP_SELF']) !== 'consumer-dashboard.php') { header('Location: consumer-dashboard.php'); exit; }
+// If the current user has only consumer-level permissions, redirect them to the consumer portal
+// Consumers can view their own units but not analytics for an organization
+if (!cs_user_can('analytics.view') && cs_user_can('units.view_own') && basename($_SERVER['PHP_SELF']) !== 'consumer-dashboard.php') {
+  header('Location: consumer-dashboard.php');
+  exit;
+}
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
-$fleet = cs_fleet_summary();
+$fleet = $fleet ?? cs_fleet_summary();
 $authedUser = cs_current_user();
+$appBasePath = '/climasense-predictive-maintenance1';
+// Friendly role label for display
+$roleCode = $authedUser['role'] ?? null;
+$roleLabel = 'User';
+if ($roleCode === 'super_admin') $roleLabel = 'Super Admin';
+elseif (in_array($roleCode, ['client_admin','admin_level_1','admin_level_2'], true)) $roleLabel = 'Admin';
+elseif ($roleCode === 'consumer') $roleLabel = 'Consumer';
+else $roleLabel = $roleCode ? ucwords(str_replace(['_','-'], [' ', ' '], $roleCode)) : 'User';
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +34,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="<?= htmlspecialchars($appBasePath) ?>/css/style.css?v=<?= filemtime(__DIR__ . '/../css/style.css') ?>">
 </head>
 <body>
 <div class="page-loader" id="pageLoader"></div>
@@ -66,7 +79,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
         <div class="avatar"><?= htmlspecialchars(cs_initials($authedUser['name'])) ?></div>
         <div class="user-meta">
           <strong><?= htmlspecialchars($authedUser['name']) ?></strong>
-          <span><?= htmlspecialchars($authedUser['role']) ?></span>
+          <span><?= htmlspecialchars($roleLabel) ?></span>
         </div>
         <div class="user-menu" id="userMenu">
           <a href="settings.php">Account Settings</a>

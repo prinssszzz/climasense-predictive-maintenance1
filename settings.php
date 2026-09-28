@@ -4,6 +4,8 @@ $activeNav = 'settings';
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/helpers.php';
 require __DIR__ . '/includes/header.php';
+$requireOrgId = cs_current_user()['organization_id'] ?? null;
+cs_require_permission('settings.manage', $requireOrgId);
 ?>
 <div class="page-head">
   <div>

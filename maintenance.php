@@ -1,8 +1,43 @@
 <?php
 $pageTitle = 'Maintenance Log';
 $activeNav = 'maintenance';
+require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/helpers.php';
+$requireOrgId = cs_current_user()['organization_id'] ?? null;
+cs_require_permission('maintenance.manage', $requireOrgId);
+
+if (empty($_SESSION['csrf_maintenance'])) $_SESSION['csrf_maintenance'] = bin2hex(random_bytes(32));
+$flash = $_SESSION['maintenance_flash'] ?? null;
+unset($_SESSION['maintenance_flash']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $token = (string)($_POST['csrf_token'] ?? '');
+  $date = trim((string)($_POST['date'] ?? ''));
+  $unitId = trim((string)($_POST['unit'] ?? ''));
+  $task = trim((string)($_POST['task'] ?? ''));
+  $technician = trim((string)($_POST['technician'] ?? 'Unassigned'));
+  $status = trim((string)($_POST['status'] ?? 'scheduled'));
+  $unit = cs_unit($unitId);
+  $validDate = DateTime::createFromFormat('!Y-m-d', $date);
+  if (!hash_equals($_SESSION['csrf_maintenance'], $token)) {
+    $flash = ['type' => 'error', 'message' => 'Your session expired. Refresh the page and try again.'];
+  } elseif (!$validDate || $validDate->format('Y-m-d') !== $date || !$unit || $task === '' || strlen($task) > 255 || strlen($technician) > 120 || !in_array($status, ['scheduled', 'urgent', 'completed'], true)) {
+    $flash = ['type' => 'error', 'message' => 'Check the date, unit, task, technician, and status, then try again.'];
+  } else {
+    try {
+      cs_add_maintenance_log(['date' => $date, 'unit' => $unitId, 'name' => $unit['name'], 'task' => $task, 'tech' => $technician, 'status' => $status], (int)(cs_current_user()['id'] ?? 0) ?: null);
+      $_SESSION['maintenance_flash'] = ['type' => 'success', 'message' => 'Maintenance task saved to the log.'];
+      header('Location: maintenance.php');
+      exit;
+    } catch (Throwable $e) {
+      $flash = ['type' => 'error', 'message' => 'The task could not be saved. Check the database connection and try again.'];
+    }
+  }
+  $_SESSION['maintenance_flash'] = $flash;
+  header('Location: maintenance.php');
+  exit;
+}
+
 require __DIR__ . '/includes/header.php';
 
 $log = cs_maintenance_log();
@@ -23,6 +58,10 @@ foreach ($log as $l) $counts[$l['status']]++;
     </button>
   </div>
 </div>
+
+<?php if ($flash): ?>
+  <div class="panel"><div class="panel-body" style="color:<?= $flash['type'] === 'success' ? 'var(--forest-600)' : 'var(--rust)' ?>;"><?= htmlspecialchars($flash['message']) ?></div></div>
+<?php endif; ?>
 
 <div class="kpi-row">
   <div class="kpi-card">
@@ -85,10 +124,11 @@ foreach ($log as $l) $counts[$l['status']]++;
       <h3>Log Maintenance Task</h3>
       <button class="modal-close" data-modal-close aria-label="Close">✕</button>
     </div>
-    <form id="maintForm">
+    <form id="maintForm" method="post" action="maintenance.php">
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_maintenance']) ?>">
       <div class="field">
         <label for="fUnit">AC Unit</label>
-        <select id="fUnit" class="input" required>
+        <select id="fUnit" name="unit" class="input" required>
           <?php foreach (cs_units() as $u): ?>
             <option value="<?= $u['id'] ?>"><?= $u['id'] ?> — <?= htmlspecialchars($u['name']) ?></option>
           <?php endforeach; ?>
@@ -96,11 +136,11 @@ foreach ($log as $l) $counts[$l['status']]++;
       </div>
       <div class="field">
         <label for="fTask">Task Description</label>
-        <input id="fTask" class="input" type="text" placeholder="e.g. Refrigerant recharge" required>
+        <input id="fTask" name="task" class="input" type="text" maxlength="255" placeholder="e.g. Refrigerant recharge" required>
       </div>
       <div class="field">
         <label for="fTech">Assign Technician</label>
-        <select id="fTech" class="input">
+        <select id="fTech" name="technician" class="input" required>
           <option>Unassigned</option>
           <option>J. Ramos</option>
           <option>M. Santos</option>
@@ -108,7 +148,15 @@ foreach ($log as $l) $counts[$l['status']]++;
       </div>
       <div class="field">
         <label for="fDate">Scheduled Date</label>
-        <input id="fDate" class="input" type="date" required>
+        <input id="fDate" name="date" class="input" type="date" required>
+      </div>
+      <div class="field">
+        <label for="fStatus">Status</label>
+        <select id="fStatus" name="status" class="input" required>
+          <option value="scheduled">Scheduled</option>
+          <option value="urgent">Urgent</option>
+          <option value="completed">Completed</option>
+        </select>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" data-modal-close>Cancel</button>

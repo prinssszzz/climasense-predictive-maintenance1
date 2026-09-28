@@ -1,20 +1,27 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 
-if (cs_is_logged_in()) {
-    header('Location: index.php');
-    exit;
+if (cs_is_logged_in() && !cs_has_role('client_admin')) {
+  header('Location: index.php');
+  exit;
 }
 
 $error = null;
 $values = ['name' => '', 'email' => ''];
+$role = 'consumer';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $values['name'] = $_POST['name'] ?? '';
     $values['email'] = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirm = $_POST['confirm'] ?? '';
-    $role = $_POST['role'] ?? $_GET['role'] ?? 'consumer';
+    $mappedRole = cs_role_for_email($values['email'] ?? '');
+    $requestedRole = $_POST['role'] ?? $_GET['role'] ?? ($mappedRole ?: 'consumer');
+    if ($mappedRole) {
+        $role = $mappedRole;
+    } elseif (cs_is_logged_in() && cs_has_role('client_admin') && in_array($requestedRole, ['client_admin', 'consumer'], true)) {
+        $role = $requestedRole;
+    }
 
     if ($password !== $confirm) {
         $error = 'Passwords do not match.';
@@ -41,6 +48,94 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .auth-shell {
+    padding: 32px 16px 24px;
+  }
+
+  .auth-card-wrap {
+    width: min(100%, 600px);
+    margin: 0 auto;
+  }
+
+  .auth-top-brand {
+    padding: 8px 0 18px;
+    margin-bottom: 0;
+  }
+
+  .auth-card {
+    padding: 28px 30px 22px;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  }
+
+  .auth-card h1 {
+    font-size: clamp(2rem, 2.5vw, 2.6rem);
+    margin-bottom: 8px;
+    letter-spacing: -0.04em;
+  }
+
+  .auth-card .sub {
+    margin-bottom: 22px;
+    font-size: 0.98rem;
+  }
+
+  .field {
+    margin-bottom: 16px;
+  }
+
+  .field label {
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+  }
+
+  .input {
+    min-height: 46px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
+
+  .pw-field .input {
+    padding-right: 46px;
+  }
+
+  .pw-toggle {
+    width: 38px;
+    height: 38px;
+    right: 7px;
+  }
+
+  .checkbox-row {
+    margin: 6px 0 20px;
+    font-size: 0.88rem;
+  }
+
+  .btn.btn-primary.btn-block,
+  .btn-top-gap {
+    min-height: 46px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .auth-foot {
+    margin-top: 16px;
+    font-size: 0.92rem;
+  }
+
+  .auth-foot-below {
+    margin-top: 18px;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    .auth-card {
+      padding: 22px 18px 18px;
+    }
+  }
+</style>
 </head>
 <body>
 <div class="page-loader" id="pageLoader"></div>
@@ -68,6 +163,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
       <?php endif; ?>
 
       <form method="POST" action="signup.php">
+        <input type="hidden" name="role" value="<?= htmlspecialchars($role) ?>">
         <div class="field">
           <label for="name">Full name</label>
           <input class="input" type="text" id="name" name="name" placeholder="Juan Dela Cruz" required autofocus value="<?= htmlspecialchars($values['name']) ?>">
@@ -76,13 +172,9 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
           <label for="email">Email address</label>
           <input class="input" type="email" id="email" name="email" placeholder="you@company.com" required value="<?= htmlspecialchars($values['email']) ?>">
         </div>
-        <div class="field">
-          <label for="role">Role</label>
-          <select class="input" id="role" name="role">
-            <option value="consumer" <?= $role === 'consumer' ? 'selected' : '' ?>>Consumer — air-conditioner owner</option>
-            <option value="client_admin" <?= $role === 'client_admin' ? 'selected' : '' ?>>Client administrator — shop owner/admin</option>
-          </select>
-        </div>
+        <?php if (cs_is_logged_in() && cs_has_role('client_admin')): ?>
+          <input type="hidden" name="role" value="client_admin">
+        <?php endif; ?>
         <div class="field">
           <label for="password">Password</label>
           <div class="pw-field">
@@ -102,6 +194,9 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block btn-top-gap">Create Account</button>
+        <?php if (cs_google_enabled()): ?>
+          <p class="auth-foot" style="margin-top:12px;"><a href="google-login.php">Continue with Google</a></p>
+        <?php endif; ?>
       </form>
 
       <p class="auth-foot">Already have an account? <a href="login.php">Log in</a></p>

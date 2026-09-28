@@ -10,9 +10,15 @@ if (!$u) { $u = cs_units()[0]; $id = $u['id']; }
 $meta = cs_status_meta($u['status']);
 $pageTitle = $u['id'] . ' · ' . $u['name'];
 
+$requireOrgId = null;
 require __DIR__ . '/includes/header.php';
+$requireOrgId = cs_current_user()['organization_id'] ?? null;
+// Allow organization admins/operators or consumers with view permission
+if (!cs_user_can('units.manage', $requireOrgId) && !cs_user_can('units.view_own')) {
+  http_response_code(403);
+  exit('You do not have permission to view this unit.');
+}
 
-$tempHist = cs_history($id, 20, $u['temp']);
 $labels = array_map(fn($i) => "-".( (19-$i) )."h", range(0, 19));
 $pressHist = cs_history($id.'-p', 20, $u['pressure']);
 $currHist = cs_history($id.'-c', 20, $u['current']);
@@ -55,12 +61,12 @@ $unitLog = array_filter(cs_maintenance_log(), fn($m) => $m['unit'] === $id);
 
 <div class="grid-2">
   <div>
-    <div class="panel">
+    <?php if (false): ?><div class="panel">
       <div class="panel-head">
         <div><h3>Evaporator Temperature Trend</h3><div class="sub">Last 20 hours · °C</div></div>
       </div>
       <div class="panel-body"><div class="chart-box"><canvas id="tempChart"></canvas></div></div>
-    </div>
+    </div><?php endif; ?>
 
     <div class="panel">
       <div class="panel-head"><div><h3>System Pressure</h3><div class="sub">Discharge line · psi</div></div></div>
@@ -185,8 +191,6 @@ $unitLog = array_filter(cs_maintenance_log(), fn($m) => $m['unit'] === $id);
 <?php require __DIR__ . '/includes/footer.php'; ?>
 <script>
   const labels = <?= json_encode($labels) ?>;
-  const tempChart = csLineChart('tempChart', labels, <?= json_encode($tempHist) ?>, { label: 'Temperature' });
-  if (tempChart) tempChart._live = true;
   csLineChart('pressChart', labels, <?= json_encode($pressHist) ?>, { label: 'Pressure' });
   csLineChart('currChart', labels, <?= json_encode($currHist) ?>, { label: 'Current' });
   csLineChart('vibChart', labels, <?= json_encode($vibHist) ?>, { label: 'Vibration' });

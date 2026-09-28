@@ -3,9 +3,24 @@ $pageTitle = 'AC Units';
 $activeNav = 'units';
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/helpers.php';
+$requireOrgId = null;
 require __DIR__ . '/includes/header.php';
+$requireOrgId = cs_current_user()['organization_id'] ?? null;
+cs_require_permission('units.manage', $requireOrgId);
 
 $units = cs_units();
+$totalUnits = count($units);
+$unitsPerPage = 8;
+$totalPages = max(1, (int) ceil($totalUnits / $unitsPerPage));
+$currentPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['default' => 1, 'min_range' => 1]]) ?: 1;
+$currentPage = min($currentPage, $totalPages);
+$pageUnits = array_slice($units, ($currentPage - 1) * $unitsPerPage, $unitsPerPage);
+$firstUnit = $totalUnits ? (($currentPage - 1) * $unitsPerPage) + 1 : 0;
+$lastUnit = min($currentPage * $unitsPerPage, $totalUnits);
+$models = array_values(array_unique(array_map(fn($u) => $u['model'], $units)));
+sort($models, SORT_NATURAL | SORT_FLAG_CASE);
+$allUnits = $units;
+$units = $pageUnits;
 $buildings = array_unique(array_map(fn($u) => explode(' · ', $u['location'])[0], $units));
 ?>
 <div class="page-head">
@@ -29,22 +44,40 @@ $buildings = array_unique(array_map(fn($u) => explode(' · ', $u['location'])[0]
     <option value="warning">At Risk</option>
     <option value="critical">Critical</option>
   </select>
-  <select data-filter-select="building">
-    <option value="">All buildings</option>
-    <?php foreach ($buildings as $b): ?>
-      <option value="<?= htmlspecialchars($b) ?>"><?= htmlspecialchars($b) ?></option>
+  <select data-filter-select="model" aria-label="Filter by aircon model">
+    <option value="">All aircon models</option>
+    <?php foreach ($models as $model): ?>
+      <option value="<?= htmlspecialchars($model) ?>"><?= htmlspecialchars($model) ?></option>
     <?php endforeach; ?>
   </select>
-  <span class="u-ml-auto u-text-sm u-text-slate"><?= count($units) ?> units registered</span>
+  <span class="u-ml-auto u-text-sm u-text-slate">Showing <?= $firstUnit ?>–<?= $lastUnit ?> of <?= number_format($totalUnits) ?> units</span>
 </div>
 
 <div class="unit-grid">
   <?php foreach ($units as $u): $meta = cs_status_meta($u['status']); $building = explode(' · ', $u['location'])[0]; ?>
     <a class="unit-card" href="unit-detail.php?id=<?= urlencode($u['id']) ?>"
        data-searchable="<?= htmlspecialchars($u['id'].' '.$u['name'].' '.$u['location'].' '.$u['model']) ?>"
-       data-status="<?= $u['status'] ?>" data-building="<?= htmlspecialchars($building) ?>">
+       data-status="<?= $u['status'] ?>" data-model="<?= htmlspecialchars($u['model']) ?>">
+      <?php
+        $brandPhotos = [
+          'Daikin' => ['file' => 'daikin-inverter-unit.jpg', 'label' => 'Daikin inverter split-type air conditioner'],
+          'Carrier' => ['file' => 'Carrier-inverter.webp', 'label' => 'Carrier inverter split-type air conditioner'],
+          'Fujitsu' => ['file' => 'fujitsu-general-3-0-ton-inverter-split-air-conditioner-1000x1000.webp', 'label' => 'Fujitsu General inverter split-type air conditioner'],
+          'LG' => ['file' => 'LG-inverter.jpg', 'label' => 'LG inverter split-type air conditioner'],
+          'Mitsubishi Electric' => ['file' => 'mitsubishi-inverter.jpg', 'label' => 'Mitsubishi Electric inverter split-type air conditioner'],
+        ];
+        $productPhoto = null;
+        foreach ($brandPhotos as $brand => $photo) {
+          if (stripos($u['model'], $brand) !== false) { $productPhoto = $photo; break; }
+        }
+      ?>
       <div class="unit-card-top">
-        <div>
+        <?php if ($productPhoto): ?>
+          <div class="unit-product-photo">
+            <img src="img/<?= htmlspecialchars($productPhoto['file']) ?>" alt="<?= htmlspecialchars($productPhoto['label']) ?>" loading="lazy">
+          </div>
+        <?php endif; ?>
+        <div class="unit-card-title">
           <div class="unit-card-id"><?= $u['id'] ?></div>
           <div class="unit-card-name"><?= htmlspecialchars($u['name']) ?></div>
           <div class="unit-card-loc"><?= htmlspecialchars($u['location']) ?></div>
@@ -54,7 +87,6 @@ $buildings = array_unique(array_map(fn($u) => explode(' · ', $u['location'])[0]
       <div class="unit-card-mid">
         <?= cs_gauge($u['health'], $u['status'], 72) ?>
         <div class="unit-card-metrics">
-          <div class="metric">Model <b class="u-text-xs"><?= htmlspecialchars(explode(' (', $u['model'])[0]) ?></b></div>
           <div class="metric">Installed <b class="u-text-xs"><?= date('M Y', strtotime($u['installed'])) ?></b></div>
           <div class="metric">Runtime <b><?= number_format($u['runtime_hrs']) ?> h</b></div>
           <div class="metric">Humidity <b><?= $u['humidity'] ?>%</b></div>
@@ -68,12 +100,21 @@ $buildings = array_unique(array_map(fn($u) => explode(' · ', $u['location'])[0]
   <?php endforeach; ?>
 </div>
 
+<?php if ($totalPages > 1): ?>
+  <nav class="u-row u-gap-3 u-mt-5" aria-label="AC unit pages">
+    <?php if ($currentPage > 1): ?><a class="btn btn-ghost btn-sm" href="units.php?page=<?= $currentPage - 1 ?>">Previous</a><?php endif; ?>
+    <span class="u-text-sm u-text-slate">Page <?= $currentPage ?> of <?= $totalPages ?></span>
+    <?php if ($currentPage < $totalPages): ?><a class="btn btn-ghost btn-sm" href="units.php?page=<?= $currentPage + 1 ?>">Next</a><?php endif; ?>
+  </nav>
+<?php endif; ?>
+
 <div class="empty-state u-hidden" id="emptyState">
   <svg width="40" height="40" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   <h4>No units match your filters</h4>
   <p>Try clearing the search or filter selections to see the full fleet.</p>
 </div>
 
+<?php $units = $allUnits; ?>
 <!-- Register Unit Modal -->
 <div class="modal-backdrop" id="modalAdd">
   <div class="modal">

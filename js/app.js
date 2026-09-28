@@ -359,7 +359,9 @@
       ch.options.scales && Object.values(ch.options.scales).forEach(sc => {
         if (sc.grid) sc.grid.color = c.grid;
         if (sc.ticks) sc.ticks.color = c.text;
+        if (sc.title) sc.title.color = c.text;
       });
+      if (ch.options.plugins?.legend?.labels) ch.options.plugins.legend.labels.color = c.text;
       ch.data.datasets.forEach(ds => {
         if (ds._role === 'primary') { ds.borderColor = c.forest; ds.backgroundColor = c.forestSoft; }
       });
@@ -405,8 +407,44 @@
           }
         },
         scales: {
-          x: { grid: { display: false }, ticks: { color: c.text, maxTicksLimit: 6 } },
+          x: { grid: { display: false }, ticks: { color: c.text, maxTicksLimit: opts.maxTicks || 6 } },
           y: { grid: { color: c.grid }, ticks: { color: c.text }, suggestedMin: opts.min, suggestedMax: opts.max }
+        }
+      }
+    });
+    chartRegistry.push(chart);
+    return chart;
+  };
+
+  window.csMultiLineChart = function(canvasId, labels, datasets, opts = {}){
+    const canvas = document.getElementById(canvasId);
+    if (!canvas || !window.Chart) return null;
+    const c = csColors();
+    const chart = new Chart(canvas, {
+      type: 'line',
+      data: { labels, datasets: datasets.map(ds => ({
+        ...ds, borderWidth: 2.2, pointRadius: 2.5, pointHoverRadius: 5,
+        tension: .28, fill: false,
+      })) },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            display: true, position: 'bottom',
+            labels: {
+              color: c.text, usePointStyle: true, boxWidth: 8, boxHeight: 8, padding: 9,
+              font: { size: 10 }
+            }
+          },
+          tooltip: {
+            backgroundColor: '#0e3d2c', titleColor: '#eaf3ee', bodyColor: '#eaf3ee', padding: 10, cornerRadius: 8,
+            callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} ${opts.unit || 'days'}` }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: c.text, maxTicksLimit: opts.maxTicks || 8 }, title: { display: !!opts.xTitle, text: opts.xTitle || '', color: c.text } },
+          y: { grid: { color: c.grid }, ticks: { color: c.text }, beginAtZero: true, title: { display: true, text: opts.yTitle || 'Days remaining', color: c.text } }
         }
       }
     });
@@ -486,7 +524,7 @@
      (frontend-only: no persistence layer wired up yet)
   --------------------------------------------------------------------- */
   const maintForm = document.getElementById('maintForm');
-  if (maintForm) {
+  if (maintForm && maintForm.method !== 'post') {
     maintForm.addEventListener('submit', (e) => {
       e.preventDefault();
       document.querySelectorAll('.modal-backdrop.open').forEach(m => m.classList.remove('open'));

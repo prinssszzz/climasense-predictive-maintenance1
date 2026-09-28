@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/includes/auth.php'; cs_require_role('consumer');
+$requireOrgId = null;
+require_once __DIR__ . '/includes/auth.php';
+// Consumers must have units.view_own permission
+cs_require_permission('units.view_own');
 $pageTitle='My Air Conditioner'; $activeNav='units'; require __DIR__ . '/includes/header.php';
 $u=cs_current_user();
 $q=cs_db()->prepare('SELECT unit_code,name,location,model FROM ac_units WHERE consumer_user_id=? ORDER BY id DESC'); $q->execute([$u['id']]); $units=$q->fetchAll();

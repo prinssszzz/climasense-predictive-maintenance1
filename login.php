@@ -1,8 +1,5 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-$selectedRole = $_GET['role'] ?? $_POST['role'] ?? '';
-if (!in_array($selectedRole, ['client_admin', 'consumer'], true)) { header('Location: role-select.php'); exit; }
-
 if (cs_is_logged_in()) {
     header('Location: ' . cs_home_for_user());
     exit;
@@ -16,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     [$ok, $err] = cs_attempt_login($email, $password);
-    if ($ok && !cs_has_role($selectedRole)) { cs_logout(); $ok = false; $err = 'This account belongs to the other portal. Please choose the correct account type.'; }
     if ($ok) {
         $redirect = $_POST['next'] ?? 'index.php';
         if (!$redirect || str_starts_with($redirect, 'http')) $redirect = 'index.php';
@@ -39,6 +35,93 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .auth-shell {
+    padding: 32px 16px 24px;
+  }
+
+  .auth-card-wrap {
+    width: min(100%, 600px);
+    margin: 0 auto;
+  }
+
+  .auth-top-brand {
+    padding: 8px 0 18px;
+    margin-bottom: 0;
+  }
+
+  .auth-card {
+    padding: 28px 30px 22px;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  }
+
+  .auth-card h1 {
+    font-size: clamp(2rem, 2.5vw, 2.6rem);
+    margin-bottom: 8px;
+    letter-spacing: -0.04em;
+  }
+
+  .auth-card .sub {
+    margin-bottom: 22px;
+    font-size: 0.98rem;
+  }
+
+  .field {
+    margin-bottom: 16px;
+  }
+
+  .field label {
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+  }
+
+  .input {
+    min-height: 46px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
+
+  .pw-field .input {
+    padding-right: 46px;
+  }
+
+  .pw-toggle {
+    width: 38px;
+    height: 38px;
+    right: 7px;
+  }
+
+  .checkbox-row {
+    margin: 6px 0 20px;
+    font-size: 0.88rem;
+  }
+
+  .btn.btn-primary.btn-block {
+    min-height: 46px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .auth-foot {
+    margin-top: 16px;
+    font-size: 0.92rem;
+  }
+
+  .auth-foot-below {
+    margin-top: 18px;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    .auth-card {
+      padding: 22px 18px 18px;
+    }
+  }
+</style>
 </head>
 <body>
 <div class="page-loader" id="pageLoader"></div>
@@ -71,7 +154,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
       <?php endif; ?>
 
       <form method="POST" action="login.php">
-        <input type="hidden" name="next" value="<?= htmlspecialchars($next) ?>"><input type="hidden" name="role" value="<?= htmlspecialchars($selectedRole) ?>">
+        <input type="hidden" name="next" value="<?= htmlspecialchars($next) ?>">
         <div class="field">
           <label for="email">Email address</label>
           <input class="input" type="email" id="email" name="email" placeholder="you@company.com" required autofocus value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
@@ -93,7 +176,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
         <?php if (cs_google_enabled()): ?><p class="auth-foot"><a href="google-login.php">Continue with Google</a></p><?php endif; ?>
       </form>
 
-      <p class="auth-foot">Don't have an account? <a href="signup.php?role=<?= urlencode($selectedRole) ?>">Sign up</a></p>
+      <p class="auth-foot">Don't have an account? <a href="signup.php">Sign up</a></p>
     </div>
 
     <p class="auth-foot-below">© <?= date('Y') ?> ClimaSense. All rights reserved.</p>
