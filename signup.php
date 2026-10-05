@@ -8,22 +8,18 @@ if (cs_is_logged_in() && !cs_has_role('client_admin')) {
 
 $error = null;
 $values = ['name' => '', 'email' => ''];
-$role = 'consumer';
+$role = 'client_admin';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $values['name'] = $_POST['name'] ?? '';
     $values['email'] = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirm = $_POST['confirm'] ?? '';
-    $mappedRole = cs_role_for_email($values['email'] ?? '');
-    $requestedRole = $_POST['role'] ?? $_GET['role'] ?? ($mappedRole ?: 'consumer');
-    if ($mappedRole) {
-        $role = $mappedRole;
-    } elseif (cs_is_logged_in() && cs_has_role('client_admin') && in_array($requestedRole, ['client_admin', 'consumer'], true)) {
-        $role = $requestedRole;
-    }
-
-    if ($password !== $confirm) {
+    $signupCode = (string) ($_POST['admin_code'] ?? '');
+    $adminCodeRequired = defined('CS_ADMIN_SIGNUP_CODE') && CS_ADMIN_SIGNUP_CODE !== '';
+    if ($role === 'client_admin' && $adminCodeRequired && !hash_equals(CS_ADMIN_SIGNUP_CODE, $signupCode)) {
+        $error = 'A valid admin signup code is required.';
+    } elseif ($password !== $confirm) {
         $error = 'Passwords do not match.';
     } else {
         [$ok, $err] = cs_create_user($values['name'], $values['email'], $password, $role);
@@ -153,7 +149,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
 
     <div class="auth-card">
       <h1>Create your account</h1>
-      <p class="sub">Start monitoring your first unit in minutes.</p>
+      <p class="sub">Create your shop administrator account.</p>
 
       <?php if ($error): ?>
         <div class="auth-alert">
@@ -163,7 +159,12 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
       <?php endif; ?>
 
       <form method="POST" action="signup.php">
-        <input type="hidden" name="role" value="<?= htmlspecialchars($role) ?>">
+        <?php if ($role === 'client_admin' && defined('CS_ADMIN_SIGNUP_CODE') && CS_ADMIN_SIGNUP_CODE !== ''): ?>
+        <div class="field">
+          <label for="admin_code">Admin signup code</label>
+          <input class="input" type="password" id="admin_code" name="admin_code" autocomplete="off" required>
+        </div>
+        <?php endif; ?>
         <div class="field">
           <label for="name">Full name</label>
           <input class="input" type="text" id="name" name="name" placeholder="Juan Dela Cruz" required autofocus value="<?= htmlspecialchars($values['name']) ?>">
@@ -172,9 +173,6 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
           <label for="email">Email address</label>
           <input class="input" type="email" id="email" name="email" placeholder="you@company.com" required value="<?= htmlspecialchars($values['email']) ?>">
         </div>
-        <?php if (cs_is_logged_in() && cs_has_role('client_admin')): ?>
-          <input type="hidden" name="role" value="client_admin">
-        <?php endif; ?>
         <div class="field">
           <label for="password">Password</label>
           <div class="pw-field">

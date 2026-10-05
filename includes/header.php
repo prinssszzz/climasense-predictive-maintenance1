@@ -5,7 +5,7 @@ require_once __DIR__ . '/auth.php';
 cs_require_login();
 // If the current user has only consumer-level permissions, redirect them to the consumer portal
 // Consumers can view their own units but not analytics for an organization
-if (!cs_user_can('analytics.view') && cs_user_can('units.view_own') && basename($_SERVER['PHP_SELF']) !== 'consumer-dashboard.php') {
+if (cs_primary_role_for_user() === 'consumer' && !in_array(basename($_SERVER['PHP_SELF']), ['consumer-dashboard.php', 'consumer-units.php', 'consumer-service-history.php', 'profile.php'], true)) {
   header('Location: consumer-dashboard.php');
   exit;
 }
@@ -13,6 +13,16 @@ require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
 $fleet = $fleet ?? cs_fleet_summary();
 $authedUser = cs_current_user();
+$notificationCount = (int) ($fleet['critical'] + $fleet['warning']);
+if (!cs_has_role('super_admin')) {
+  $notificationCount = 0;
+  $notificationOrgId = $authedUser['organization_id'] ?? null;
+  if ($notificationOrgId) {
+    $notificationQuery = cs_db()->prepare("SELECT COUNT(*) FROM alerts a JOIN ac_units u ON u.id = a.unit_id WHERE u.organization_id = ? AND a.status IN ('open','acknowledged')");
+    $notificationQuery->execute([$notificationOrgId]);
+    $notificationCount = (int) $notificationQuery->fetchColumn();
+  }
+}
 $appBasePath = '/climasense-predictive-maintenance1';
 // Friendly role label for display
 $roleCode = $authedUser['role'] ?? null;
@@ -42,7 +52,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
   <?php require __DIR__ . '/sidebar.php'; ?>
 
   <div class="main">
-    <header class="topbar">
+    <header class="topbar <?= cs_has_role('super_admin') ? 'topbar-super-admin' : 'topbar-admin' ?>">
       <button class="icon-btn nav-toggle" id="navToggle" aria-label="Toggle navigation">
         <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
@@ -55,11 +65,11 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
         </button>
       </div>
 
-      <div class="topbar-status">
+      <?php if (cs_has_role('super_admin')): ?><div class="topbar-status">
         <span class="dot ok"></span><?= $fleet['healthy'] ?> healthy
         <span class="dot warn"></span><?= $fleet['warning'] ?> at risk
         <span class="dot crit"></span><?= $fleet['critical'] ?> critical
-      </div>
+      </div><?php endif; ?>
 
       <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode">
         <span class="theme-icon-stack">
@@ -71,7 +81,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
       <div class="topbar-alert-btn">
         <button class="icon-btn" id="bellBtn" aria-label="Notifications" data-tooltip="Notifications">
           <svg viewBox="0 0 24 24" width="19" height="19"><path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 13 6 9Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M10 19a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-          <span class="badge-count"><?= $fleet['critical'] + $fleet['warning'] ?></span>
+          <?php if ($notificationCount > 0): ?><span class="badge-count" aria-label="<?= $notificationCount ?> active alerts"><?= $notificationCount > 99 ? '99+' : $notificationCount ?></span><?php endif; ?>
         </button>
       </div>
 
@@ -82,7 +92,7 @@ try { if (localStorage.getItem('cs-theme') === 'dark') document.documentElement.
           <span><?= htmlspecialchars($roleLabel) ?></span>
         </div>
         <div class="user-menu" id="userMenu">
-          <a href="settings.php">Account Settings</a>
+          <?php if (cs_has_role('super_admin')): ?><a href="settings.php">System Settings</a><?php endif; ?>
           <a href="logout.php" class="danger">Log Out</a>
         </div>
       </div>

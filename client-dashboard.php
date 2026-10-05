@@ -30,6 +30,58 @@ $trendOffsets = [-2.4, -1.8, -1.2, -1.5, -0.6, -0.2, 0];
 $healthTrend = array_map(fn($offset) => max(0, min(100, $fleet['avg_health'] + $offset)), $trendOffsets);
 $alerts = cs_predictive_alerts(2026, 3);
 $upcoming = array_slice(array_filter(cs_maintenance_log(), fn($item) => $item['status'] !== 'completed'), 0, 2);
+$clientUser = cs_current_user();
+$clientOrgId = (int)($clientUser['organization_id'] ?? 0);
+$maintenanceRecommendations = [];
+$notificationFlash = $_SESSION['cs_client_notification_flash'] ?? null;
+unset($_SESSION['cs_client_notification_flash']);
+if (empty($_SESSION['cs_client_notification_csrf'])) $_SESSION['cs_client_notification_csrf'] = bin2hex(random_bytes(32));
+if ($clientOrgId > 0) {
+  cs_ensure_consumer_unit_schema();
+  cs_ensure_user_phone_column();
+  $recommendationQuery = cs_db()->prepare("SELECT a.unit_code,a.name,a.consumer_user_id,u.name AS customer_name,u.email AS customer_email,u.phone AS customer_phone FROM ac_units a JOIN users u ON u.id=a.consumer_user_id WHERE a.organization_id=? AND a.verification_status='active' ORDER BY u.name,a.unit_code");
+  $recommendationQuery->execute([$clientOrgId]);
+  $customerUnits = $recommendationQuery->fetchAll();
+  $customerUnitCodes = array_fill_keys(array_column($customerUnits, 'unit_code'), true);
+  $customerServiceLog = array_values(array_filter(cs_maintenance_log(), fn($entry) => isset($customerUnitCodes[$entry['unit']])));
+  foreach ($customerUnits as $customerUnit) {
+    $records = array_values(array_filter($customerServiceLog, fn($entry) => $entry['unit'] === $customerUnit['unit_code']));
+    $urgent = array_values(array_filter($records, fn($entry) => ($entry['status'] ?? '') === 'urgent'));
+    usort($urgent, fn($a, $b) => strcmp($b['date'], $a['date']));
+    $pattern = cs_maintenance_interval($records);
+    $recommendedDate = $urgent[0]['date'] ?? $pattern['next_date'];
+    $maintenanceStatus = cs_maintenance_status($recommendedDate);
+    if ($urgent || in_array($maintenanceStatus['key'], ['recommended', 'due'], true)) {
+      $maintenanceRecommendations[] = $customerUnit + ['recommended_date' => $recommendedDate, 'status' => $urgent ? 'Maintenance Recommended' : $maintenanceStatus['label']];
+    }
+  }
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notify_customer'])) {
+    $postedToken = (string)($_POST['csrf_token'] ?? '');
+    $unitCode = trim((string)($_POST['unit_code'] ?? ''));
+    $recommendation = null;
+    foreach ($maintenanceRecommendations as $item) if ($item['unit_code'] === $unitCode) { $recommendation = $item; break; }
+    if (!hash_equals($_SESSION['cs_client_notification_csrf'], $postedToken) || !$recommendation) {
+      $_SESSION['cs_client_notification_flash'] = ['type' => 'error', 'text' => 'This recommendation could not be confirmed. Refresh and try again.'];
+    } else {
+      $firstName = explode(' ', trim($recommendation['customer_name']))[0] ?: 'there';
+      $dateText = date('F j, Y', strtotime($recommendation['recommended_date']));
+      $emailMessage = "Hello {$firstName}, based on previous maintenance records, maintenance for {$unitCode} is recommended. Estimated date: {$dateText}. We will contact you to arrange a suitable visit.";
+      $emailSent = cs_send_client_maintenance_email($recommendation['customer_email'], $recommendation['customer_name'], $unitCode, $recommendation['recommended_date']);
+      cs_record_client_notification($clientOrgId, (int)$recommendation['consumer_user_id'], $unitCode, 'email', $emailMessage, $emailSent ? 'sent' : 'failed');
+      $smsMessage = "ClimaSense: maintenance for {$unitCode} is recommended around {$dateText}. We will contact you to arrange a suitable visit.";
+      cs_record_client_notification($clientOrgId, (int)$recommendation['consumer_user_id'], $unitCode, 'sms', $smsMessage, 'not_configured');
+      $_SESSION['cs_client_notification_flash'] = ['type' => 'success', 'text' => $emailSent ? 'Email sent. SMS could not be sent because text messaging is not connected.' : 'Notification attempts were saved. Email could not be sent; check the email setup. SMS is not connected.'];
+    }
+    header('Location: client-dashboard.php');
+    exit;
+  }
+  cs_ensure_client_notification_schema();
+  $historyQuery = cs_db()->prepare('SELECT n.unit_code,n.channel,n.message,n.sent_at,n.status,u.name AS customer_name FROM client_customer_notifications n JOIN users u ON u.id=n.customer_id WHERE n.organization_id=? ORDER BY n.sent_at DESC,n.id DESC LIMIT 20');
+  $historyQuery->execute([$clientOrgId]);
+  $clientNotificationHistory = $historyQuery->fetchAll();
+} else {
+  $clientNotificationHistory = [];
+}
 require __DIR__ . '/includes/header.php';
 ?>
 
@@ -41,6 +93,30 @@ require __DIR__ . '/includes/header.php';
   </div>
   <button class="btn btn-primary" data-modal-open="#modalMaint">Log maintenance</button>
 </div>
+
+<?php if ($clientOrgId > 0): ?>
+  <?php if ($notificationFlash): ?><div class="panel"><div class="panel-body" role="status"><?= htmlspecialchars($notificationFlash['text']) ?></div></div><?php endif; ?>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Maintenance recommendations</h3><div class="sub">Let customers know when their AC is approaching its recommended maintenance date.</div></div></div>
+    <div class="panel-body">
+      <?php if (!$maintenanceRecommendations): ?><p class="u-text-slate">There are no customer maintenance recommendations right now.</p>
+      <?php else: foreach ($maintenanceRecommendations as $recommendation): ?>
+        <div class="upcoming-row">
+          <div><div class="u-fw-600 u-text-ink"><?= htmlspecialchars($recommendation['unit_code']) ?> · <?= htmlspecialchars($recommendation['customer_name']) ?></div><div class="u-text-slate u-mt-1"><?= htmlspecialchars($recommendation['status']) ?> · Estimated date: <?= htmlspecialchars(date('F j, Y', strtotime($recommendation['recommended_date']))) ?></div></div>
+          <div class="u-row u-gap-2"><a class="btn btn-ghost btn-sm" href="maintenance.php?unit=<?= urlencode($recommendation['unit_code']) ?>&amp;status=scheduled&amp;date=<?= urlencode(max($recommendation['recommended_date'], date('Y-m-d'))) ?>">Schedule Visit</a><form method="post" action="client-dashboard.php"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['cs_client_notification_csrf']) ?>"><input type="hidden" name="unit_code" value="<?= htmlspecialchars($recommendation['unit_code']) ?>"><button class="btn btn-primary btn-sm" type="submit" name="notify_customer" value="1">Notify Customer</button></form></div>
+        </div>
+      <?php endforeach; endif; ?>
+      <?php if ($maintenanceRecommendations): ?><p class="u-text-slate u-mt-4">Contact the customer to agree on a visit time, then record the appointment here. After the visit, mark it completed and save the service details; the next estimate will update from the new history.</p><?php endif; ?>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><h3>Notification history</h3><div class="sub">Recent email and text message attempts for your customers.</div></div></div>
+    <div class="panel-body">
+      <?php if (!$clientNotificationHistory): ?><p class="u-text-slate">No customer notifications have been sent yet.</p><?php else: ?><div class="table-wrap"><table><thead><tr><th>AC Unit</th><th>Customer</th><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody><?php foreach ($clientNotificationHistory as $notice): ?><tr><td><?= htmlspecialchars($notice['unit_code']) ?></td><td><?= htmlspecialchars($notice['customer_name']) ?></td><td><?= $notice['channel'] === 'email' ? 'Email' : 'SMS' ?></td><td><?= htmlspecialchars(date('M j, Y g:i A', strtotime($notice['sent_at']))) ?></td><td><?= $notice['status'] === 'sent' ? 'Sent' : ($notice['status'] === 'failed' ? 'Could not send' : 'Not connected') ?></td></tr><?php endforeach; ?></tbody></table></div><?php endif; ?>
+    </div>
+  </div>
+<?php endif; ?>
 
 <div class="kpi-row">
   <div class="kpi-card">

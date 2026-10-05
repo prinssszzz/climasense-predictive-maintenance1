@@ -1,6 +1,39 @@
 <?php
 require_once __DIR__ . '/db.php';
+if (!headers_sent()) header('Content-Type: text/html; charset=UTF-8');
 if (session_status() === PHP_SESSION_NONE) session_start();
+function cs_ensure_user_phone_column(): void {
+    $column = cs_db()->query("SHOW COLUMNS FROM users LIKE 'phone'")->fetch();
+    if (!$column) cs_db()->exec('ALTER TABLE users ADD COLUMN phone VARCHAR(30) NULL AFTER email');
+}
+function cs_ensure_consumer_unit_schema(): void {
+    $db = cs_db();
+    $organizationColumn = $db->query("SHOW COLUMNS FROM ac_units LIKE 'organization_id'")->fetch();
+    if ($organizationColumn && $organizationColumn['Null'] === 'NO') {
+        $foreignKeyQuery = $db->query("SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ac_units' AND COLUMN_NAME='organization_id' AND REFERENCED_TABLE_NAME='organizations' LIMIT 1");
+        $foreignKey = $foreignKeyQuery->fetchColumn();
+        if ($foreignKey) $db->exec('ALTER TABLE ac_units DROP FOREIGN KEY `' . str_replace('`', '``', $foreignKey) . '`');
+        try {
+            $db->exec('ALTER TABLE ac_units MODIFY organization_id BIGINT UNSIGNED NULL');
+            if ($foreignKey) $db->exec('ALTER TABLE ac_units ADD CONSTRAINT `' . str_replace('`', '``', $foreignKey) . '` FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE');
+        } catch (Throwable $e) {
+            if ($foreignKey) {
+                $remaining = $db->query("SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ac_units' AND COLUMN_NAME='organization_id' AND REFERENCED_TABLE_NAME='organizations' LIMIT 1")->fetchColumn();
+                if (!$remaining) $db->exec('ALTER TABLE ac_units ADD CONSTRAINT `' . str_replace('`', '``', $foreignKey) . '` FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE');
+            }
+            throw $e;
+        }
+    }
+    foreach ([
+        'brand' => "ALTER TABLE ac_units ADD COLUMN brand VARCHAR(80) NULL AFTER name",
+        'ac_type' => "ALTER TABLE ac_units ADD COLUMN ac_type VARCHAR(40) NOT NULL DEFAULT 'Split-Type' AFTER brand",
+        'capacity' => 'ALTER TABLE ac_units ADD COLUMN capacity VARCHAR(30) NULL AFTER model',
+        'verification_status' => "ALTER TABLE ac_units ADD COLUMN verification_status ENUM('pending','active','rejected') NOT NULL DEFAULT 'active' AFTER installed_on",
+    ] as $columnName => $alterSql) {
+        $column = $db->query('SHOW COLUMNS FROM ac_units LIKE ' . $db->quote($columnName))->fetch();
+        if (!$column) $db->exec($alterSql);
+    }
+}
 function cs_roles_for_user(int $id): array { $q=cs_db()->prepare('SELECT r.code FROM roles r JOIN user_roles ur ON ur.role_id=r.id WHERE ur.user_id=?'); $q->execute([$id]); return array_column($q->fetchAll(),'code'); }
 function cs_user_row_by_email(string $email): ?array { $q=cs_db()->prepare('SELECT * FROM users WHERE email=? LIMIT 1'); $q->execute([strtolower(trim($email))]); return $q->fetch() ?: null; }
 function cs_role_email_map(): array { return [
@@ -82,6 +115,9 @@ function cs_user_can(string $permission, ?int $orgId = null): bool {
     $user = cs_current_user();
     $roles = $user['roles'] ?? [];
     if (in_array('super_admin', $roles, true)) return true;
+    // Consumer accounts only view their own assigned units. Older installs may
+    // still have the former broad consumer permission mapping in the database.
+    if (cs_primary_role_for_user($user) === 'consumer' && $permission !== 'units.view_own') return false;
     $db = cs_db();
     $q = $db->prepare('SELECT 1 FROM user_roles ur JOIN role_permissions rp ON rp.role_id = ur.role_id JOIN permissions p ON p.id = rp.permission_id WHERE ur.user_id = ? AND p.code = ? LIMIT 1');
     $q->execute([(int)$user['id'], $permission]);

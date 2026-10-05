@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-cs_require_permission('analytics.view');
+cs_require_role('super_admin');
 $pageTitle = 'Super Admin Dashboard';
 $activeNav = 'dashboard';
 require_once __DIR__ . '/includes/data.php';
@@ -32,6 +32,10 @@ $fleet = [
     'warning' => count(array_filter($acUnits, fn($unit) => $unit['status'] === 'warning')),
 ];
 $fleet['healthy'] = $fleet['total'] - $fleet['critical'] - $fleet['warning'];
+$anomalyUnits = array_values(array_filter($acUnits, fn($unit) =>
+    $unit['vibration'] > 0.65 || $unit['current'] > 9 || $unit['temp'] < 18 || $unit['temp'] > 30 || $unit['pressure'] < 90 || $unit['pressure'] > 175
+));
+$anomalyCount = count($anomalyUnits);
 $attentionUnits = array_values(array_filter($acUnits, fn($unit) => $unit['status'] !== 'healthy'));
 usort($attentionUnits, fn($a, $b) => $a['health'] <=> $b['health']);
 $attentionUnits = array_slice($attentionUnits, 0, 4);
@@ -59,37 +63,18 @@ foreach ($energyBands as $band) {
     $energyLabels[] = $band['label'];
     $energyValues[] = $bandUnits ? round(array_sum(array_column($bandUnits, 'energy_consumption_kwh')) / count($bandUnits), 2) : 0;
 }
-$averageOperatingHours = round(array_sum(array_column($acUnits, 'operating_hours_per_day')) / max(count($acUnits), 1), 1);
-$averageEnergyConsumption = round(array_sum(array_column($acUnits, 'energy_consumption_kwh')) / max(count($acUnits), 1), 2);
-$modelUsage = [];
-foreach ($acUnits as $unit) $modelUsage[$unit['model']][] = $unit;
-ksort($modelUsage, SORT_NATURAL | SORT_FLAG_CASE);
-$usageLabels = [];
-$usageHours = [];
-$usageEnergy = [];
-foreach ($modelUsage as $model => $modelUnits) {
-    $usageLabels[] = $model;
-    $usageHours[] = round(array_sum(array_column($modelUnits, 'operating_hours_per_day')) / count($modelUnits), 1);
-    $usageEnergy[] = round(array_sum(array_column($modelUnits, 'energy_consumption_kwh')) / count($modelUnits), 2);
+$rulUnits = $acUnits;
+usort($rulUnits, fn($a, $b) => $a['rul_days'] <=> $b['rul_days']);
+$rulLabels = array_map(fn($unit) => $unit['id'], $rulUnits);
+$rulValues = array_column($rulUnits, 'rul_days');
+$soonestRul = $rulValues[0] ?? 0;
+$maintenanceRiskLabels = [];
+$maintenanceRiskValues = [];
+for ($year = $dashboardYear; $year <= min($dashboardYear + 4, 2036); $year++) {
+    $maintenanceRiskLabels[] = (string)$year;
+    $maintenanceRiskValues[] = $riskForecast[$year - 2022];
 }
-$usageHoursIndex = array_map(fn($hours) => round(($hours / max($averageOperatingHours, 0.1)) * 100), $usageHours);
-$usageEnergyIndex = array_map(fn($energy) => round(($energy / max($averageEnergyConsumption, 0.1)) * 100), $usageEnergy);
-$healthOutlookLabels = [];
-$healthOutlookValues = [];
-for ($year = $dashboardYear; $year <= $dashboardYear + 4; $year++) {
-    $healthOutlookLabels[] = (string)$year;
-    $projectedHealth = [];
-    foreach ($acUnits as $unit) {
-        $annualWear = 0.9
-            + max(0, $unit['operating_hours_per_day'] - 8) * 0.22
-            + abs($unit['temp'] - 25) * 0.06
-            + $unit['energy_consumption_kwh'] * 0.10
-            + (100 - $unit['compression_condition_score']) * 0.018
-            + (100 - $unit['filter_condition_score']) * 0.014;
-        $projectedHealth[] = max(25, min(99, $unit['health'] - (($year - $dashboardYear) * $annualWear)));
-    }
-    $healthOutlookValues[] = round(array_sum($projectedHealth) / max(count($projectedHealth), 1), 1);
-}
+$currentMaintenanceRisk = $riskForecast[$dashboardYear - 2022];
 $serviceBuckets = [
     ['label' => 'Due in 30 days', 'min' => 0, 'max' => 30, 'class' => 'crit'],
     ['label' => '31–60 days', 'min' => 31, 'max' => 60, 'class' => 'warn'],
@@ -160,24 +145,21 @@ require __DIR__ . '/includes/header.php';
 <div class="grid-2">
   <div>
   <div class="panel">
-    <div class="panel-head"><div><h3>Fleet Health Outlook</h3><div class="sub">Projected average health over the next five years, starting <?= $dashboardYear ?>.</div></div><span class="demo-tag">MODEL FORECAST</span></div>
-    <div class="panel-body"><div class="chart-box sm"><canvas id="superAdminHealthOutlook"></canvas></div><p class="chart-note">Projection uses the current demo readings and estimated annual wear; it is not measured history.</p></div>
+    <div class="panel-head"><div><h3>Maintenance/Failure Risk</h3><div class="sub">Estimated probability of fleet maintenance need over the next five years.</div></div><span class="demo-tag">MODEL FORECAST</span></div>
+    <div class="panel-body"><div class="trend-summary"><strong><?= $currentMaintenanceRisk ?>%</strong><span>estimated risk in <?= $dashboardYear ?></span><span class="trend-flat">Current</span></div><div class="chart-box sm"><canvas id="superAdminMaintenanceRisk"></canvas></div><p class="chart-note">Estimate is based on fleet health, component condition, and operating hours.</p></div>
   </div>
 
   <div class="panel">
     <div class="panel-head">
       <div>
-        <h3>Average Operating Hours</h3>
-        <div class="sub">Daily use across all monitored aircon units in <?= $dashboardYear ?></div>
+        <h3>Anomaly Detection</h3>
+        <div class="sub">Detects unusual behavior compared with normal AC operation.</div>
       </div>
     </div>
-    <div class="panel-body u-row u-gap-5">
-      <div class="chart-box sm chart-box-fixed"><canvas id="superAdminOperatingHoursChart"></canvas></div>
-      <div class="u-flex-1 u-col u-gap-3">
-        <div class="fleet-legend-row"><span>Average daily use</span><b><?= $averageOperatingHours ?> h</b></div>
-        <div class="fleet-legend-row"><span>Average energy use</span><b><?= $averageEnergyConsumption ?> kWh</b></div>
-        <div class="fleet-legend-row"><span>Units monitored</span><b><?= number_format($fleet['total']) ?></b></div>
-      </div>
+    <div class="panel-body">
+      <div class="trend-summary"><strong style="color:<?= $anomalyCount > 0 ? 'var(--amber)' : 'var(--forest)' ?>"><?= $anomalyCount > 0 ? '⚠ Abnormal' : 'Normal' ?></strong><span><?= $anomalyCount ?> of <?= $fleet['total'] ?> units flagged from current sensor readings</span><span class="status-chip <?= $anomalyCount > 0 ? 'warn' : 'ok' ?>"><?= $anomalyCount > 0 ? 'Review' : 'Clear' ?></span></div>
+      <p class="chart-note">Flags vibration above 0.65, current above 9 A, temperature outside 18–30 °C, or pressure outside 90–175.</p>
+      <?php if ($anomalyCount > 0): ?><div class="service-unit-list"><?php foreach (array_slice($anomalyUnits, 0, 3) as $unit): ?><a class="service-unit-row" href="unit-detail.php?id=<?= urlencode($unit['id']) ?>"><span><strong><?= htmlspecialchars($unit['id']) ?></strong> <?= htmlspecialchars($unit['name']) ?></span><b>Review readings</b></a><?php endforeach; ?></div><?php endif; ?>
     </div>
   </div>
 
@@ -207,8 +189,8 @@ require __DIR__ . '/includes/header.php';
     </div>
   </div>
   <div class="panel">
-    <div class="panel-head"><div><h3>Energy vs. Operating Hours</h3><div class="sub">Each point is an AC model in <?= $dashboardYear ?>.</div></div><a href="analytics.php?forecast_year=<?= $dashboardYear ?>" class="btn btn-ghost btn-sm">Details</a></div>
-    <div class="panel-body"><div class="chart-box usage-chart-box"><canvas id="superAdminUsageChart"></canvas></div></div>
+    <div class="panel-head"><div><h3>Remaining Useful Life (RUL)</h3><div class="sub">Estimated time before each AC reaches its maintenance threshold in <?= $dashboardYear ?>.</div></div><a href="units.php" class="btn btn-ghost btn-sm">Details</a></div>
+    <div class="panel-body"><div class="trend-summary"><strong><?= $soonestRul ?> days</strong><span>until the soonest estimated maintenance threshold</span><span class="trend-flat">Soonest</span></div><div class="chart-box usage-chart-box"><canvas id="superAdminRulChart"></canvas></div><p class="chart-note">Days remaining, estimated from projected unit health.</p></div>
   </div>
   <div class="panel">
     <div class="panel-head"><div><h3>Service Due</h3><div class="sub">Select a window to see matching units for <?= $dashboardYear ?>.</div></div></div>
@@ -228,31 +210,26 @@ require __DIR__ . '/includes/header.php';
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
 <script>
-  csDoughnut('superAdminOperatingHoursChart', ['Average daily use', 'Remaining day'], [<?= $averageOperatingHours ?>, <?= max(0, 24 - $averageOperatingHours) ?>], ['#1b6b4c', '#dce9e1']);
   (function () {
-    const canvas = document.getElementById('superAdminUsageChart');
+    const canvas = document.getElementById('superAdminRulChart');
     if (!canvas || !window.Chart) return;
-    const usageLabels = <?= json_encode($usageLabels) ?>;
-    const usageHours = <?= json_encode($usageHours) ?>;
-    const usageEnergy = <?= json_encode($usageEnergy) ?>;
-    const usagePoints = usageLabels.map((model, index) => ({ x: usageHours[index], y: usageEnergy[index], model })).sort((a, b) => a.x - b.x);
+    const rulLabels = <?= json_encode($rulLabels) ?>;
+    const rulValues = <?= json_encode($rulValues) ?>;
     new Chart(canvas, {
-      type: 'line',
+      type: 'bar',
       data: {
-        datasets: [
-          { label: 'Average energy use', data: usagePoints, backgroundColor: 'rgba(46,160,107,.14)', borderColor: '#2ea06b', borderWidth: 2.5, pointBackgroundColor: '#2ea06b', pointBorderColor: '#ffffff', pointBorderWidth: 1.5, pointRadius: 4, pointHoverRadius: 6, tension: .32, fill: true }
-        ]
+        labels: rulLabels,
+        datasets: [{ label: 'Days remaining', data: rulValues, backgroundColor: '#2ea06b', borderRadius: 5, maxBarThickness: 20 }]
       },
       options: {
-        responsive: true, maintainAspectRatio: false,
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: { title: items => items[0]?.raw.model || '', label: ctx => `${ctx.parsed.x} h/day · ${ctx.parsed.y} kWh` } }
+          tooltip: { callbacks: { label: ctx => `${ctx.parsed.x} days remaining` } }
         },
-        interaction: { mode: 'nearest', intersect: true },
         scales: {
-          x: { type: 'linear', title: { display: true, text: 'Operating hours / day' }, ticks: { maxTicksLimit: 4 } },
-          y: { type: 'linear', title: { display: true, text: 'Energy (kWh)' }, beginAtZero: true, ticks: { maxTicksLimit: 4 } }
+          x: { beginAtZero: true, max: 365, title: { display: true, text: 'Days remaining' }, ticks: { maxTicksLimit: 5 } },
+          y: { title: { display: true, text: 'AC unit' } }
         }
       }
     });
@@ -263,7 +240,7 @@ require __DIR__ . '/includes/header.php';
     window.location.assign(url.toString());
   });
   csLineChart('superAdminEnergyChart', <?= json_encode($energyLabels) ?>, <?= json_encode($energyValues) ?>, { label: 'Average energy use (kWh)', min: 0 });
-  csLineChart('superAdminHealthOutlook', <?= json_encode($healthOutlookLabels) ?>, <?= json_encode($healthOutlookValues) ?>, { label: 'Projected fleet health', min: 0, max: 100, maxTicks: 5 });
+  csLineChart('superAdminMaintenanceRisk', <?= json_encode($maintenanceRiskLabels) ?>, <?= json_encode($maintenanceRiskValues) ?>, { label: 'Maintenance/failure risk', min: 0, max: 100, maxTicks: 5 });
   const adminServiceUnits = <?= json_encode(array_map(fn($unit) => ['id' => $unit['id'], 'name' => $unit['name'], 'rul' => $unit['rul_days']], $acUnits), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
   const adminServiceRanges = <?= json_encode(array_map(fn($bucket) => [$bucket['min'], $bucket['max']], $serviceBuckets)) ?>;
   const adminServiceList = document.getElementById('adminServiceUnitList');

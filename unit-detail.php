@@ -44,6 +44,20 @@ if ($u['status'] === 'critical') {
 }
 
 $unitLog = array_filter(cs_maintenance_log(), fn($m) => $m['unit'] === $id);
+$predictionHistory = [];
+$currentRisk = max(5, min(95, 100 - (int) $u['health']));
+$riskOffsets = [-24, -13, 0];
+$historyMonths = [date('M', strtotime('-2 months')), date('M', strtotime('-1 month')), date('M')];
+foreach ($riskOffsets as $index => $offset) {
+    $risk = (int) max(5, min(95, round($currentRisk + $offset)));
+    $predictionHistory[] = [
+        'date' => $historyMonths[$index],
+        'risk' => $risk,
+        'health' => 100 - $risk,
+        'energy' => round(($u['energy_consumption_kwh'] ?? 1.5) * (1 + ($offset < 0 ? abs($offset) * 0.002 : 0)), 2),
+        'cooling_delta' => round(max(4, 12 - ($risk * 0.045)), 1),
+    ];
+}
 ?>
 <div class="detail-hero">
   <div>
@@ -128,6 +142,22 @@ $unitLog = array_filter(cs_maintenance_log(), fn($m) => $m['unit'] === $id);
     </div>
 
     <div class="panel">
+      <div class="panel-head"><div><h3><?= htmlspecialchars($u['id']) ?> Prediction History</h3><div class="sub">Monthly estimates based on the unit's current readings</div></div></div>
+      <div class="panel-body">
+        <div class="table-wrap prediction-history-table">
+          <table>
+            <thead><tr><th>Date</th><th>Risk</th><th>Health</th><th>Energy</th><th>Cooling ΔT</th></tr></thead>
+            <tbody><?php foreach ($predictionHistory as $row): ?>
+              <tr><td><?= htmlspecialchars($row['date']) ?></td><td><?= $row['risk'] ?>%</td><td><?= $row['health'] ?>%</td><td><?= number_format($row['energy'], 2) ?> kWh</td><td><?= number_format($row['cooling_delta'], 1) ?>°C</td></tr>
+            <?php endforeach; ?></tbody>
+          </table>
+        </div>
+        <div class="prediction-history-chart"><canvas id="predictionHistoryChart" aria-label="Maintenance risk trend across the last three months"></canvas></div>
+        <p class="chart-note">These are modeled trend points, not archived monthly sensor readings.</p>
+      </div>
+    </div>
+
+    <div class="panel">
       <div class="panel-head"><h3>Recommended Actions</h3></div>
       <div class="panel-body">
         <div class="recommend-list">
@@ -143,7 +173,7 @@ $unitLog = array_filter(cs_maintenance_log(), fn($m) => $m['unit'] === $id);
             </div>
           <?php endforeach; ?>
         </div>
-        <button class="btn btn-primary u-w-full btn-block-top" data-modal-open="#modalMaint">Log Maintenance for <?= $id ?></button>
+        <a class="btn btn-primary u-w-full btn-block-top" href="maintenance.php?unit=<?= urlencode($id) ?>&amp;task=<?= urlencode($recommendations[0]['title']) ?>&amp;status=scheduled&amp;priority=<?= $u['status'] === 'critical' || $u['rul_days'] <= 14 ? 'urgent' : ($currentRisk >= 70 ? 'high' : 'normal') ?>&amp;risk=<?= $currentRisk ?>">Assign technician / schedule service for <?= htmlspecialchars($id) ?></a>
       </div>
     </div>
 
@@ -194,6 +224,36 @@ $unitLog = array_filter(cs_maintenance_log(), fn($m) => $m['unit'] === $id);
   csLineChart('pressChart', labels, <?= json_encode($pressHist) ?>, { label: 'Pressure' });
   csLineChart('currChart', labels, <?= json_encode($currHist) ?>, { label: 'Current' });
   csLineChart('vibChart', labels, <?= json_encode($vibHist) ?>, { label: 'Vibration' });
+  const predictionHistory = <?= json_encode($predictionHistory) ?>;
+  const predictionCanvas = document.getElementById('predictionHistoryChart');
+  if (predictionCanvas && window.Chart) {
+    new Chart(predictionCanvas, {
+      type: 'line',
+      data: {
+        labels: predictionHistory.map(point => point.date),
+        datasets: [{
+          label: 'Maintenance Risk',
+          data: predictionHistory.map(point => point.risk),
+          borderColor: '#d56b4f',
+          backgroundColor: 'rgba(213, 107, 79, 0.12)',
+          pointBackgroundColor: '#d56b4f',
+          pointRadius: 4,
+          borderWidth: 2,
+          tension: 0.25,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: context => ` ${context.parsed.y}% risk` } } },
+        scales: {
+          y: { min: 0, max: 100, ticks: { callback: value => `${value}%` }, grid: { color: 'rgba(128, 145, 160, 0.15)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  }
 </script>
 
 <?php require __DIR__ . '/includes/footer-end.php'; ?>

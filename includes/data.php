@@ -120,6 +120,31 @@ function cs_unit($id) {
     return null;
 }
 
+/** Return verified customer-registered units belonging to one service shop. */
+function cs_registered_units_for_shop(int $organizationId): array {
+    if ($organizationId < 1) return [];
+    try {
+        $query = cs_db()->prepare("SELECT unit_code,name,brand,model,capacity,location,installed_on,runtime_hours FROM ac_units WHERE organization_id=? AND verification_status='active' ORDER BY id DESC");
+        $query->execute([$organizationId]);
+        return array_map(fn($row) => [
+            'id' => $row['unit_code'], 'name' => $row['name'], 'location' => $row['location'],
+            'model' => trim(implode(' ', array_filter([$row['brand'] ?? '', $row['model'] ?? '', $row['capacity'] ?? '']))),
+            'installed' => $row['installed_on'] ?: date('Y-m-d'), 'health' => 100, 'status' => 'healthy',
+            'rul_days' => null, 'temp' => null, 'pressure' => null, 'current' => null, 'vibration' => null,
+            'humidity' => 50, 'runtime_hrs' => (int)$row['runtime_hours'], 'registered' => true,
+        ], $query->fetchAll());
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
+function cs_registered_unit_for_shop(string $unitCode, int $organizationId): ?array {
+    foreach (cs_registered_units_for_shop($organizationId) as $unit) {
+        if ($unit['id'] === $unitCode) return $unit;
+    }
+    return null;
+}
+
 /** Deterministic pseudo-random sensor history for charts, seeded per unit. */
 function cs_history($id, $points = 24, $base = null) {
     $seed = crc32($id);
@@ -159,13 +184,13 @@ function cs_predictive_alerts(int $forecastYear, int $limit = 12): array {
 
 function cs_maintenance_log() {
     $demoLog = [
-        ['date' => '2026-08-11', 'unit' => 'AC-101', 'name' => 'Executive Office 3F', 'task' => 'Routine filter cleaning', 'tech' => 'J. Ramos', 'status' => 'completed'],
-        ['date' => '2026-08-09', 'unit' => 'AC-103', 'name' => 'Conference Hall B', 'task' => 'Coil inspection + condensate check', 'tech' => 'M. Santos', 'status' => 'completed'],
-        ['date' => '2026-08-05', 'unit' => 'AC-106', 'name' => 'Faculty Lounge', 'task' => 'Airflow blockage diagnostics', 'tech' => 'J. Ramos', 'status' => 'completed'],
-        ['date' => '2026-08-20', 'unit' => 'AC-104', 'name' => 'Nurses Station', 'task' => 'Emergency compressor inspection', 'tech' => 'Unassigned', 'status' => 'urgent'],
-        ['date' => '2026-08-22', 'unit' => 'AC-102', 'name' => 'Server Room A', 'task' => 'Fan bearing replacement', 'tech' => 'M. Santos', 'status' => 'scheduled'],
-        ['date' => '2026-08-27', 'unit' => 'AC-106', 'name' => 'Faculty Lounge', 'task' => 'Evaporator coil deep clean', 'tech' => 'Unassigned', 'status' => 'scheduled'],
-        ['date' => '2026-09-02', 'unit' => 'AC-105', 'name' => 'Records Storage', 'task' => 'Quarterly performance audit', 'tech' => 'J. Ramos', 'status' => 'scheduled'],
+        ['date' => '2026-08-11', 'unit' => 'AC-101', 'name' => 'Executive Office 3F', 'task' => 'Routine filter cleaning', 'tech' => 'J. Ramos', 'status' => 'completed', 'priority' => 'normal'],
+        ['date' => '2026-08-09', 'unit' => 'AC-103', 'name' => 'Conference Hall B', 'task' => 'Coil inspection + condensate check', 'tech' => 'M. Santos', 'status' => 'completed', 'priority' => 'normal'],
+        ['date' => '2026-08-05', 'unit' => 'AC-106', 'name' => 'Faculty Lounge', 'task' => 'Airflow blockage diagnostics', 'tech' => 'J. Ramos', 'status' => 'completed', 'priority' => 'normal'],
+        ['date' => '2026-08-20', 'unit' => 'AC-104', 'name' => 'Nurses Station', 'task' => 'Emergency compressor inspection', 'tech' => 'Unassigned', 'status' => 'urgent', 'priority' => 'urgent'],
+        ['date' => '2026-08-22', 'unit' => 'AC-102', 'name' => 'Server Room A', 'task' => 'Fan bearing replacement', 'tech' => 'M. Santos', 'status' => 'scheduled', 'priority' => 'high'],
+        ['date' => '2026-08-27', 'unit' => 'AC-106', 'name' => 'Faculty Lounge', 'task' => 'Evaporator coil deep clean', 'tech' => 'Unassigned', 'status' => 'scheduled', 'priority' => 'normal'],
+        ['date' => '2026-09-02', 'unit' => 'AC-105', 'name' => 'Records Storage', 'task' => 'Quarterly performance audit', 'tech' => 'J. Ramos', 'status' => 'scheduled', 'priority' => 'normal'],
     ];
     try {
         require_once __DIR__ . '/db.php';
@@ -173,30 +198,158 @@ function cs_maintenance_log() {
         $db->exec("CREATE TABLE IF NOT EXISTS maintenance_log_entries (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             service_date DATE NOT NULL,
+            scheduled_time TIME NULL,
             unit_code VARCHAR(40) NOT NULL,
             unit_name VARCHAR(150) NOT NULL,
             task VARCHAR(255) NOT NULL,
             technician VARCHAR(120) NOT NULL DEFAULT 'Unassigned',
             status ENUM('scheduled','urgent','completed') NOT NULL DEFAULT 'scheduled',
+            priority VARCHAR(20) NOT NULL DEFAULT 'normal',
+            risk_score TINYINT UNSIGNED NULL,
+            inspection_report JSON NULL,
             created_by BIGINT UNSIGNED NULL,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             INDEX(service_date), INDEX(unit_code)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        $priorityColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'priority'")->fetch();
+        if (!$priorityColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN priority VARCHAR(20) NOT NULL DEFAULT 'normal'");
+        $riskColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'risk_score'")->fetch();
+        if (!$riskColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN risk_score TINYINT UNSIGNED NULL");
+        $reportColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'inspection_report'")->fetch();
+        if (!$reportColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN inspection_report JSON NULL");
+        $timeColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'scheduled_time'")->fetch();
+        if (!$timeColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN scheduled_time TIME NULL AFTER service_date");
         if ((int)$db->query('SELECT COUNT(*) FROM maintenance_log_entries')->fetchColumn() === 0) {
-            $seed = $db->prepare('INSERT INTO maintenance_log_entries (service_date, unit_code, unit_name, task, technician, status) VALUES (?, ?, ?, ?, ?, ?)');
+            $seed = $db->prepare('INSERT INTO maintenance_log_entries (service_date, unit_code, unit_name, task, technician, status, priority) VALUES (?, ?, ?, ?, ?, ?, ?)');
             foreach ($demoLog as $entry) {
-                $seed->execute([$entry['date'], $entry['unit'], $entry['name'], $entry['task'], $entry['tech'], $entry['status']]);
+                $seed->execute([$entry['date'], $entry['unit'], $entry['name'], $entry['task'], $entry['tech'], $entry['status'], $entry['priority']]);
             }
         }
-        $rows = $db->query('SELECT service_date, unit_code, unit_name, task, technician, status FROM maintenance_log_entries ORDER BY service_date DESC, id DESC')->fetchAll();
+        $rows = $db->query('SELECT service_date, scheduled_time, unit_code, unit_name, task, technician, status, priority, risk_score, inspection_report FROM maintenance_log_entries ORDER BY service_date DESC, id DESC')->fetchAll();
         $savedLog = array_map(fn($row) => [
-            'date' => $row['service_date'], 'unit' => $row['unit_code'], 'name' => $row['unit_name'],
-            'task' => $row['task'], 'tech' => $row['technician'], 'status' => $row['status'],
+            'date' => $row['service_date'], 'time' => $row['scheduled_time'] ? substr($row['scheduled_time'], 0, 5) : null, 'unit' => $row['unit_code'], 'name' => $row['unit_name'],
+            'task' => $row['task'], 'tech' => $row['technician'], 'status' => $row['status'], 'priority' => $row['priority'], 'risk' => $row['risk_score'], 'inspection_report' => $row['inspection_report'] ? json_decode($row['inspection_report'], true) : null,
         ], $rows);
         return $savedLog;
     } catch (Throwable $e) {
         return $demoLog;
     }
+}
+
+/** Estimate a per-unit service cadence from completed maintenance dates. */
+function cs_maintenance_interval(array $entries): array {
+    $completedDates = [];
+    foreach ($entries as $entry) {
+        if (($entry['status'] ?? '') !== 'completed') continue;
+        $dateString = (string)($entry['date'] ?? '');
+        $date = DateTime::createFromFormat('!Y-m-d', $dateString);
+        if ($date && $date->format('Y-m-d') === $dateString) $completedDates[$dateString] = $date;
+    }
+    krsort($completedDates);
+    $dates = array_values($completedDates);
+    $intervals = [];
+    for ($index = 0; $index + 1 < count($dates); $index++) {
+        $days = (int)$dates[$index]->diff($dates[$index + 1])->days;
+        if ($days > 0) $intervals[] = $days;
+    }
+    if (!$intervals) return ['average_days' => null, 'next_date' => null, 'intervals' => []];
+    $average = (int)round(array_sum($intervals) / count($intervals));
+    $nextDate = clone $dates[0];
+    $nextDate->modify('+' . $average . ' days');
+    return ['average_days' => $average, 'next_date' => $nextDate->format('Y-m-d'), 'intervals' => $intervals];
+}
+
+/** Label the customer-facing state from an estimated maintenance date. */
+function cs_maintenance_status(?string $nextDate): array {
+    if (!$nextDate) return ['key' => 'clear', 'label' => 'No Maintenance Needed', 'days_remaining' => null];
+    $today = new DateTimeImmutable('today');
+    $date = DateTimeImmutable::createFromFormat('!Y-m-d', $nextDate);
+    if (!$date || $date->format('Y-m-d') !== $nextDate) return ['key' => 'clear', 'label' => 'No Maintenance Needed', 'days_remaining' => null];
+    $days = (int)$today->diff($date)->format('%r%a');
+    if ($days <= 0) return ['key' => 'due', 'label' => 'Maintenance Due', 'days_remaining' => $days];
+    if ($days <= 30) return ['key' => 'recommended', 'label' => 'Maintenance Recommended', 'days_remaining' => $days];
+    return ['key' => 'clear', 'label' => 'No Maintenance Needed', 'days_remaining' => $days];
+}
+
+/** Create an in-app reminder once a unit reaches its 30-day, 7-day, or due date. */
+function cs_sync_consumer_maintenance_notifications(int $userId, array $unitServices): array {
+    require_once __DIR__ . '/db.php';
+    $db = cs_db();
+    $db->exec("CREATE TABLE IF NOT EXISTS consumer_maintenance_notifications (
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        user_id BIGINT UNSIGNED NOT NULL,
+        unit_code VARCHAR(40) NOT NULL,
+        maintenance_date DATE NOT NULL,
+        notification_type ENUM('30_day','7_day','due') NOT NULL,
+        title VARCHAR(160) NOT NULL,
+        message VARCHAR(500) NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY unique_consumer_maintenance_notice (user_id, unit_code, maintenance_date, notification_type),
+        INDEX consumer_notices_user_date (user_id, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $insert = $db->prepare('INSERT IGNORE INTO consumer_maintenance_notifications (user_id, unit_code, maintenance_date, notification_type, title, message) VALUES (?, ?, ?, ?, ?, ?)');
+    $currentDates = [];
+    foreach ($unitServices as $unitCode => $service) {
+        if (($service['verification_status'] ?? '') !== 'active') continue;
+        if (($service['active']['status'] ?? '') === 'scheduled') continue;
+        $pattern = cs_maintenance_interval($service['records'] ?? []);
+        $nextDate = $pattern['next_date'] ?? null;
+        if (!$nextDate) continue;
+        $currentDates[$unitCode] = $nextDate;
+        $status = cs_maintenance_status($nextDate);
+        $days = $status['days_remaining'];
+        if ($days === null || $days > 30) continue;
+        if ($days <= 0) {
+            $type = 'due'; $title = 'Maintenance is due'; $message = $unitCode . ' is due for maintenance. Please contact your service provider to arrange a visit.';
+        } elseif ($days <= 7) {
+            $type = '7_day'; $title = 'Maintenance is coming up'; $message = 'Maintenance for ' . $unitCode . ' is estimated for ' . date('F j, Y', strtotime($nextDate)) . '.';
+        } else {
+            $type = '30_day'; $title = 'Maintenance is approaching'; $message = 'Maintenance for ' . $unitCode . ' is estimated for ' . date('F j, Y', strtotime($nextDate)) . '.';
+        }
+        $insert->execute([$userId, $unitCode, $nextDate, $type, $title, $message]);
+    }
+    $query = $db->prepare('SELECT unit_code, maintenance_date, notification_type, title, message, created_at FROM consumer_maintenance_notifications WHERE user_id=? ORDER BY created_at DESC, id DESC LIMIT 10');
+    $query->execute([$userId]);
+    $rows = $query->fetchAll();
+    $notices = [];
+    $seenUnits = [];
+    foreach ($rows as $row) {
+        if (($currentDates[$row['unit_code']] ?? null) !== $row['maintenance_date'] || isset($seenUnits[$row['unit_code']])) continue;
+        $notices[] = $row;
+        $seenUnits[$row['unit_code']] = true;
+    }
+    return $notices;
+}
+
+function cs_ensure_client_notification_schema(): void {
+    cs_db()->exec("CREATE TABLE IF NOT EXISTS client_customer_notifications (
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        organization_id BIGINT UNSIGNED NOT NULL,
+        customer_id BIGINT UNSIGNED NOT NULL,
+        unit_code VARCHAR(40) NOT NULL,
+        channel ENUM('email','sms') NOT NULL,
+        message TEXT NOT NULL,
+        sent_at DATETIME NOT NULL,
+        status ENUM('sent','failed','not_configured') NOT NULL,
+        INDEX client_notification_org_date (organization_id, sent_at),
+        INDEX client_notification_customer (customer_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+}
+
+function cs_send_client_maintenance_email(string $email, string $customerName, string $unitCode, string $maintenanceDate): bool {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !function_exists('mail')) return false;
+    $firstName = explode(' ', trim($customerName))[0] ?: 'there';
+    $subject = 'Recommended AC Maintenance - ' . $unitCode;
+    $message = "Hello {$firstName},\n\nBased on your previous maintenance records, your AC is approaching its recommended maintenance period.\n\nUnit: {$unitCode}\nEstimated maintenance date: " . date('F j, Y', strtotime($maintenanceDate)) . "\n\nPlease contact your service provider to arrange a suitable maintenance visit.\n\nClimaSense";
+    $fromHost = preg_replace('/[^A-Za-z0-9.-]/', '', (string)($_SERVER['SERVER_NAME'] ?? 'localhost')) ?: 'localhost';
+    return @mail($email, $subject, $message, "From: ClimaSense <noreply@{$fromHost}>\r\nContent-Type: text/plain; charset=UTF-8");
+}
+
+function cs_record_client_notification(int $organizationId, int $customerId, string $unitCode, string $channel, string $message, string $status): void {
+    if (!in_array($channel, ['email', 'sms'], true) || !in_array($status, ['sent', 'failed', 'not_configured'], true)) return;
+    cs_ensure_client_notification_schema();
+    $query = cs_db()->prepare('INSERT INTO client_customer_notifications (organization_id, customer_id, unit_code, channel, message, sent_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
+    $query->execute([$organizationId, $customerId, $unitCode, $channel, $message, date('Y-m-d H:i:s'), $status]);
 }
 
 /** Return the same year-adjusted unit projection used by Predictive Analytics. */
@@ -225,17 +378,41 @@ function cs_add_maintenance_log(array $entry, ?int $userId = null): void {
     $db->exec("CREATE TABLE IF NOT EXISTS maintenance_log_entries (
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         service_date DATE NOT NULL,
+        scheduled_time TIME NULL,
         unit_code VARCHAR(40) NOT NULL,
         unit_name VARCHAR(150) NOT NULL,
         task VARCHAR(255) NOT NULL,
         technician VARCHAR(120) NOT NULL DEFAULT 'Unassigned',
         status ENUM('scheduled','urgent','completed') NOT NULL DEFAULT 'scheduled',
+        priority VARCHAR(20) NOT NULL DEFAULT 'normal',
+        risk_score TINYINT UNSIGNED NULL,
+        inspection_report JSON NULL,
         created_by BIGINT UNSIGNED NULL,
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX(service_date), INDEX(unit_code)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
-    $q = $db->prepare('INSERT INTO maintenance_log_entries (service_date, unit_code, unit_name, task, technician, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)');
-    $q->execute([$entry['date'], $entry['unit'], $entry['name'], $entry['task'], $entry['tech'], $entry['status'], $userId]);
+    $priorityColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'priority'")->fetch();
+    if (!$priorityColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN priority VARCHAR(20) NOT NULL DEFAULT 'normal'");
+    $riskColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'risk_score'")->fetch();
+    if (!$riskColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN risk_score TINYINT UNSIGNED NULL");
+    $reportColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'inspection_report'")->fetch();
+    if (!$reportColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN inspection_report JSON NULL");
+    $timeColumn = $db->query("SHOW COLUMNS FROM maintenance_log_entries LIKE 'scheduled_time'")->fetch();
+    if (!$timeColumn) $db->exec("ALTER TABLE maintenance_log_entries ADD COLUMN scheduled_time TIME NULL AFTER service_date");
+    $q = $db->prepare('INSERT INTO maintenance_log_entries (service_date, scheduled_time, unit_code, unit_name, task, technician, status, priority, risk_score, inspection_report, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $reportData = is_array($entry['inspection_report'] ?? null) ? $entry['inspection_report'] : [];
+    $serviceDetails = is_array($entry['service_details'] ?? null) ? $entry['service_details'] : [];
+    if ($serviceDetails) {
+        $reportData['service_details'] = [
+            'maintenance_type' => substr(trim((string)($serviceDetails['maintenance_type'] ?? '')), 0, 40),
+            'fault_reported' => substr(trim((string)($serviceDetails['fault_reported'] ?? '')), 0, 2000),
+            'repair_performed' => substr(trim((string)($serviceDetails['repair_performed'] ?? '')), 0, 2000),
+            'replaced_components' => substr(trim((string)($serviceDetails['replaced_components'] ?? '')), 0, 1000),
+            'remarks' => substr(trim((string)($serviceDetails['remarks'] ?? '')), 0, 2000),
+        ];
+    }
+    $report = $reportData ? json_encode($reportData, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR) : null;
+    $q->execute([$entry['date'], $entry['time'] ?? null, $entry['unit'], $entry['name'], $entry['task'], $entry['tech'], $entry['status'], $entry['priority'] ?? 'normal', $entry['risk'] ?? null, $report, $userId]);
 }
 
 function cs_status_meta($status) {

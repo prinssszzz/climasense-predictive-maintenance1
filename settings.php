@@ -1,6 +1,8 @@
 <?php
 $pageTitle = 'Settings';
 $activeNav = 'settings';
+require_once __DIR__ . '/includes/auth.php';
+cs_require_role('super_admin');
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/helpers.php';
 require __DIR__ . '/includes/header.php';
